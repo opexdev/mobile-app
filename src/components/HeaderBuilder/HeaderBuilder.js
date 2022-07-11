@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import classes from './HeaderBuilder.module.css'
 import {Link} from "react-router-dom";
-import {Login , Dashboard} from "../../routes/routes";
+import {Login , Dashboard} from "../../main/Mobile/routes/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {Trans, useTranslation} from "react-i18next";
 import ReactTooltip from "react-tooltip";
-import * as Routes from "../../routes/routes";
+import * as Routes from "../../main/Mobile/routes/routes";
 import {toast} from "react-hot-toast";
-import {logOut} from "../../pages/Login/api/auth";
+import {logOut} from "../../main/Mobile/Pages/Login/api/auth";
 import {images} from "../../assets/images";
 import {setLogoutInitiate} from "../../store/actions";
 import Clock from "../../main/Browser/Sections/Header/components/Clock/Clock";

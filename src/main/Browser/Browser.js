@@ -1,11 +1,7 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Route, Routes} from "react-router-dom";
 import i18n from "i18next";
-import ReactTooltip from "react-tooltip";
-import * as RoutesName from "../../routes/routes";
 import {Toaster} from "react-hot-toast";
-import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute";
 import FullWidthLoading from "../../components/FullWidthLoading/FullWidthLoading";
 import {loadConfig, setInfoMessage, setUserAccountInfoInitiate} from "../../store/actions";
 import "./Browser.css"

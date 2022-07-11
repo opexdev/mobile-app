@@ -39,4 +39,15 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(function () {
+        let viewHeight = window.innerHeight.toString();
+        //let vieHeight = window.screen.height.toString();
+        let viewWidth = window.screen.width.toString();
+        let viewport = document.querySelector("meta[name=viewport]");
+        viewport.setAttribute("content", "height=" + viewHeight + ", width=" + viewWidth + ", user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0");
+      }, 500);})
+  </script>
+
 </html>

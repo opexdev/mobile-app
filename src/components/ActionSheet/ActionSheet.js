@@ -22,7 +22,6 @@ const ActionSheet = ({children , show , onChangeShow}) => {
 */
 
     useEffect(() => {
-        console.log("location" , location)
         onChangeShow(false)
     },[location.pathname])
 
