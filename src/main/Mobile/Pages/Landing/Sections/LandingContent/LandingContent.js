@@ -1,0 +1,28 @@
+import React from 'react';
+import classes from './LandingContent.module.css'
+import ScrollBar from "../../../../../../components/ScrollBar";
+import MarketTitle from "./components/MarketTitle/MarketTitle";
+import Spinner from "./components/Spinner/Spinner";
+import MarketView from "./components/MarketView/MarketView";
+import MarketInfo from "./components/MarketInfo/MarketInfo";
+import Footer from "../../../../../../components/Footer/Footer";
+
+const LandingContent = () => {
+    return (
+        <div className={`${classes.container} container column`}>
+            <ScrollBar>
+                <MarketTitle/>
+                <Spinner/>
+                <MarketView/>
+                <MarketInfo/>
+                <Footer/>
+
+
+
+
+            </ScrollBar>
+        </div>
+    );
+};
+
+export default LandingContent;

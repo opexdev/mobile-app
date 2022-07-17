@@ -430,16 +430,16 @@ body {
   width: 1.5vw;
 }
 .img-md {
-  width: 2.3vw;
+  width: 10vw;
 }
 .img-md-plus {
-  width: 2.7vw;
+  width: 11vw;
 }
 .img-lg {
-  width: 3.5vw;
+  width: 17vw;
 }
 .img-lg-1 {
-  width: 5vw;
+  width: 35vw;
 }
 .img-lg-2 {
   width: 7vw;
@@ -775,6 +775,9 @@ body {
 }
 .width-40{
   width: 40%;
+}
+.width-48{
+  width: 48%;
 }
 .width-50{
   width: 50%;
