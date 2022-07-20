@@ -18,6 +18,7 @@ import Landing from "./Pages/Landing/Landing";
 import AllMarket from "./Pages/AllMarket/AllMarket";
 import Guide from "./Pages/Guide/Guide";
 import UserPanel from "./Pages/UserPanel/UserPanel";
+import SideMenu from "../../components/SideMenu/SideMenu";
 
 
 const Mobile = () => {
@@ -105,6 +106,8 @@ const Mobile = () => {
 
             <ReactTooltip data-html={true} data-effect="float"/>
             <Toast/>
+            <SideMenu/>
+
         </div>
     );
 };

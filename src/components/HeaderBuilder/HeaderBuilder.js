@@ -13,6 +13,9 @@ import {images} from "../../assets/images";
 import {setLogoutInitiate} from "../../store/actions";
 import Clock from "../Clock/Clock";
 import * as RoutesName from "../../main/Mobile/Routes/routes";
+import SideMenu from "../SideMenu/SideMenu";
+import {showSideMenu} from "../../store/actions/global";
+import Icon from "../Icon/Icon";
 
 const HeaderBuilder = ({children}) => {
 
@@ -40,22 +43,25 @@ const HeaderBuilder = ({children}) => {
     return (
         <div className={`${classes.container} container row jc-between ai-center`}>
                <div className={`width-90 m-auto row jc-between ai-center`}>
-                   <div className={`flex jc-start ai-center width-20`}>
-                       <Link to={Routes.Landing}>
-                           <img src={images.opexLogoOnePlus} alt="" className={`img-lg-plus flex`}/>
-                       </Link>
+
+                   <div className={`column ai-start width-20`}>
+
+                       <Icon iconName="icon-menu_vertical font-size-md-plus-plus flex" onClick={()=>dispatch(showSideMenu(true))}/>
                    </div>
+
+
 
                    <div className={`width-60 text-center`}>
                        {children}
                    </div>
 
 
-
-                   <div className={`column ai-end width-20`}>
-
-
+                   <div className={`flex jc-end ai-center width-20`}>
+                       <Link to={Routes.Landing}>
+                           <img src={images.opexLogoOnePlus} alt="" className={`img-lg-plus flex`}/>
+                       </Link>
                    </div>
+
                </div>
 
         </div>

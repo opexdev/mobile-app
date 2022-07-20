@@ -42,3 +42,11 @@ export const setInfoMessage = (messageType, message) => {
     message,
   };
 };
+
+
+export const showSideMenu = (isOpen) => {
+  return {
+    type: actionTypes.SET_SHOW_SIDE_MENU,
+    isOpen,
+  };
+};

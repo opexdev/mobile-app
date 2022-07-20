@@ -3,6 +3,7 @@ import opexLogoOnePlus from "./images/src/opexLogoOnePlus.svg";
 import opexLogoPlus from "./images/src/opexLogoPlus.svg";
 import signOut from "./images/src/signOut.svg";
 import signIn from "./images/src/signIn.svg";
+import home from "./images/src/home.svg";
 import opexQrCode from "./images/src/opex-qr-code.svg";
 import safe from "./images/src/safe.svg";
 import opexCoin from "./images/src/opexCoin.svg";
@@ -47,6 +48,7 @@ export const images = {
   opexLogoPlus: opexLogoPlus,
   signOut: signOut,
   signIn: signIn,
+  home: home,
   opexQrCode: opexQrCode,
   safe: safe,
   NLN: opexCoin,

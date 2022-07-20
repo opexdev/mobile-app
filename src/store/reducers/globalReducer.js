@@ -4,6 +4,7 @@ const initialState = {
     isDark: true,
     isLoading: true,
     hasError: false,
+    showSideMenu: false,
     info: {
         type: null,
         message: null,
@@ -34,6 +35,11 @@ const globalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 hasError: action.error,
+            };
+        case actionTypes.SET_SHOW_SIDE_MENU:
+            return {
+                ...state,
+                showSideMenu: action.isOpen,
             };
         default:
             return state;

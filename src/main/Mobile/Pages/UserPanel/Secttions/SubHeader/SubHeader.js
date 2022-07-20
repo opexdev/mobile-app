@@ -13,6 +13,8 @@ const SubHeader = (props) => {
                     <span>موجودی:</span>
                     <span>0.0005 بیتکوین | 1،564،666 تومان</span>
                 </div>
+
+                <span>آخرین قیمت: <span className={`text-green`}>1,651,999,900</span> تومان</span>
                 <Icon iconName="icon-dot-3 font-size-md flex" customClass={`${classes.thisIcon} py-05`} onClick={()=>setExpand(false)}/>
             </div>
         }
