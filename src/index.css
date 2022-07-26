@@ -332,6 +332,7 @@
 a {
   color: var(--textColor);
   text-decoration: none;
+  background-color: initial;
 
   /*color: #282c34;*/
 }

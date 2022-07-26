@@ -1,5 +1,5 @@
 import * as actionTypes from "./actionTypes";
-import {ACTIVE_ORDER_LAYOUT} from "./actionTypes";
+import {ACTIVE_ACTION_SHEET} from "./actionTypes";
 
 export const setThemeInitiate = (isDark) => {
   return {
@@ -56,5 +56,12 @@ export const activeOrderLayout = (active) => {
   return {
     type: actionTypes.ACTIVE_ORDER_LAYOUT,
     active,
+  };
+};
+
+export const activeActionSheet = (status) => {
+  return {
+    type: actionTypes.ACTIVE_ACTION_SHEET,
+    status
   };
 };

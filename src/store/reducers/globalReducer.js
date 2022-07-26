@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
+import {ACTIVE_ACTION_SHEET, Active_Action_Sheet} from "../actions/actionTypes";
 
 const initialState = {
     isDark: true,
@@ -6,6 +7,10 @@ const initialState = {
     hasError: false,
     showSideMenu: false,
     activeOrderLayout: false,
+    activeActionSheet: {
+        menu: false,
+        subMenu: false,
+    },
     info: {
         type: null,
         message: null,
@@ -46,6 +51,15 @@ const globalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 activeOrderLayout: action.active,
+            };
+
+        case actionTypes.ACTIVE_ACTION_SHEET:
+            return {
+                ...state,
+                activeActionSheet: {
+                    ...state.activeActionSheet,
+                    ...action.status,
+                }
             };
         default:
             return state;

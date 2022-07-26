@@ -1,0 +1,23 @@
+.container {
+    /*height: 10vh;*/
+    position: relative;
+    width: 90%;
+    /*border-bottom: 0.1px solid var(--scrollBar);*/
+}
+
+/*.container:nth-child(odd) {
+    background-color: var(--tableRow);
+}*/
+
+.marketCardImage {
+    width: 17%;
+}
+.marketCardContent {
+    width: 83%;
+}
+.selected {
+    background-color: var(--mainContent) !important;
+    border-radius: 10px;
+    transition: 0.4s background-color;
+    /*width: 95% !important;*/
+}

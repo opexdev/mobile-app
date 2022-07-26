@@ -1,9 +1,10 @@
 .container{
     position: absolute;
     bottom: -100%;
-    background-color: var(--menu);
+    background-color: var(--cardHeader);
     z-index: 4;
     border-radius: 37px 37px 0 0;
+    min-height: 5vh;
 }
 .header span{
     width: 27%;
@@ -43,11 +44,11 @@
     }
 }
 .close.container{
-    animation: TopToBottom ease 0.5s forwards;
-    -webkit-animation: TopToBottom ease 0.5s forwards;
-    -moz-animation: TopToBottom ease 0.5s forwards;
-    -o-animation: TopToBottom ease 0.5s forwards;
-    -ms-animation: TopToBottom ease 0.5s forwards;
+    animation: TopToBottom ease 1s forwards;
+    -webkit-animation: TopToBottom ease 1s forwards;
+    -moz-animation: TopToBottom ease 1s forwards;
+    -o-animation: TopToBottom ease 1s forwards;
+    -ms-animation: TopToBottom ease 1s forwards;
 }
 @-webkit-keyframes TopToBottom {
     0% {

@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import classes from "./Header.module.css";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Icon from "../../../../../../components/Icon/Icon";
-import Menu from "../Menu/Menu";
 import ActionSheet from "../../../../../../components/ActionSheet/ActionSheet";
 import {showSideMenu} from "../../../../../../store/actions/global";
 import MarketHeader from "./components/MarketHeader/MarketHeader";
@@ -11,7 +10,6 @@ import {Route, Routes} from "react-router-dom";
 import ProtectedRoute from "../../../../../../components/ProtectedRoute/ProtectedRoute";
 import WalletHeader from "./components/WalletHeader/WalletHeader";
 import SettingsHeader from "./components/SettingsHeader/SettingsHeader";
-import SubMenu from "../SubMenu/SubMenu";
 
 
 const Header = (props) => {
@@ -19,8 +17,10 @@ const Header = (props) => {
 
     const dispatch = useDispatch();
 
-    const [showMenuAction, setShowMenuAction] = useState(false);
-    const [showSubMenuAction, setShowSubMenuAction] = useState(false);
+
+    /*const [showMenuAction, setShowMenuAction] = useState(false);
+
+    const [showSubMenuAction, setShowSubMenuAction] = useState(false);*/
 
 
     return (
@@ -33,14 +33,14 @@ const Header = (props) => {
 
                 <Routes>
                     <Route path={RoutesName.MarketRelative + "/*"} element={
-                        <MarketHeader showMenu={() => setShowMenuAction((prevState) => !prevState)} showSubMenu={() => setShowSubMenuAction((prevState) => !prevState)}/>
+                        <MarketHeader/>
                     }/>
                     <Route element={<ProtectedRoute/>}>
                         <Route path={RoutesName.WalletRelative+"/:id/:path/*"} element={
-                            <WalletHeader showMenu={() => setShowMenuAction((prevState) => !prevState)} showSubMenu={() => setShowSubMenuAction((prevState) => !prevState)}/>
+                            <WalletHeader/>
                         }/>
                         <Route path={RoutesName.SettingsRelative+"/*"} element={
-                            <SettingsHeader showMenu={() => setShowMenuAction((prevState) => !prevState)} showSubMenu={() => setShowSubMenuAction((prevState) => !prevState)}/>
+                            <SettingsHeader/>
                         }/>
                     </Route>
                 </Routes>
@@ -51,13 +51,7 @@ const Header = (props) => {
 
 
 
-            <ActionSheet show={showMenuAction} onChangeShow={(state) => setShowMenuAction(state)}>
-                <Menu/>
-            </ActionSheet>
-
-            <ActionSheet show={showSubMenuAction} onChangeShow={(state) => setShowSubMenuAction(state)}>
-                <SubMenu/>
-            </ActionSheet>
+            <ActionSheet/>
 
 
             {/*<ActionSheet show={!showAction} onChangeShow={(state)=>setShowAction(state)}>
