@@ -5,9 +5,9 @@ import {useTranslation} from "react-i18next";
 import useInterval from "../../../../../../../../../../Hooks/useInterval";
 import Error from "../../../../../../../../../../components/Error/Error";
 import {isIOS} from "react-device-detect";
-import TheOrderBookTable from "./components/OrderBookTable/OrderBookTable";
+import OrderBookTable from "./components/OrderBookTable/OrderBookTable";
 import Loading from "../../../../../../../../../../components/Loading/Loading";
-import TheOrderBookTableSafari from "./components/OrderBookTableSafari/OrderBookTableSafari";
+import OrderBookTableSafari from "./components/OrderBookTableSafari/OrderBookTableSafari";
 import {getOrderBook} from "./api/orderBook";
 
 
@@ -51,13 +51,13 @@ const OrderBook = (props) => {
 
         if (isIOS) {
             return <Fragment>
-                <TheOrderBookTableSafari data={orderBookData.asks}/>
-                <TheOrderBookTableSafari data={orderBookData.bids} type="buy"/>
+                <OrderBookTableSafari data={orderBookData.asks}/>
+                <OrderBookTableSafari data={orderBookData.bids} type="buy"/>
             </Fragment>
         } else {
             return  <Fragment>
-                <TheOrderBookTable data={orderBookData.asks}/>
-                <TheOrderBookTable data={orderBookData.bids} type="buy"/>
+                <OrderBookTable data={orderBookData.asks}/>
+                <OrderBookTable data={orderBookData.bids} type="buy"/>
             </Fragment>
         }
     }

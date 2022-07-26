@@ -1,21 +1,50 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import classes from "./SubHeader.module.css";
 import Icon from "../../../../../../components/Icon/Icon";
+import {Route, Routes} from "react-router-dom";
+import * as RoutesName from "../../../../Routes/routes";
+import MarketHeader from "../Header/components/MarketHeader/MarketHeader";
+import ProtectedRoute from "../../../../../../components/ProtectedRoute/ProtectedRoute";
+import WalletHeader from "../Header/components/WalletHeader/WalletHeader";
+import SettingsHeader from "../Header/components/SettingsHeader/SettingsHeader";
+import MarketSubHeader from "./components/MarketSubHeader/MarketSubHeader";
+import WalletSubHeader from "./components/WalletSubHeader/WalletSubHeader";
+import SettingsSubHeader from "./components/SettingsSubHeader/SettingsSubHeader";
+import {activeOrderLayout} from "../../../../../../store/actions/global";
 
 const SubHeader = (props) => {
 
     const [expand, setExpand] = useState(false)
 
+    /*useEffect(() => {
+        return () => {
+            setExpand(true)
+        }
+    }, []);*/
+
     const content = () => {
         if (expand) {
             return <div className={`container column jc-between ai-center ${classes.container} pt-1 px-5`}>
-                <div className={`container row jc-between ai-center pb-1`}>
-                    <span>موجودی:</span>
-                    <span>0.0005 بیتکوین | 1،564،666 تومان</span>
-                </div>
 
-                <span>آخرین قیمت: <span className={`text-green`}>1,651,999,900</span> تومان</span>
+
+                <Routes>
+                    <Route path={RoutesName.MarketRelative + "/*"} element={
+                        <MarketSubHeader/>
+                    }/>
+                    <Route element={<ProtectedRoute/>}>
+                        <Route path={RoutesName.WalletRelative+"/:id/:path/*"} element={
+                            <WalletSubHeader/>
+                        }/>
+                        <Route path={RoutesName.SettingsRelative+"/*"} element={
+                            <SettingsSubHeader/>
+                        }/>
+                    </Route>
+                </Routes>
+
+
+
                 <Icon iconName="icon-dot-3 font-size-md flex" customClass={`${classes.thisIcon} py-05`} onClick={()=>setExpand(false)}/>
+
             </div>
         }
         if (!expand) {

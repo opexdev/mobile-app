@@ -47,3 +47,5 @@ export const LOGOUT = "LOGOUT";
 export const LOGOUT_INITIATE = "LOGOUT_INITIATE";
 
 export const SET_SHOW_SIDE_MENU = "SET_SHOW_SIDE_MENU";
+
+export const ACTIVE_ORDER_LAYOUT = "ACTIVE_ORDER_LAYOUT";

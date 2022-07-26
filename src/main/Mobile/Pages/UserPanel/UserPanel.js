@@ -5,6 +5,7 @@ import SubHeader from "./Secttions/SubHeader/SubHeader";
 import Content from "./Secttions/Content/Content";
 import ProtectedRoute from "../../../../components/ProtectedRoute/ProtectedRoute";
 import * as RoutesName from "../../Routes/routes";
+import NavMenu from "./Secttions/NavMenu/NavMenu";
 
 
 const userPanel = () => {
@@ -18,6 +19,7 @@ const userPanel = () => {
                     <Header/>
                     <SubHeader/>
                     <Content/>
+                    <NavMenu/>
                 </div>
             }/>
         </Routes>

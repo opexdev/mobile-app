@@ -40,3 +40,11 @@ export const MyOrder = "/panel/market/myorder";
 export const MyOrderRelative = "myorder";
 export const LastTrades = "/panel/market/lasttrades";
 export const LastTradesRelative = "lasttrades";
+
+
+export const Deposit = "/panel/wallet/deposit";
+export const DepositRelative = "/deposit";
+export const Withdrawal = "/panel/wallet/withdrawal";
+export const WithdrawalRelative = "/withdrawal";
+export const transaction = "/panel/wallet/transaction";
+export const transactionRelative = "/transaction";

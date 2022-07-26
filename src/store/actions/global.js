@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes";
+import {ACTIVE_ORDER_LAYOUT} from "./actionTypes";
 
 export const setThemeInitiate = (isDark) => {
   return {
@@ -48,5 +49,12 @@ export const showSideMenu = (isOpen) => {
   return {
     type: actionTypes.SET_SHOW_SIDE_MENU,
     isOpen,
+  };
+};
+
+export const activeOrderLayout = (active) => {
+  return {
+    type: actionTypes.ACTIVE_ORDER_LAYOUT,
+    active,
   };
 };

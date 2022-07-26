@@ -1,15 +1,33 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
-/*import classes from "./Wallet.module.css";*/
-
+import {useLocation, useParams} from "react-router-dom";
+import Deposit from "./components/Deposit/Deposit";
+import Transaction from "./components/Transaction/Transaction";
+import Withdrawal from "./components/withdrawal/withdrawal";
 
 const Wallet = () => {
 
     const {t} = useTranslation();
+    const location = useLocation();
+    const {path} = useParams()
+
+    const content = () => {
+
+        if (path === "deposit") {
+            return <Deposit/>
+        }
+        if (path === "withdrawal") {
+            return <Withdrawal/>
+        }
+        if (path === "transaction") {
+            return <Transaction/>
+        }
+
+    }
 
     return (
         <div className={`container flex ai-center jc-center`} style={{height:"100%"}}>
-            <span>{t("comingSoon")}</span>
+            {content()}
         </div>
     );
 };

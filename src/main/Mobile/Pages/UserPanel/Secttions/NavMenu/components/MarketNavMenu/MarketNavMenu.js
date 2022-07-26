@@ -1,12 +1,10 @@
-import React from "react";
-import classes from "./NavMenu.module.css";
+import React from 'react';
+import classes from "../../NavMenu.module.css";
 import {NavLink} from "react-router-dom";
-import * as Routes from "../../../../../../../../Routes/routes";
-import Icon from "../../../../../../../../../../components/Icon/Icon";
+import * as Routes from "../../../../../../Routes/routes";
+import Icon from "../../../../../../../../components/Icon/Icon";
 
-
-const NavMenu = () => {
-
+const MarketNavMenu = () => {
     return (
         <div className={`container ${classes.container} row ai-center`}>
 
@@ -59,4 +57,4 @@ const NavMenu = () => {
     );
 };
 
-export default NavMenu;
+export default MarketNavMenu;

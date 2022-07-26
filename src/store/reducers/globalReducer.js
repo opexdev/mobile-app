@@ -5,6 +5,7 @@ const initialState = {
     isLoading: true,
     hasError: false,
     showSideMenu: false,
+    activeOrderLayout: false,
     info: {
         type: null,
         message: null,
@@ -40,6 +41,11 @@ const globalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 showSideMenu: action.isOpen,
+            };
+        case actionTypes.ACTIVE_ORDER_LAYOUT:
+            return {
+                ...state,
+                activeOrderLayout: action.active,
             };
         default:
             return state;

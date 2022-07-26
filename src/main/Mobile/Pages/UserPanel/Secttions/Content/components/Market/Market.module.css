@@ -1,9 +1,6 @@
 .container {
-    height: 88%;
-    /*background-color: lime;*/
-}
-.container.activeOrder{
     height: 100%;
+    /*background-color: lime;*/
 }
 .thisButton {
     width: 49%;

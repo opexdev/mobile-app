@@ -2,7 +2,7 @@
     position: absolute;
     bottom: -100%;
     background-color: var(--menu);
-    z-index: 3;
+    z-index: 4;
     border-radius: 37px 37px 0 0;
 }
 .header span{
@@ -17,7 +17,7 @@
     top: initial;
     left: 0;
     bottom: 0;
-    z-index: 2;
+    z-index: 3;
 }
 .show.container{
     animation: BottomToTop ease 0.5s forwards;
