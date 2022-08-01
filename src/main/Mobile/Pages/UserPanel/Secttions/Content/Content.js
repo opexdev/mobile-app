@@ -23,7 +23,7 @@ const Content = () => {
 
 
     return (
-        <div className={`container ${classes.container} ${activeOrderLayout && classes.activeOrderLayout}`}>
+        <div className={`container ${classes.container} ${activeOrderLayout && classes.activeOrderLayout} py-05`}>
             <ScrollBar>
                 <Routes>
                     <Route path={RoutesName.MarketRelative + "/*"} element ={<Market/>}/>
