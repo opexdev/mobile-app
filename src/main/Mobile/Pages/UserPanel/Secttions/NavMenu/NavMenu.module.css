@@ -3,7 +3,7 @@
     /*background-color: rgba(36, 36, 46, 0.91);*/
     background-color: var(--menu);
     /*border-radius: 100px;*/
-    position: fixed;
+    /*position: fixed;*/
     bottom: 0%;
     /*bottom: 10vh;*/
     /*border-bottom: 0.01vh dotted var(--textColor);*/

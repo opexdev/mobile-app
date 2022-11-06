@@ -5,6 +5,7 @@
     z-index: 4;
     border-radius: 37px 37px 0 0;
     min-height: 5vh;
+    display: none;
 }
 .header span{
     width: 27%;
@@ -26,6 +27,7 @@
     -moz-animation: BottomToTop ease 0.5s forwards;
     -o-animation: BottomToTop ease 0.5s forwards;
     -ms-animation: BottomToTop ease 0.5s forwards;
+    display: block;
 }
 @-webkit-keyframes BottomToTop {
     0% {

@@ -3,7 +3,7 @@
     html,body{
         font-size: 3.3vw;
         line-height: 3.5vh;
-        overflow: hidden;
+        /*overflow: hidden;*/
         top: 0;
         bottom: 0;
         left: 0;

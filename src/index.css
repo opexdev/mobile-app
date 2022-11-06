@@ -345,7 +345,7 @@ body {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   direction: rtl;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
 }
 .container {
   width: 100%;
