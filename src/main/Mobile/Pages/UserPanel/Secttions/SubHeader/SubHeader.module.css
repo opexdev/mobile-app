@@ -1,4 +1,4 @@
-.container{
+.container1 {
     border-top: 0.0005vh solid rgba(68, 68, 68, 0.8);
     background-color: var(--subMenu);
     /*position: fixed;*/
@@ -9,7 +9,7 @@
 
 }
 
-.expand{
+.expand {
     background-color: var(--menu);
     z-index: 2;
     height: 3%;
@@ -17,6 +17,18 @@
     top: 7%;
     border-top: 0.0005vh solid rgba(68, 68, 68, 0.8);
 }
+
 .thisIcon {
 
+}
+
+.container {
+    background-color: var(--menu);
+    z-index: 2;
+    height: 3%;
+    border-top: 0.0005vh solid rgba(68, 68, 68, 0.8);
+}
+.content {
+    top: 0;
+    background-color: var(--menu);
 }

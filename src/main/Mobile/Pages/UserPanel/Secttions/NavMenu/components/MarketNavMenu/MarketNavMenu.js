@@ -3,10 +3,15 @@ import classes from "../../NavMenu.module.css";
 import {NavLink} from "react-router-dom";
 import * as Routes from "../../../../../../Routes/routes";
 import Icon from "../../../../../../../../components/Icon/Icon";
+import {useSelector} from "react-redux";
 
 const MarketNavMenu = () => {
+
+
+    const activeOrderLayout = useSelector((state) => state.global.activeOrderLayout)
+
     return (
-        <div className={`container ${classes.container} row ai-center`}>
+        <div className={`container ${classes.container} ${activeOrderLayout && classes.activeOrderLayout} row ai-center`}>
 
             <NavLink
                 to={Routes.Overview}

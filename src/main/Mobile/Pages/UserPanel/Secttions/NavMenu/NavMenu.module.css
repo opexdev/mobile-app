@@ -8,6 +8,9 @@
     /*bottom: 10vh;*/
     /*border-bottom: 0.01vh dotted var(--textColor);*/
 }
+.activeOrderLayout{
+    display: none;
+}
 .container a{
     height: 100%;
 }

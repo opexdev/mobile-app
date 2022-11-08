@@ -23,10 +23,30 @@ const SubHeader = (props) => {
     }, []);*/
 
     const content = () => {
-        if (expand) {
-            return <div className={`container column jc-between ai-center ${classes.container} pt-1 px-5`}>
+        /*if (expand) {
+            return <div className={`container column jc-between ai-center ${classes.container1} pt-1 px-5`}>
 
 
+
+
+
+
+                <Icon iconName="icon-dot-3 font-size-md flex" customClass={`${classes.thisIcon} py-05`} onClick={()=>setExpand(false)}/>
+
+            </div>
+        }*/
+     /*   if (!expand) {
+            return <div className={`container flex ai-center jc-center ${classes.expand}`}>
+                <Icon iconName="icon-dot-3 font-size-md flex" customClass={`${classes.thisIcon}`} onClick={()=>setExpand(true)}/>
+
+
+
+            </div>
+        }*/
+
+        return <div className={`container column ai-center jc-center position-relative ${classes.container}`}>
+
+            {expand && <div className={`column position-absolute ${classes.content} width-100 py-1`}>
                 <Routes>
                     <Route path={RoutesName.MarketRelative + "/*"} element={
                         <MarketSubHeader/>
@@ -34,24 +54,18 @@ const SubHeader = (props) => {
                     <Route element={<ProtectedRoute/>}>
                         <Route path={RoutesName.WalletRelative+"/:id/:path/*"} element={
                             <WalletSubHeader/>
+
                         }/>
                         <Route path={RoutesName.SettingsRelative+"/*"} element={
                             <SettingsSubHeader/>
                         }/>
                     </Route>
                 </Routes>
+                <Icon iconName="icon-dot-3 font-size-md flex jc-center ai-center" customClass={`${classes.thisIcon} py-05`} onClick={()=>setExpand(false)}/>
+            </div>}
 
-
-
-                <Icon iconName="icon-dot-3 font-size-md flex" customClass={`${classes.thisIcon} py-05`} onClick={()=>setExpand(false)}/>
-
-            </div>
-        }
-        if (!expand) {
-            return <div className={`container flex ai-center jc-center ${classes.expand}`}>
-                <Icon iconName="icon-dot-3 font-size-md flex" customClass={`${classes.thisIcon}`} onClick={()=>setExpand(true)}/>
-            </div>
-        }
+            <Icon iconName="icon-dot-3 font-size-md flex" customClass={`${classes.thisIcon}`} onClick={()=>setExpand(true)}/>
+        </div>
     }
 
 
