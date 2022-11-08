@@ -8,12 +8,12 @@ const WalletSubMenu = () => {
     const {path} = useParams()
 
     return (
-        <div className={`container column jc-center ai-center my-5 `}>
+        <div className={`width-100 column jc-center ai-center my-5 `}>
 
 
             <NavLink
                 className={({isActive}) =>
-                    isActive ? "container row ai-center cursor-pointer position-relative px-1 py-05 " : "container row ai-center cursor-pointer position-relative px-1 py-05"
+                    isActive ? "width-100 row ai-center cursor-pointer position-relative px-1 py-05 " : "width-100 row ai-center cursor-pointer position-relative px-1 py-05"
                 }
                 to={`${Routes.Wallet}/TBTC/${path}`}>
 
@@ -23,7 +23,7 @@ const WalletSubMenu = () => {
 
             <NavLink
                 className={({isActive}) =>
-                    isActive ? "container row ai-center cursor-pointer position-relative px-1 py-05 " : "container row ai-center cursor-pointer position-relative px-1 py-05"
+                    isActive ? "width-100 row ai-center cursor-pointer position-relative px-1 py-05 " : "width-100 row ai-center cursor-pointer position-relative px-1 py-05"
                 }
                 to={`${Routes.Wallet}/TETH/${path}`}>
 

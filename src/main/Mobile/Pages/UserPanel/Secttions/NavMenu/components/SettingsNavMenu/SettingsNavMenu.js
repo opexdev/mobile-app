@@ -6,7 +6,7 @@ import Icon from "../../../../../../../../components/Icon/Icon";
 
 const SettingsNavMenu = () => {
     return (
-        <div className={`container ${classes.container} row ai-center jc-between`}>
+        <div className={`width-100 ${classes.container} row ai-center jc-between`}>
 
             <NavLink
                 to={Routes.Overview}
@@ -14,8 +14,8 @@ const SettingsNavMenu = () => {
                     isActive ? `col-25 column jc-center ai-center ${classes.selected}` : `col-25 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-overview font-size-lg"/>
-                <span className={`font-size-sm`}>امنیت</span>
+                <Icon iconName="icon-overview fs-06"/>
+                <span className={`fs-0-6`}>امنیت</span>
             </NavLink>
             <NavLink
                 to={Routes.OrderBook}
@@ -23,8 +23,8 @@ const SettingsNavMenu = () => {
                     isActive ? `col-25 column jc-center ai-center ${classes.selected}` : `col-25 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-orderbook font-size-lg"/>
-                <span className={`font-size-sm`}>احراز هویت</span>
+                <Icon iconName="icon-orderbook fs-06"/>
+                <span className={`fs-0-6`}>احراز هویت</span>
             </NavLink>
             <NavLink
                 to={Routes.Order}
@@ -32,9 +32,9 @@ const SettingsNavMenu = () => {
                     isActive ? `col-25  column jc-center ai-center ${classes.selected}` : `col-25 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-order font-size-lg"/>
+                <Icon iconName="icon-order fs-06"/>
 
-                <span className={`font-size-sm`}>مشخصات کاربری</span>
+                <span className={`fs-0-6`}>مشخصات کاربری</span>
             </NavLink>
             <NavLink
                 to={Routes.Order}
@@ -42,9 +42,9 @@ const SettingsNavMenu = () => {
                     isActive ? `col-25  column jc-center ai-center ${classes.selected}` : `col-25 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-order font-size-lg"/>
+                <Icon iconName="icon-order fs-06"/>
 
-                <span className={`font-size-sm`}>شخصی سازی</span>
+                <span className={`fs-0-6`}>شخصی سازی</span>
             </NavLink>
         </div>
     );

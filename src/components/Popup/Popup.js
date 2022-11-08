@@ -39,7 +39,7 @@ const Popup = (props) => {
     };
 
 
-    const LoginText = <div className={`container flex jc-center ai-center height-100`}>
+    const LoginText = <div className={`width-100 flex jc-center ai-center height-100`}>
         <Link to={Login} className="hover-text">
             {t("pleaseLogin")}
         </Link>
@@ -47,11 +47,11 @@ const Popup = (props) => {
 
 
     return (
-        <div className={`container column jc-center ai-center px-1 py-1 appear-animation card-border ${classes.container}`}>
-            <div className={`${classes.header} container`}>
+        <div className={`width-100 column jc-center ai-center px-1 py-1 appear-animation card-border ${classes.container}`}>
+            <div className={`${classes.header} width-100`}>
                     <h3>{t("deposit")} <span>{t("currency." + currency)}</span></h3>
                 </div>
-            <div className={`${classes.content} container column jc-center ai-center`}>
+            <div className={`${classes.content} width-100 column jc-center ai-center`}>
                 {isLogin ?
                 <Fragment>
                     <QRCode
@@ -64,7 +64,7 @@ const Popup = (props) => {
                     <TextInput
                         after={
                             <Icon
-                                iconName="icon-copy font-size-md-01"
+                                iconName="icon-copy fs-02"
                                 onClick={() => copyToClipboard()}
                                 customClass={`hover-text cursor-pointer`}
                             />
@@ -78,7 +78,7 @@ const Popup = (props) => {
                 </Fragment>: LoginText
                 }
             </div>
-            <div className={`${classes.footer} container flex jc-end ai-center`}>
+            <div className={`${classes.footer} width-100 flex jc-end ai-center`}>
                 {isLogin ? <Link
                     to={Routes.Wallet + '/' + currency}
                     className={`${classes.thisButton} ${classes.walletButton} button flex jc-center ai-center`}

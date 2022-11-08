@@ -17,7 +17,7 @@ const WalletHeader = ({showSubMenu, showMenu}) => {
             <h3 style={{color: "var(--orange)"}}
                 onClick={() => dispatch(activeActionSheet({subMenu: true}))}>{t("currency." + id)}
             </h3>
-            <Icon iconName="icon-safe font-size-lg-plus flex"
+            <Icon iconName="icon-safe fs-20 flex"
                   onClick={() => dispatch(activeActionSheet({menu: true}))}
             />
         </>

@@ -22,13 +22,13 @@ const Menu = () => {
     }
 
     return (
-        <div className={`container ${classes.container} column jc-around ai-center pt-1`}>
+        <div className={`width-100 ${classes.container} column jc-around ai-center pt-1`}>
             <NavLink
                 to={RoutesName.Overview}
                 onClick={onClickHandler}
                 className={`width-50 row jc-between ai-center py-1 ${location.pathname.includes("panel/market") ? classes.selected :""}`}
             >
-                <Icon iconName="icon-market font-size-lg-plus" customClass={`col-48 flex jc-end ai-center`}/>
+                <Icon iconName="icon-market fs-20" customClass={`col-48 flex jc-end ai-center`}/>
                 <span className={`col-48 ai-start`}>بازار</span>
             </NavLink>
             <NavLink
@@ -37,7 +37,7 @@ const Menu = () => {
                     isActive ? `${classes.selected} width-50 row jc-between ai-center py-1` : "width-50 row jc-between ai-center py-1"
                 }
             >
-                <Icon iconName="icon-safe font-size-lg-plus" customClass={`col-48 flex jc-end ai-center`}/>
+                <Icon iconName="icon-safe fs-20" customClass={`col-48 flex jc-end ai-center`}/>
                 <span className={`col-48 ai-start`}>کیف پول</span>
             </NavLink>
             <NavLink
@@ -46,7 +46,7 @@ const Menu = () => {
                     isActive ? `${classes.selected} width-50 row jc-between ai-center py-1` : "width-50 row jc-between ai-center py-1"
                 }
             >
-                <Icon iconName="icon-settings font-size-lg-plus" customClass={`col-48 flex jc-end ai-center`}/>
+                <Icon iconName="icon-settings fs-20" customClass={`col-48 flex jc-end ai-center`}/>
                 <span className={`col-48 ai-start`}>تنظیمات</span>
             </NavLink>
         </div>

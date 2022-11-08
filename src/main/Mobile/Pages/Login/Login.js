@@ -25,7 +25,7 @@ const Login = () => {
     ];
 
     return (
-        <div className={`container column col-100 ai-center jc-center px-1 ${classes.container} move-image width-100`}
+        <div className={`width-100 column col-100 ai-center jc-center px-1 ${classes.container} move-image`}
              style={{backgroundImage: `url("${images.spaceStar}")`}}>
             <div className={`col-40 column ai-center jc-center ${classes.intro} move-image width-100`}>
                 <div className={`column jc-center ai-center ${classes.bgicon}`}>

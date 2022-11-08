@@ -43,35 +43,35 @@ const OrderSection = () => {
 
     return (
         <>
-            <div className={`container col-06 row jc-around ai-center`}>
-                <div className={`container col-10 flex jc-center ai-center ${classes.headerItem}`}>
-                    <Icon iconName="icon-right-open font-size-md flex" onClick={BackClickHandler}/>
+            <div className={`width-100 col-06 row jc-around ai-center`}>
+                <div className={`width-100 col-10 flex jc-center ai-center ${classes.headerItem}`}>
+                    <Icon iconName="icon-right-open fs-01 flex" onClick={BackClickHandler}/>
                 </div>
-                <div className={`container col-38 row jc-center ai-center ${classes.headerItem}`} onClick={()=>setShowChart(false)}>
-                    <Icon iconName={`icon-orderbook font-size-md-plus flex ${showChart ?  '' : 'icon-active font-size-md-plus-plus'}`} customClass={`ml-1`}/>
+                <div className={`width-100 col-38 row jc-center ai-center ${classes.headerItem}`} onClick={()=>setShowChart(false)}>
+                    <Icon iconName={`icon-orderbook fs-04 flex ${showChart ?  '' : 'text-blue fs-05'}`} customClass={`ml-1`}/>
                     <Button
                         buttonClass={`${classes.headerButton} ${showChart ? "" : classes.selected} mr-1`}
                         type="submit"
                         buttonTitle={t("orderBook.title")}
                     />
                 </div>
-                <div className={`container col-38 flex jc-center ai-center ${classes.headerItem}`} onClick={()=>setShowChart(true)}>
-                    <Icon iconName={`icon-account font-size-md-plus flex ${showChart ? 'icon-active font-size-md-plus-plus' : ''}`} customClass={`ml-1`}/>
+                <div className={`width-100 col-38 flex jc-center ai-center ${classes.headerItem}`} onClick={()=>setShowChart(true)}>
+                    <Icon iconName={`icon-account fs-04 flex ${showChart ? 'text-blue fs-05' : ''}`} customClass={`ml-1`}/>
                     <Button
                         buttonClass={`${classes.headerButton} ${showChart ? classes.selected : ""} mr-1`}
                         type="submit"
                         buttonTitle={t("charts.title")}
                     />
                 </div>
-                <div className={`container col-10 flex jc-center ai-center ${classes.headerItem}`}>
-                    <Icon iconName="icon-left-open font-size-md flex" onClick={NextClickHandler}/>
+                <div className={`width-100 col-10 flex jc-center ai-center ${classes.headerItem}`}>
+                    <Icon iconName="icon-left-open fs-01 flex" onClick={NextClickHandler}/>
 
                 </div>
             </div>
-            <div className={`container col-46`}>
+            <div className={`width-100 col-46`}>
                 {showChart ? <TradingView/> : <OrderBook orderLayout={true}/>}
             </div>
-            <div className={`container col-46`}>
+            <div className={`width-100 col-46`}>
                 <Order/>
             </div>
         </>

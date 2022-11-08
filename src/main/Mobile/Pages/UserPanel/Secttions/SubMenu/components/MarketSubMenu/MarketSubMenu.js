@@ -28,7 +28,7 @@ const MarketSubMenu = () => {
 
     const data = [
         {
-            title: <Icon iconName="icon-star-1 font-size-md"/>,
+            title: <Icon iconName="icon-star-1 fs-01"/>,
             body: (
                 <MarketCard
                     id="0"
@@ -76,7 +76,7 @@ const MarketSubMenu = () => {
     ];
 
     return (
-        <div className={`container card-background flex jc-center ai-center`} style={{height:"70vh"}}>
+        <div className={`width-100 card-bg flex jc-center ai-center`} style={{height:"70vh"}}>
             <AccordionBox
                 title={t("market.title")}
                 style={classes}

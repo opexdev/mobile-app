@@ -24,7 +24,7 @@ const MarketPairCard = ({id, pair,favPair,addFav}) => {
     }
 
     return (<div onClick={onClickHandler}
-                 className={`container row jc-between ai-center px-4 py-2 my-1 cursor-pointer double-striped ${classes.container} ${activePair === pair.symbol ? classes.selected : ""} `}>
+                 className={`width-100 row jc-between ai-center px-4 py-2 my-1 cursor-pointer double-striped m-auto ${classes.container} ${activePair === pair.symbol ? classes.selected : ""} `}>
             <div className={` row jc-between ai-center ${classes.marketCardImage}`}>
                 <img
                     className="img-md flex"
@@ -40,7 +40,7 @@ const MarketPairCard = ({id, pair,favPair,addFav}) => {
                         addFav(pair.symbol);
                     }} data-name={pair.symbol}>
                         <Icon
-                            iconName={`${favPair.includes(pair.symbol) ? "icon-star-filled" : "icon-star"} text-color font-size-md-plus ml-05`}
+                            iconName={`${favPair.includes(pair.symbol) ? "icon-star-filled" : "icon-star"} text-color fs-04 ml-05`}
                         />
                     </div>
                     <span className={`mr-1`}>

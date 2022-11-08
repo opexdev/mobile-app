@@ -17,7 +17,7 @@ const Overview = () => {
     ];
 
     return (
-        <div className={`container ${classes.container} card-background card-border`}>
+        <div className={`width-100 ${classes.container} card-bg card-border`}>
             <AccordionBox
                 title={t("overview.title")}
                 content={data}

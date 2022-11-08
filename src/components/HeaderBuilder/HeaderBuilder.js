@@ -41,12 +41,12 @@ const HeaderBuilder = ({children}) => {
 
 
     return (
-        <div className={`${classes.container} container row jc-between ai-center`}>
+        <div className={`${classes.container} width-100 row jc-between ai-center`}>
                <div className={`width-90 m-auto row jc-between ai-center`}>
 
                    <div className={`column ai-start width-20`}>
 
-                       <Icon iconName="icon-menu_vertical font-size-md-plus-plus flex" onClick={()=>dispatch(showSideMenu(true))}/>
+                       <Icon iconName="icon-menu_vertical fs-01-plus-plus flex" onClick={()=>dispatch(showSideMenu(true))}/>
                    </div>
 
 

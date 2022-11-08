@@ -6,10 +6,10 @@
     width: 49%;
 }
 .thisButton.buyOrder {
-    background-color: var(--bgGreen);
+    background-color: var(--darkGreen);
 }
 .thisButton.sellOrder {
-    background-color: var(--bgRed);
+    background-color: var(--darkRed);
 }
 .headerButton{
     /*width: 35%;*/

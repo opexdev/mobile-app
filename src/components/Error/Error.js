@@ -5,12 +5,12 @@ import Button from "../Button/Button";
 const Error = ({retryFunc}) => {
     const {t} = useTranslation();
     return (
-        <div className={`container column  jc-center  ai-center`} style={{height: "100%"}}>
+        <div className={`width-100 column  jc-center  ai-center`} style={{height: "100%"}}>
             <span>{t('error')}</span>
             {
                 retryFunc ?  <Button
                     buttonStyle={{
-                        background: 'var(--bgGreen)',
+                        background: 'var(--darkGreen)',
                         color: '#000'
                     }}
                     buttonClass="mt-2 px-2"

@@ -29,16 +29,16 @@ const MarketInfo = () => {
                 <Title title={"بازار"}/>
             </span>
 
-            <div className={`${classes.container} card-background card-border width-90 m-auto my-2`}>
+            <div className={`${classes.container} card-bg card-border width-90 m-auto my-2`}>
                 <div className={`${classes.header} card-header-bg row jc-between ai-center px-2 py-2`}>
                     <div className={`row jc-center ai-center mr-1`}>
-                        <span className={`px-3 py-1 rounded cursor-pointer hover-text icon-active ${classes.title}`}>تومان</span>
-                        <span className={`px-3 py-1 rounded cursor-pointer hover-text`}>تتر</span>
+                        <span className={`px-3 py-1 rounded-5 cursor-pointer hover-text text-blue ${classes.title}`}>تومان</span>
+                        <span className={`px-3 py-1 rounded-5 cursor-pointer hover-text`}>تتر</span>
                     </div>
 
                     <div className={`row jc-center ai-center cursor-pointer hover-text`}>
                         <Link to={Routes.AllMarket} className={`ml-05 hover-text`}>نمایش تمام بازار</Link>
-                        <Icon iconName="icon-left-open-1 font-size-md flex" className={`mr-05`}/>
+                        <Icon iconName="icon-left-open-1 fs-01 flex" className={`mr-05`}/>
                     </div>
                 </div>
                 <div className={`${classes.content}`}>

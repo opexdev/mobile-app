@@ -14,7 +14,7 @@ const MarketHeader = () => {
             <h3 className={`mr-2`} onClick={() => dispatch(activeActionSheet({subMenu: true}))}>
                 {t("currency." + activePair.baseAsset)}/{t("currency." + activePair.quoteAsset)}
             </h3>
-            <Icon iconName="icon-market font-size-lg-plus flex"
+            <Icon iconName="icon-market fs-20 flex"
                   onClick={() => dispatch(activeActionSheet({menu: true}))}
             />
         </>

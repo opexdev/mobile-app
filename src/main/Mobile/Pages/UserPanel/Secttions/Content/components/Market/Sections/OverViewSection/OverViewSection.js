@@ -5,10 +5,10 @@ import TradingView from "../../components/TradingView/TradingView";
 const OverViewSection = () => {
     return (
         <>
-            <div className={`container col-28`}>
+            <div className={`width-100 col-28`}>
                 <Overview/>
             </div>
-            <div className={`container col-70`}>
+            <div className={`width-100 col-70`}>
                 <TradingView/>
             </div>
         </>

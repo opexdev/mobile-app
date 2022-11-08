@@ -1,0 +1,6 @@
+.container{
+    background-color: var(--footer);
+    -webkit-transition: background-color 0.4s;
+    -o-transition: background-color 0.4s;
+    transition: background-color 0.4s;
+}

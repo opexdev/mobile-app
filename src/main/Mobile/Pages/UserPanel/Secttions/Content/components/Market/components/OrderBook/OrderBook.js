@@ -63,7 +63,7 @@ const OrderBook = (props) => {
     }
 
     return (
-        <div className={`container card-background card-border column ${classes.container}`}>
+        <div className={`width-100 card-bg card-border column ${classes.container}`}>
             <div className={`column border-bottom jc-between header-radius card-header-bg ${classes.header}`}>
                 {orderLayout ? "" :<div className="row jc-center">
                     <h3>
@@ -76,7 +76,7 @@ const OrderBook = (props) => {
                     <span className="text-green">{t("buy")}</span>
                 </div>
             </div>
-            <div className={`row container ${classes.content}`}>
+            <div className={`row width-100 ${classes.content}`}>
                 {tableRender()}
             </div>
 

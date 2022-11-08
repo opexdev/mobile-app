@@ -5,7 +5,7 @@ import classes from "./TheTechnicalChart.module.css";
 const TechnicalChart = () => {
 
     return (
-        <div className={`container`}>
+        <div className={`width-100`}>
 
 
         </div>

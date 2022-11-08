@@ -31,7 +31,7 @@
     /*color: #333333;*/
 }
 .closeButton {
-    background-color: var(--bgRed);
+    background-color: var(--darkRed);
     width: 20%;
 }
 

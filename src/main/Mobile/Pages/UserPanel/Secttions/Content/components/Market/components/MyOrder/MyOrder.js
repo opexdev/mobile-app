@@ -5,7 +5,7 @@ import classes from "./MyOrder.module.css";
 const MyOrder = () => {
 
     return (
-        <div className={`container`}>
+        <div className={`width-100`}>
 
 
         </div>

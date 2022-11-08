@@ -69,7 +69,7 @@ const RegisterForm = () => {
             <span>{t('login.registerFinished')}</span>
             <span>{t('login.registerFinishedGoToMail')}</span>
             <span
-                className={`font-size-sm-plus border-top-dotted pt-1 mt-1`}>{t('login.registerFinishedSpamMail')}</span>
+                className={`fs-0-7 border-top-dotted pt-1 mt-1`}>{t('login.registerFinishedSpamMail')}</span>
         </div>
     }
     if (registerStatus === "finishedWithError") {
@@ -181,7 +181,7 @@ const RegisterForm = () => {
 
     return (
         <form onSubmit={(e) => submit(e)} className={`column jc-between ${classes.form}`}>
-            <div className={`container column jc-center ai-center ${classes.formBody} py-2`}>
+            <div className={`width-100 column jc-center ai-center ${classes.formBody} py-2`}>
                 <TextInput
                     lead={t('firstName')}
                     data-name="firstName"
@@ -238,7 +238,7 @@ const RegisterForm = () => {
                     lead={LeadCaptchaHandler()}
                     after={<span data-html={true} data-place="left" data-effect="float"
                                  data-tip={`<span class="column jc-between col-100">${t("login.refreshCaptcha")}</span>`}><Icon
-                        iconName="icon-arrows-cw flex font-size-md"
+                        iconName="icon-arrows-cw flex fs-01"
                         onClick={captchaReq}
                         customClass={`hover-text cursor-pointer`}
                     /></span>}
@@ -253,7 +253,7 @@ const RegisterForm = () => {
                     maxLength="5"
                 />
             </div>
-            <div className={`container flex jc-center ai-center ${classes.formFooter}`}>
+            <div className={`width-100 flex jc-center ai-center ${classes.formFooter}`}>
                 <Button
                     type="submit"
                     buttonClass={`${classes.thisButton} cursor-pointer`}

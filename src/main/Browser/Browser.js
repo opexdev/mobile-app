@@ -60,12 +60,12 @@ const Browser = () => {
             },
             success: {
                 style: {
-                    background: "var(--bgGreen)",
+                    background: "var(--darkGreen)",
                 },
             },
             error: {
                 style: {
-                    background: "var(--bgRed)",
+                    background: "var(--darkRed)",
                 },
             },
             custom: {
@@ -82,7 +82,7 @@ const Browser = () => {
         return <FullWidthError/>
     }
     return (
-        <div className={`flex jc-center ai-center card-header-bg text-color font-size-md-plus`} style={{height: "100vh", direction:"ltr"}}>Open in Mobile ...</div>
+        <div className={`flex jc-center ai-center card-header-bg text-color fs-04`} style={{height: "100vh", direction:"ltr"}}>Open in Mobile ...</div>
     );
 };
 

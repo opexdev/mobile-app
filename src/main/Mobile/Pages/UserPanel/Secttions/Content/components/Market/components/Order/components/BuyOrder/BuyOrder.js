@@ -247,17 +247,17 @@ const BuyOrder = (props) => {
     }
 
 
-    const volumeTop = <div className={`container row jc-center ai-center font-size-sm`} onClick={() => {fillBuyByBestPrice()}}>
-        <Icon iconName={`icon-plus font-size-sm flex`} customClass={`mx-1`}/>
+    const volumeTop = <div className={`width-100 row jc-center ai-center fs-0-6`} onClick={() => {fillBuyByBestPrice()}}>
+        <Icon iconName={`icon-plus fs-0-6 flex`} customClass={`mx-1`}/>
         <span>{wallets[activePair.quoteAsset].free.toLocaleString()}{" "}{t("currency." + activePair.quoteAsset)}</span>
     </div>
 
-    const pricePerUnitTop = <div className={`container row jc-center ai-center font-size-sm`} onClick={() => {fillBuyByWallet()}}>
-        <Icon iconName={`icon-plus font-size-sm flex`} customClass={`mx-1`}/>
+    const pricePerUnitTop = <div className={`width-100 row jc-center ai-center fs-0-6`} onClick={() => {fillBuyByWallet()}}>
+        <Icon iconName={`icon-plus fs-0-6 flex`} customClass={`mx-1`}/>
         <span>{bestBuyPrice.toLocaleString()}{" "}{t("currency." + activePair.quoteAsset)}</span>
     </div>
 
-    const totalPriceTop = <div className={`container row jc-around ai-center font-size-sm`}>
+    const totalPriceTop = <div className={`width-100 row jc-around ai-center fs-0-6`}>
         <p>{t("commission")}</p>
         <p>
             {order.tradeFee.toFormat()}{" "}

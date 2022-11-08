@@ -21,7 +21,7 @@ const MarketInfoTable = (props) => {
         <>
             {data.map((tr, index) => {
                 return (
-                    <div className={`${classes.row} row font-size-md rounded border-bottom cursor-pointer px-2 py-1`}>
+                    <div className={`${classes.row} row fs-01 rounded-5 border-bottom cursor-pointer px-2 py-1`}>
                         <span className="width-40 row jc-start ai-center">
                             <img src={images[tr.baseAsset]} alt={tr.baseAsset}
                              title={tr.baseAsset} className={`img-md ml-1`}/>
@@ -30,7 +30,7 @@ const MarketInfoTable = (props) => {
 
                         <span className={`width-30 column jc-start ai-start`}>
                             <span className={` ${tr.pcp24h > 0 ? "text-green" : "text-red"}`}>{tr.price}</span>
-                            <span className={`font-size-sm ${tr.pcp24h > 0 ? "text-green" : "text-red"}`}>{tr.pcp24h} %</span>
+                            <span className={`fs-0-6 ${tr.pcp24h > 0 ? "text-green" : "text-red"}`}>{tr.pcp24h} %</span>
                         </span>
 
                         <span className="width-30 flex jc-end ai-center">

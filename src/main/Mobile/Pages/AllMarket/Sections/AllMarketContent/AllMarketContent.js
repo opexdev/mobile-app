@@ -6,7 +6,7 @@ import Swing from "./components/Swing/Swing";
 
 const AllMarketContent = () => {
     return (
-        <div className={`${classes.container} container column`}>
+        <div className={`${classes.container} width-100 column`}>
             <ScrollBar>
 
 

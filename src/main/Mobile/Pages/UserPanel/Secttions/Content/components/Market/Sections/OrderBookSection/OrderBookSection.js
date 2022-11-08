@@ -28,10 +28,10 @@ const OrderBookSection = () => {
 
     return (
         <>
-            <div className={`container col-92`}>
+            <div className={`width-100 col-92`}>
                 <OrderBook/>
             </div>
-            <div className={`container row jc-between ai-end col-08`}>
+            <div className={`width-100 row jc-between ai-end col-08`}>
                 <Button
                     buttonClass={`${classes.thisButton} ${classes.buyOrder}`}
                     type="submit"

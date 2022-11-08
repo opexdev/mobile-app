@@ -71,12 +71,12 @@ const Mobile = () => {
             },
             success: {
                 style: {
-                    background: "var(--bgGreen)",
+                    background: "var(--darkGreen)",
                 },
             },
             error: {
                 style: {
-                    background: "var(--bgRed)",
+                    background: "var(--darkRed)",
                 },
             },
             custom: {

@@ -14,7 +14,7 @@ const Market = () => {
     const location = useLocation();
 
     return (
-        <div className={`container column jc-between ai-center px-2 py-1 ${classes.container}`}>
+        <div className={`width-100 column jc-between ai-center px-2 py-1 ${classes.container}`}>
             <Routes>
                 <Route path="/" element={<Navigate to={RoutesName.Overview} state={{from: location}} replace/>}/>
                 <Route path={RoutesName.OverviewRelative} element={<OverViewSection/>}/>

@@ -26,9 +26,9 @@ const Header = (props) => {
     return (
         <>
 
-            <div className={`container row ai-center jc-between ${classes.container} px-5`}>
+            <div className={`width-100 row ai-center jc-between ${classes.container} px-5`}>
 
-                <Icon iconName="icon-menu_vertical font-size-md-plus-plus flex" onClick={()=>dispatch(showSideMenu(true))}/>
+                <Icon iconName="icon-menu_vertical fs-05 flex" onClick={()=>dispatch(showSideMenu(true))}/>
 
 
                 <Routes>

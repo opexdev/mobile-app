@@ -147,7 +147,7 @@ const MarketChart = ({type}) => {
     }, [isDark]);
 
     return (
-        <div ref={chartContainerRef} className={`container  ${classes.chartContainer}`}>
+        <div ref={chartContainerRef} className={`width-100  ${classes.chartContainer}`}>
             <p className={classes.error}>{error}</p>
         </div>
     );

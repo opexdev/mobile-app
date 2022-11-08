@@ -13,7 +13,7 @@ const SettingsHeader = () => {
             <h3 className={`mr-2`} onClick={() => dispatch(activeActionSheet({subMenu: true}))}>
                 امنیت
             </h3>
-            <Icon iconName="icon-settings font-size-lg-plus flex"
+            <Icon iconName="icon-settings fs-20 flex"
                   onClick={() => dispatch(activeActionSheet({menu: true}))}
             />
         </>

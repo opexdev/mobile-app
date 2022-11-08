@@ -3,10 +3,10 @@ import React from 'react';
 const LastTradesSection = () => {
     return (
         <>
-            <div className={`container col-49`}>
+            <div className={`width-100 col-49`}>
 
             </div>
-            <div className={`container col-49`}>
+            <div className={`width-100 col-49`}>
 
             </div>
         </>

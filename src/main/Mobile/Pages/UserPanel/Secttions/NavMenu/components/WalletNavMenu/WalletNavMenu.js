@@ -10,15 +10,15 @@ const WalletNavMenu = () => {
 
 
     return (
-        <div className={`container ${classes.container} row ai-center jc-between`}>
+        <div className={`width-100 ${classes.container} row ai-center jc-between`}>
             <NavLink
                 to={Routes.Wallet+"/"+id + Routes.DepositRelative}
                 className={({isActive}) =>
                 isActive ? `col-33 column jc-center ai-center ${classes.selected}` : `col-33 column jc-center ai-center`
             }
                 >
-                <Icon iconName="icon-overview font-size-lg"/>
-                <span className={`font-size-sm`}>واریز</span>
+                <Icon iconName="icon-overview fs-06"/>
+                <span className={`1`}>واریز</span>
             </NavLink>
             <NavLink
                 to={Routes.Wallet+"/"+id + Routes.WithdrawalRelative}
@@ -26,8 +26,8 @@ const WalletNavMenu = () => {
                     isActive ? `col-33 column jc-center ai-center ${classes.selected}` : `col-33 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-orderbook font-size-lg"/>
-                <span className={`font-size-sm`}>برداشت</span>
+                <Icon iconName="icon-orderbook fs-06"/>
+                <span className={`1`}>برداشت</span>
             </NavLink>
             <NavLink
                 to={Routes.Wallet+"/"+id + Routes.transactionRelative}
@@ -35,9 +35,9 @@ const WalletNavMenu = () => {
                     isActive ? `col-33  column jc-center ai-center ${classes.selected}` : `col-33 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-order font-size-lg"/>
+                <Icon iconName="icon-order fs-06"/>
 
-                <span className={`font-size-sm`}>تراکنش ها</span>
+                <span className={`fs-0-6`}>تراکنش ها</span>
             </NavLink>
         </div>
     );

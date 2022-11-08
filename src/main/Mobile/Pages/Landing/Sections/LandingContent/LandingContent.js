@@ -9,7 +9,7 @@ import Footer from "../../../../../../components/Footer/Footer";
 
 const LandingContent = () => {
     return (
-        <div className={`${classes.container} container column`}>
+        <div className={`${classes.container} width-100 column`}>
             <ScrollBar>
                 <MarketTitle/>
                 <Spinner/>

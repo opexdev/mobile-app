@@ -23,7 +23,7 @@ const Content = () => {
 
 
     return (
-        <div className={`container ${classes.container} ${activeOrderLayout && classes.activeOrderLayout} py-05`}>
+        <div className={`width-100 ${classes.container} ${activeOrderLayout && classes.activeOrderLayout} py-05`}>
             <ScrollBar>
                 <Routes>
                     <Route path={RoutesName.MarketRelative + "/*"} element ={<Market/>}/>
@@ -32,7 +32,7 @@ const Content = () => {
                         <Route path={RoutesName.SettingsRelative+"/*"} element={<Settings/>}/>
                     </Route>
                     <Route path="*" element ={
-                        <div className="container flex ai-center jc-center"
+                        <div className="width-100 flex ai-center jc-center"
                              style={{height: "70%"}}>
                             <h1>{t("comingSoon")}</h1>
                         </div>

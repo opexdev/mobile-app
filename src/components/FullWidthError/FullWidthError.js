@@ -18,7 +18,7 @@ const FullWidthError = () => {
     }
 
     return (
-        <div className={`container ${classes.container} move-image flex jc-center ai-center text-red`} style={{backgroundImage: `url("${images.spaceStar}")`}}>
+        <div className={`width-100 ${classes.container} move-image flex jc-center ai-center text-red`} style={{backgroundImage: `url("${images.spaceStar}")`}}>
             <div className={`column jc-around ai-center card-border py-1`} style={{
                 position: 'fixed',
                 width: '70%',
@@ -29,7 +29,7 @@ const FullWidthError = () => {
                 <span>{t("errorPage.errorText")}</span>
                 <Button
                     buttonStyle={{
-                        background: 'var(--bgGreen)',
+                        background: 'var(--darkGreen)',
                         color: '#000'
                     }}
                     buttonClass={`px-5`}

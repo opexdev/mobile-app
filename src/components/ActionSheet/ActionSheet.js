@@ -41,9 +41,9 @@ const ActionSheet = () => {
 
     return (
         <>
-            <div className={`container ${classes.wrapper} ${(active.menu || active.subMenu) && classes.show}`}
+            <div className={`width-100 ${classes.wrapper} ${(active.menu || active.subMenu) && classes.show}`}
                  onClick={onClickHandler}/>
-            <div className={`container ${classes.container} column jc-end  ${classHandler()}`}>
+            <div className={`width-100 ${classes.container} column jc-end  ${classHandler()}`}>
                 <div className={`${classes.header} flex jc-center ai-center py-2`} onClick={onClickHandler}><span/>
                 </div>
                 {active.menu && <Menu/>}

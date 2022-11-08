@@ -10,7 +10,7 @@ const Settings = (props) => {
     const {t} = useTranslation();
 
     return (
-        <div className={`container column jc-around ai-center`} style={{height:"100%"}}>
+        <div className={`width-100 column jc-around ai-center`} style={{height:"100%"}}>
             <span>{t("comingSoon")}</span>
             <ToggleSwitch onchange={(e) => props.onThemeChange(e.target.checked)} checked={props.isDark}/>
         </div>

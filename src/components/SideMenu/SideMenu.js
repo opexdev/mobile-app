@@ -43,8 +43,8 @@ const SideMenu = () => {
 
     return (
         <>
-            <div className={`container ${classes.wrapper} ${open ? classes.show : classes.hide}`} onClick={()=>dispatch(showSideMenu(false))}/>
-            <div className={`container ${classes.container} ${open ? classes.show : classes.hide} column jc-between ai-center px-5 py-4`}>
+            <div className={`width-100 ${classes.wrapper} ${open ? classes.show : classes.hide}`} onClick={()=>dispatch(showSideMenu(false))}/>
+            <div className={`width-100 ${classes.container} ${open ? classes.show : classes.hide} column jc-between ai-center px-5 py-4`}>
 
 
                 <div className={`column jc-between ai-center width-100`}  >
@@ -99,43 +99,43 @@ const SideMenu = () => {
                 <div className={`column width-100`} onClick={()=>dispatch(showSideMenu(false))} >
                     <Link to={Routes.Guide + "#about-us"} className={`row jc-between ai-center`}>
                         <span className="hover-text">{t("footer.aboutUs")}</span>
-                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} font-size-sm flex`}/>
+                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
                     </Link>
                     <Link to={Routes.Guide + "#contact-us"} className={`row jc-between ai-center`}>
                         <span className="hover-text">{t("footer.contactUS")}</span>
-                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} font-size-sm flex`}/>
+                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
                     </Link>
                     <Link to={Routes.Guide + "#blog"} className={`row jc-between ai-center`}>
                         <span className="hover-text">{t("footer.blog")}</span>
-                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} font-size-sm flex`}/>
+                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
                     </Link>
                     <Link to={Routes.Guide + "#guides"} className={`row jc-between ai-center`}>
                         <span className="hover-text">{t("footer.guide")}</span>
-                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} font-size-sm flex`}/>
+                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
                     </Link>
                     <Link to={Routes.Guide + "#rules"} className={`row jc-between ai-center`}>
                         <span className="hover-text">{t("footer.rules")}</span>
-                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} font-size-sm flex`}/>
+                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
                     </Link>
                     <Link to={Routes.Guide + "#commission"} className={`row jc-between ai-center`}>
                         <span className="hover-text">{t("commission")}</span>
-                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} font-size-sm flex`}/>
+                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
                     </Link>
                     <Link to={Routes.Guide + "#api"} className={`row jc-between ai-center`}>
                         <span className="hover-text">{t("footer.api")}</span>
-                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} font-size-sm flex`}/>
+                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
                     </Link>
                     <Link to={Routes.Guide + "#addCoin"} className={`row jc-between ai-center`}>
                         <span className="hover-text">{t("footer.addCoin")}</span>
-                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} font-size-sm flex`}/>
+                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
                     </Link>
                     <Link to={Routes.Guide + "#demo"} className={`row jc-between ai-center`}>
                         <span className="hover-text">{t("footer.demo")}</span>
-                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} font-size-sm flex`}/>
+                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
                     </Link>
                     <Link to={Routes.Guide + "#errorReport"} className={`row jc-between ai-center`}>
                         <span className="hover-text">{t("footer.errorReport")}</span>
-                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} font-size-sm flex`}/>
+                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
                     </Link>
 
                 </div>
@@ -166,7 +166,7 @@ const SideMenu = () => {
 
 
 
-                {/*<Icon iconName="icon-cancel font-size-md-plus-plus flex" onClick={()=>dispatch(showSideMenu(false))}/>*/}
+                {/*<Icon iconName="icon-cancel fs-05 flex" onClick={()=>dispatch(showSideMenu(false))}/>*/}
 
 
             </div>

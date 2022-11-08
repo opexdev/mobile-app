@@ -11,7 +11,7 @@ const MarketNavMenu = () => {
     const activeOrderLayout = useSelector((state) => state.global.activeOrderLayout)
 
     return (
-        <div className={`container ${classes.container} ${activeOrderLayout && classes.activeOrderLayout} row ai-center`}>
+        <div className={`width-100 ${classes.container} ${activeOrderLayout && classes.activeOrderLayout} row ai-center`}>
 
             <NavLink
                 to={Routes.Overview}
@@ -19,8 +19,8 @@ const MarketNavMenu = () => {
                     isActive ? `col-20 column jc-center ai-center ${classes.selected}` : `col-20 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-overview font-size-lg"/>
-                <span className={`font-size-sm`}>نمای کلی</span>
+                <Icon iconName="icon-overview fs-06"/>
+                <span className={`fs-0-6`}>نمای کلی</span>
             </NavLink>
             <NavLink
                 to={Routes.OrderBook}
@@ -28,8 +28,8 @@ const MarketNavMenu = () => {
                     isActive ? `col-20 column jc-center ai-center ${classes.selected}` : `col-20 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-orderbook font-size-lg"/>
-                <span className={`font-size-sm`}>پیشنهادات</span>
+                <Icon iconName="icon-orderbook fs-06"/>
+                <span className={`fs-0-6`}>پیشنهادات</span>
             </NavLink>
             <NavLink
                 to={Routes.Order}
@@ -37,8 +37,8 @@ const MarketNavMenu = () => {
                     isActive ? `col-20 column jc-center ai-center ${classes.selected}` : `col-20 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-order font-size-lg"/>
-                <span className={`font-size-sm`}>سفارش</span>
+                <Icon iconName="icon-order fs-06"/>
+                <span className={`fs-0-6`}>سفارش</span>
             </NavLink>
             <NavLink
                 to={Routes.MyOrder}
@@ -46,8 +46,8 @@ const MarketNavMenu = () => {
                     isActive ? `col-20 column jc-center ai-center ${classes.selected}` : `col-20 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-myorder font-size-lg"/>
-                <span className={`font-size-sm`}>تراکنش ها</span>
+                <Icon iconName="icon-myorder fs-06"/>
+                <span className={`fs-0-6`}>تراکنش ها</span>
             </NavLink>
             <NavLink
                 to={Routes.LastTrades}
@@ -55,8 +55,8 @@ const MarketNavMenu = () => {
                     isActive ? `col-20 column jc-center ai-center ${classes.selected}` : `col-20 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-lasttrades font-size-lg"/>
-                <span className={`font-size-sm`}>اخیر</span>
+                <Icon iconName="icon-lasttrades fs-06"/>
+                <span className={`fs-0-6`}>اخیر</span>
             </NavLink>
         </div>
     );

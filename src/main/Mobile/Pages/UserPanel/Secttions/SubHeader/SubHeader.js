@@ -31,22 +31,22 @@ const SubHeader = (props) => {
 
 
 
-                <Icon iconName="icon-dot-3 font-size-md flex" customClass={`${classes.thisIcon} py-05`} onClick={()=>setExpand(false)}/>
+                <Icon iconName="icon-dot-3 fs-01 flex" customClass={`${classes.thisIcon} py-05`} onClick={()=>setExpand(false)}/>
 
             </div>
         }*/
      /*   if (!expand) {
             return <div className={`container flex ai-center jc-center ${classes.expand}`}>
-                <Icon iconName="icon-dot-3 font-size-md flex" customClass={`${classes.thisIcon}`} onClick={()=>setExpand(true)}/>
+                <Icon iconName="icon-dot-3 fs-01 flex" customClass={`${classes.thisIcon}`} onClick={()=>setExpand(true)}/>
 
 
 
             </div>
         }*/
 
-        return <div className={`container column ai-center jc-center position-relative ${classes.container}`}>
+        return <div className={`width-100 column ai-center jc-center position-relative ${classes.container}`}>
 
-            {expand && <div className={`column position-absolute ${classes.content} width-100 py-1`}>
+            {expand && <div className={`width-100 column position-absolute ${classes.content} py-1 px-2`}>
                 <Routes>
                     <Route path={RoutesName.MarketRelative + "/*"} element={
                         <MarketSubHeader/>
@@ -61,10 +61,10 @@ const SubHeader = (props) => {
                         }/>
                     </Route>
                 </Routes>
-                <Icon iconName="icon-dot-3 font-size-md flex jc-center ai-center" customClass={`${classes.thisIcon} py-05`} onClick={()=>setExpand(false)}/>
+                <Icon iconName="icon-dot-3 fs-01 flex jc-center ai-center" customClass={`${classes.thisIcon} py-05`} onClick={()=>setExpand(false)}/>
             </div>}
 
-            <Icon iconName="icon-dot-3 font-size-md flex" customClass={`${classes.thisIcon}`} onClick={()=>setExpand(true)}/>
+            <Icon iconName="icon-dot-3 fs-01 flex" customClass={`${classes.thisIcon}`} onClick={()=>setExpand(true)}/>
         </div>
     }
 
