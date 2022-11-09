@@ -11,7 +11,7 @@ const MarketViewCard = () => {
         <div className={`column jc-between ai-center mt-2 width-90 m-auto`}>
             <div className={`${classes.container} card-bg card-border row width-100 my-1`}>
                 <div className={`${classes.header} card-header-bg flex jc-center ai-center text-center width-30 px-2`}>
-                    <p className={`text-orange`}>{t("MarketView.mostIncrease")}</p>
+                    <p className={`text-orange`}>{t("MarketView.mostIncreased")}</p>
                 </div>
                 <div className={`${classes.content} row jc-between ai-center px-3 width-70`}>
                     <div className={`fle row jc-start ai-center`}>
@@ -26,7 +26,7 @@ const MarketViewCard = () => {
             </div>
             <div className={`${classes.container} card-bg card-border row width-100 my-1`}>
                 <div className={`${classes.header} card-header-bg flex jc-center ai-center text-center width-30 px-2`}>
-                    <p className={`text-orange`}>{t("MarketView.greatestReduction")}</p>
+                    <p className={`text-orange`}>{t("MarketView.mostDecreased")}</p>
                 </div>
                 <div className={`${classes.content} row jc-between ai-center px-3 width-70`}>
                     <div className={`fle row jc-start ai-center`}>
@@ -41,7 +41,7 @@ const MarketViewCard = () => {
             </div>
             <div className={`${classes.container} card-bg card-border row width-100 my-1`}>
                 <div className={`${classes.header} card-header-bg flex jc-center ai-center text-center width-30 px-2`}>
-                    <p className={`text-orange`}>{t("MarketView.MaxTransactionVolume")}</p>
+                    <p className={`text-orange`}>{t("MarketView.mostVolume")}</p>
                 </div>
                 <div className={`${classes.content} row jc-between ai-center px-3 width-70`}>
                     <div className={`fle row jc-start ai-center`}>

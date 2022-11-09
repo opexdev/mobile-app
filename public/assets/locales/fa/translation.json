@@ -45,6 +45,7 @@
   "close": "بستن",
   "unit": "واحد",
   "offline": "اتصال اینترنت را بررسی کنید!",
+  "improperMobileView ": "فعلاً برای موبایل بهینه نشده است.",
   "country": {
     "iran" : "جمهوری اسلامی ایران",
     "germany" : "آلمان",
@@ -69,11 +70,17 @@
     "TBUSD": "دلار بایننس(ت)",
     "BCH": "بیتکوین کش"
   },
+  "marketInterval": {
+    "24h": "24 ساعت",
+    "7d": "7 روز",
+    "1M": "30 روز"
+  },
   "routes": {
-    "/settings/profile": "مشخصات کاربری",
-    "/settings/security": "امنیت",
-    "/settings/personalization": "سفارشی‌سازی",
-    "/settings/authentication": "احراز هویت کاربری"
+    "/panel/settings/profile": "مشخصات کاربری",
+    "/panel/settings/security": "امنیت",
+    "/panel/settings/personalization": "سفارشی‌سازی",
+    "/panel/settings/authentication": "احراز هویت کاربری",
+    "/panel/settings/api-key": "API KEY"
   },
   "orderStatus": {
     "NEW": "جاری شده",
@@ -174,6 +181,7 @@
     "totalPrice": "قیمت کل",
     "tradeFee": "کارمزد",
     "getAmount": "دریافتی شما",
+    "hasNoOffer": "پیشنهادی وجود ندارد!",
     "error": "خطایی در ثبت سفارش رخ داده‌است.",
     "success": "ثبت سفارش {{type}} {{reqAmount}} {{base}} با قیمت {{pricePerUnit}} {{quote}} با موفقیت انجام شد."
   },
@@ -213,7 +221,8 @@
     "totalValue": "ارزش کل",
     "approximate": "تقریبی",
     "equivalent": "معادل",
-    "showZeroBalance": "عدم نمایش موجودی صفر"
+    "showZeroBalance": "عدم نمایش موجودی صفر",
+    "estimateAlert": "مبلغ دارایی معادل براساس بالاترین پیشنهاد خرید محاسبه شده"
   },
   "DepositWithdraw": {
     "title": "واریز/برداشت",
@@ -240,7 +249,9 @@
     "DepositTUSDTContentBefore": "فقط USDT تستی شبکه Ropsten مورد قبول قرار می گیرد! برای آشنایی با روش دریافت رایگان به ",
     "DepositTUSDTContentAfter": " بروید. برای ارسال USDT تستی به این آدرس، باید شبکه اتریومی کیف پول خود را به Ropsten تغییر دهید. این شبکه به طور پیش فرض در فهرست شبکه های کیف پول Metamask وجود دارد. هر تراکنشی با مقدار مساوی یا بیشتر از ۱۰ USDT به آدرس بالا، به حساب شما افزوده می شود.",
     "depositTime": "* موجودی شما {{time}} دقیقه بعد از واریز به آدرس بالا، افزایش پیدا می کند.",
-    "securityConsiderations": "باتوجه به ملاحضات امنیتی ممکن است انتقال به حساب با کمی تاخیر صورت بگیرد. می توانید وضعیت برداشت را در همین صفحه از بخش ترکنش های واریز/برداشت ببینید."
+    "securityConsiderations": "باتوجه به ملاحظات امنیتی ممکن است انتقال به حساب با کمی تاخیر صورت بگیرد. می توانید وضعیت برداشت را در همین صفحه از بخش ترکنش های واریز/برداشت ببینید.",
+    "network": "شبکه",
+    "selectNetwork": " شبکه را انتخاب کنید"
   },
   "CallbackPage": {
     "ok": "واریز وجه با موفقیت انجام شد.",
@@ -340,7 +351,10 @@
     "residence": "محل اقامت",
     "birthdayG": "تاریخ تولد (میلادی)",
     "birthdayJ": "تاریخ تولد (شمسی)",
+    "birthday": "تاریخ تولد",
     "nationalId": "شناسه ملی",
+    "idNumber": "شتاسه ملی / شماره پاسپورت",
+    "idNumberPlaceHolder": "شناسه ملی یا شماره پاسپورت را وارد کنید.",
     "passportNumber": "شماره پاسپورت",
     "mobile": "تلفن همراه",
     "telephone": "تلفن ثابت",
@@ -362,6 +376,7 @@
     "details": "جزئیات",
     "closeSession": "بستن نشست",
     "success": "نشست {{location}} با موفقیت بسته شد.",
+    "failed": "خطا در بستن نشست {{location}}، دوباره تلاش کنید.",
     "logOutAllSuccess": "سایر نشست‌ها با موفقیت بسته شد.",
     "logOutAllError": "خطا در سرور، دوباره تلاش کنید.",
     "noData": "موردی یافت نشد!",
@@ -416,25 +431,25 @@
     "content": "برای تکمیل احراز هویت لطفاً مراحل زیر را انجام دهید:",
     "acceptForm": "1) متن توافقنامه برای استفاده از خدمات را بر روی یک کاغذ A4 نوشته، امضا کنید و از آن عکس بگیرید.",
     "selfie": "2) یک سلفی از خودتان در حالتی که برگه اعلام رضایت را در مقابل خود نگه داشته‌اید بگیرید.",
-    "idCard": "3) یک سلفی از خودتان در حالتی که شناسنامه یا کارت ملی را در مقابل خود نگه داشته‌اید بگیرید.",
+    "idCard": "3) یک سلفی از خودتان در حالتی که کارت ملی یا پاسپورت را در مقابل خود نگه داشته‌اید بگیرید.",
     "acceptFormLink": "(دانلود نمونه متن اعلام رضایت)",
     "selfieLink": "(مطابق تصویر نمونه)",
     "idCardLink": "(مطابق تصویر نمونه)",
     "acceptFormDropzone": "متن اعلام رضایت",
     "selfieDropzone": "سلفی همراه با متن اعلام رضایت",
-    "idCardDropzone": "سلفی همراه با کارت ملی یا شناسنامه",
+    "idCardDropzone": "سلفی همراه با کارت ملی یا پاسپورت",
     "sendingData": "در حال ارسال اطلاعات...",
     "imageAcceptedFormat": "- لطفاً عکس‌ها را فقط با فرمت JPEG و PNG آپلود کنید!",
     "imageAcceptedSize": "- حداکثر حجم قابل قبول برای آپلود عکس ها، 1 مگابایت است!",
     "acceptFormEmpty": "عکس متن توافقنامه را آپلود کنید!",
     "selfieEmpty": "عکس سلفی همراه با متن توافقنامه را آپلود کنید!",
-    "idCardEmpty": "عکس سلفی همراه کارت ملی یا شناسنامه را آپلود کنید!",
+    "idCardEmpty": "عکس سلفی همراه کارت ملی یا پاسپورت را آپلود کنید!",
     "serverError": "خطا در ارسال تصاویر، دوباره تلاش کنید!"
   },
   "SendToAdminStep": {
     "title": "گام 4 از 4: ارسال به کارشناس",
     "content": "اطلاعات با موفقیت ثبت شد. وضعیت احراز هویت شما به صورت زیر می باشد:",
-    "pending": "در حال برسی...",
+    "pending": "در حال بررسی...",
     "accepted": "احراز هویت شما با موفقیت انجام شده است.",
     "rejected": "احراز هویت انجام نشد، دوباره تلاش کنید.",
     "blocked": "احراز هویت انجام نشد!",
@@ -458,21 +473,62 @@
     "defaultReferenceCryptoCurrency": "رمز ارز مرجع",
     "save": "ذخیره"
   },
+  "APIKey": {
+    "title": "API Key",
+    "create": "ایجاد API Key",
+    "enable": "فعال کردن API Key",
+    "disable": "غیرفعال کردن API Key",
+    "delete": "حذف API Key",
+    "label": "label",
+    "secret": "Secret",
+    "success": "API Key با موفقیت ایجاد شد.",
+    "apiKey": "API Key",
+    "expiration": "اعتبار",
+    "allowedIPs": "ip های مجاز",
+    "ONE_MONTH": "یک ماه",
+    "THREE_MONTHS": "سه ماه",
+    "SIX_MONTHS": "شیش ماه",
+    "ONE_YEAR": "یک سال",
+    "content": "برای ایجاد API Key اطلاعات زیر را وارد کنید، دقت کنید API Key ساخته شده قابل بازیابی نیست!",
+    "selectExpiration": "مدت زمان اعتبار را انتخاب کنید",
+    "allowedIPsExample": "ip 1 , ip 2 , ip 3 , ...",
+    "noActiveAPIKey": "API Key ایجاد نشده است.",
+    "understand": "متوجه شدم!",
+    "warning": "دقت کنید secret قابل بازیابی نمی باشد و در صورت فراموش کردن آن باید API Key جدید ایجاد کنید!",
+    "copied": "کپی شد",
+    "enableButton": "فعال کردن",
+    "disableButton": "غیر فعال کردن",
+    "deleteButton": "حذف",
+    "successEnable": "با موفقیت فعال شد.",
+    "successDisable": "با موفقیت غیر فعال شد.",
+    "failedEnable": "خطا در فعال‌سازی، لطفا دوباره تلاش کنید!",
+    "failedDisable": "خطا در غیر فعال‌سازی، لطفا دوباره تلاش کنید!",
+    "successDelete": "با موفقیت حذف شد!",
+    "failedDelete": "خطا در حذف، لطفا دوباره تلاش کنید!",
+    "emptyLabel": "Label نمیتواند خالی باشد!",
+    "reachedLimit": "حداکثر تعداد مجاز ایجاد API Key، ده  تا است!"
+  },
   "login": {
     "title": "ورود/ثبت نام",
     "wrongPassword": "ایمیل یا رمز عبور صحیح نمی باشد!",
     "wrongOTP": "رمز دو مرحله ای صحیح نمی باشد!",
     "wrongPasswordConfirmation": "رمز ورود و تکرار آن باهم مطابقت ندارند.!",
     "forgetPassword": "فراموشی رمز عبور",
+    "verificationEmail": " آیا ایمیل فعال‌سازی را دریافت نکرده‌اید؟",
+    "resendVerifyEmail": "ارسال دوباره ایمیل فعال‌سازی",
+    "sendEmail": "ارسال ایمیل",
+    "verifyEmailServerError": "خطا در ارسال ایمیل فعال‌سازی، دوباره تلاش کنید",
+    "verifyEmailFinished": "ایمیل فعال‌سازی با موفقیت ارسال شد",
+    "emailAlreadyVerified": "ایمیل شما قبلاً فعال شده است.",
     "accountNotActive": "اکانت شما هنوز فعال نشده است",
     "enter": "ورود",
     "resetPassword": "بازیابی رمز",
     "inputError": "فرمت ایمیل یا تعداد کاراکتر رمز ورود درست نیست.",
     "loginError": "خطا در ارتباط با سرور",
-    "registerFinished": "ثبت نام با موفقیت انجام شد :)",
-    "forgetPasswordFinished": "درخواست بازیابی رمز عبور با موفقیت ارسال شد :)",
-    "registerFinishedGoToMail": "برای تکمیل ثبت نام به ایمیل ثبت شده مراجعه فرمایید.",
-    "registerFinishedSpamMail": "ایمیل دریافتی از آدرس for.demo.purpose.only@opex.dev ممکن است در بخش spam باشد.",
+    "registerFinished": "ثبت نام با موفقیت انجام شد.",
+    "forgetPasswordFinished": "درخواست بازیابی رمز عبور با موفقیت ارسال شد.",
+    "registerFinishedGoToMail": "برای تکمیل ثبت نام به {{email}} مراجعه فرمایید.",
+    "registerFinishedSpamMail": "ایمیل دریافتی از آدرس {{email}} ممکن است در بخش spam باشد.",
     "register": "ثبت نام",
     "wrongEmail": "ایمیل وارد شده معتبر نیست.",
     "emptyEmail": "ایمیل را وارد کنید.",
@@ -490,38 +546,50 @@
     "minCaptcha": "Captcha باید ۵ کاراکتر باشد!",
     "emptyCaptcha": "وارد کردن Captcha الزامی است",
     "forgetPassServerError": "خطا در بازیابی رمز، دوباره تلاش کنید",
-    "forgetPassEmailForgetError": "فرمت ایمیل صحیح نیست."
+    "UserAlreadyExists": "ایمل واردشده تکراری است",
+    "forgetPassEmailForgetError": "فرمت ایمیل صحیح نیست.",
+    "forDemoLogin": "برای ورود آزمایشی، اینجا کلیک کنید!"
   },
   "userPage": {
     "title": "",
     "success": "ایمیل با موفقیت تائید شد.",
-    "failed": "ایمیل تائید نشد، دوباره تلاش کنید!"
+    "failed": "ایمیل تائید نشد، دوباره تلاش کنید!",
+    "serverError": "خطا در سرور، لطفاً دوباره تلاش کنید."
+  },
+  "Landing": {
+    "title": "پلتفرم تبادل ارزهای دیجیتال"
+  },
+  "MarketTitle": {
+    "content": "به طور خاص برای رفع نیازهای شما طراحی شده است.",
+    "advancedTrading": "معامله حرفه‌ای",
+    "easyTrading": "معامله آسان"
+  },
+  "GeneralInfo": {
+    "activeUsers": "کاربر فعال",
+    "totalOrders": "سفارش ثبت شده",
+    "totalTrades": "معامله انجام شده"
   },
   "MarketInfo": {
-    "title": "نمای بازار",
+    "viewAllMarket": "نمایش تمام بازار",
     "name": "نام",
     "cryptocurrency": "رمزارز",
     "lastPrice": "آخرین قیمت",
-    "pcp24h": "24 ساعت %",
-    "pcp7d": "7 روز %",
-    "chart": "روند 7 روزه",
+    "lowPrice": "کمترین قیمت",
+    "highPrice": "بیشترین قیمت",
+    "priceChange": "تعییر قیمت",
+    "chart": "نمودار",
     "volume": "حجم معاملات",
     "details": "جزئیات",
-    "lowPrice": "حداقل",
-    "highPrice": "حداکثر",
     "trade": "معامله",
     "marketCap": "ارزش بازار"
   },
   "MarketView": {
     "title": "روند 24 ساعته",
-    "mostIncrease": "بیشترین افزایش",
-    "mostTrade": "بیشترین تعداد معامله",
-    "greatestReduction": "بیشترین کاهش",
-    "MaxTransactionVolume": "بیشترین حجم معامله",
-    "MinTransactionVolume": "کمترین حجم معامله"
-  },
-  "MarketTitle": {
-    "content": "به طور خاص برای رفع نیازهای شما طراحی شده است."
+    "mostIncreased": "بیشترین افزایش",
+    "mostDecreased": "بیشترین کاهش",
+    "mostTrades": "بیشترین تعداد معامله",
+    "mostVolume": "بیشترین حجم معامله",
+    "nullResponse": "در {{interval}} گذشته معامله‌ای انجام نشده"
   },
   "footer": {
     "darkMode": "تم تاریک",
@@ -546,6 +614,7 @@
     "errorMsgDefault": "عکس آپلود شده معتبر نیست!"
   },
   "errorPage" : {
+    "needKYC" : "دسترسی این بخش فقط برای کاربران احراز هویت شده مجاز است!",
     "reload" : "تلاش مجدد",
     "errorText" : "خطا در ارتباط با سرور"
   }

@@ -63,3 +63,5 @@ export const toEnglishNum = str => {
     }
     return str;
 }
+
+export const toAbsoluteUrl = (path) => process.env.PUBLIC_URL + path

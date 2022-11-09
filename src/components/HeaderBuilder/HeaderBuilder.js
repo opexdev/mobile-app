@@ -16,6 +16,7 @@ import * as RoutesName from "../../main/Mobile/Routes/routes";
 import SideMenu from "../SideMenu/SideMenu";
 import {showSideMenu} from "../../store/actions/global";
 import Icon from "../Icon/Icon";
+import {toAbsoluteUrl} from "../../utils/utils";
 
 const HeaderBuilder = ({children}) => {
 
@@ -58,7 +59,7 @@ const HeaderBuilder = ({children}) => {
 
                    <div className={`flex jc-end ai-center width-20`}>
                        <Link to={Routes.Landing}>
-                           <img src={images.opexLogoOnePlus} alt="" className={`img-lg-plus flex`}/>
+                           <img src={toAbsoluteUrl('/assets/logo/logo-mini.svg')} alt={t("title")} title={t("title")} className={`img-lg-plus flex`}/>
                        </Link>
                    </div>
 

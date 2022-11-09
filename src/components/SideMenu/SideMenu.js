@@ -13,6 +13,7 @@ import {images} from "../../assets/images";
 import i18n from "i18next";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import *  as Routes from "../../main/Mobile/Routes/routes";
+import {toAbsoluteUrl} from "../../utils/utils";
 
 
 
@@ -147,10 +148,14 @@ const SideMenu = () => {
                 <div className={`column jc-center ai-center width-100`}>
 
                     <div className={`row ai-center ${classes.languages} my-3`}>
-                            <span className="cursor-pointer pl-2"
-                                  onClick={() => i18n.changeLanguage("fa")}>{t("Languages.Persian")}</span>
-                        <span className="cursor-pointer pr-2"
-                              onClick={() => i18n.changeLanguage("en")}>{t("Languages.English")}</span>
+                        {
+                            window.env.REACT_APP_MULTI_LANGS_SUPPORT === 'TRUE' && <>
+                               <span className="cursor-pointer pl-2"
+                                     onClick={() => i18n.changeLanguage("fa")}>{t("Languages.Persian")}</span>
+                                <span className="cursor-pointer pr-2"
+                                      onClick={() => i18n.changeLanguage("en")}>{t("Languages.English")}</span>
+                            </>
+                        }
                     </div>
 
                     <div className={`row ai-center mb-2`}>
@@ -158,7 +163,8 @@ const SideMenu = () => {
                         <ToggleSwitch onchange={(e) => dispatch(setThemeInitiate(e.target.checked))} checked={isDark}/>
                     </div>
 
-                    <img className={`img-lg-1 mb-1 mt-2`} src={images.opexLogoPlus} alt={t("title")}/>
+
+                    <img src={toAbsoluteUrl('/assets/logo/logo.svg')} alt={t("title")} title={t("title")} className={`img-lg-1 mb-1 mt-2`}/>
                     <span className={`mt-1`}>v1.0.0-beta.1</span>
 
                 </div>

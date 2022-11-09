@@ -16,10 +16,6 @@ const LandingContent = () => {
                 <MarketView/>
                 <MarketInfo/>
                 <Footer/>
-
-
-
-
             </ScrollBar>
         </div>
     );
