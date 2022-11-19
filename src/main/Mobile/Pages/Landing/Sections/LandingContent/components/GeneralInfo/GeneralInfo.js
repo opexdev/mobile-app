@@ -33,9 +33,8 @@ const GeneralInfo = () => {
     }
 
     return (
-        <div className={`${classes.container} row jc-between ai-center card-bg  px-10 py-1 my-3`}>
+        <div className={`${classes.container} width-90 card-border row jc-between ai-center card-bg px-5 py-1`}>
             {content()}
-
         </div>
     );
 };
