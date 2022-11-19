@@ -47,7 +47,7 @@ const HeaderBuilder = ({children}) => {
 
                    <div className={`column ai-start width-20`}>
 
-                       <Icon iconName="icon-menu_vertical fs-01-plus-plus flex" onClick={()=>dispatch(showSideMenu(true))}/>
+                       <Icon iconName="icon-menu_vertical fs-04 flex" onClick={()=>dispatch(showSideMenu(true))}/>
                    </div>
 
 

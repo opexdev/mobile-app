@@ -14,19 +14,19 @@ const MarketTitle = () => {
 
 
     return (
-        <div className={`width-90 m-auto column my-3`}>
+        <div className={`width-90 column m-auto py-3`}>
             <Title title={t('title')}/>
             <div className={`row jc-between ai-center mt-2`}>
                 <Button
                     buttonClass={`${classes.thisButton} col-48 px-3`}
-                    buttonTitle="خرید و فروش آسان"
+                    buttonTitle={t("MarketTitle.easyTrading")}
                     type="submit"
                     onClick={() => navigate("/", { replace: true })}
 
                 />
                 <Button
                     buttonClass={`${classes.thisButton} col-48 px-3`}
-                    buttonTitle="خرید و فروش حرفه ای"
+                    buttonTitle={t("MarketTitle.advancedTrading")}
                     type="submit"
                     onClick={() => navigate(Overview)}
                 />

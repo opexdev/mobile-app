@@ -2,58 +2,53 @@ import React from 'react';
 import classes from './MarketViewCard.module.css'
 import {useTranslation} from "react-i18next";
 import {images} from "../../../../../../../../../../assets/images";
+import {BN} from "../../../../../../../../../../utils/utils";
+import i18n from "i18next";
+import Loading from "../../../../../../../../../../components/Loading/Loading";
+import Error from "../../../../../../../../../../components/Error/Error";
 
-const MarketViewCard = () => {
+const MarketViewCard = ({title , data , error , isLoading ,volume}) => {
 
     const {t} = useTranslation();
 
+    console.log("data" , data)
+
+    const content = () => {
+        if (isLoading) return <span className={`py-3 width-100`}><Loading type="linear"/></span>
+        if (error) return <Error/>
+        else return <>
+            <div className={`fle row jc-start ai-center`}>
+                <img
+                    src={images[data.pairInfo.baseAsset]}
+                    alt={data.pairInfo.baseAsset}
+                    title={data.pairInfo.baseAsset}
+                    className={`img-md-plus ml-1`}
+                />
+                <span className={`mr-2`}>{t("currency." + data.pairInfo.baseAsset)}</span>
+            </div>
+            <div className={`column ai-end text-green`}>
+                <div className={`${i18n.language !== "fa" ? 'row-reverse' : 'row'}`}>
+                    <span className={`fs-0-6 ${i18n.language !== "fa" ? 'mr-05' : 'ml-05'}`}>{data.pairInfo.quoteAsset}</span>
+                    <span>{new BN(volume ? data?.volume : data?.lastPrice).toFormat()}</span>
+                </div>
+                <span>% {new BN(volume ? data?.change : data?.priceChangePercent).toFormat(2)}+</span>
+            </div>
+        </>
+    }
+
+
     return (
-        <div className={`column jc-between ai-center mt-2 width-90 m-auto`}>
-            <div className={`${classes.container} card-bg card-border row width-100 my-1`}>
-                <div className={`${classes.header} card-header-bg flex jc-center ai-center text-center width-30 px-2`}>
-                    <p className={`text-orange`}>{t("MarketView.mostIncreased")}</p>
-                </div>
-                <div className={`${classes.content} row jc-between ai-center px-3 width-70`}>
-                    <div className={`fle row jc-start ai-center`}>
-                        <img src={images.BTC} alt="" className={`img-md-plus ml-1`}/>
-                        <span className={`mr-2`}>{t("currency." + "BTC")}</span>
-                    </div>
-                    <div className={`column jc-center ai-end`}>
-                        <span className={`mr-025 text-green`}>25،1254،248</span>
-                        <span className={`ml-025 text-green`}>(10% +)</span>
-                    </div>
+
+
+            <div className={` card-bg card-border column width-100 my-2`}>
+                <p className={`text-orange text-center px-4 py-2 card-header-bg`}>{title}</p>
+                <div className={` row jc-between ai-center width-100  px-4 py-1`}>
+                    {content()}
                 </div>
             </div>
-            <div className={`${classes.container} card-bg card-border row width-100 my-1`}>
-                <div className={`${classes.header} card-header-bg flex jc-center ai-center text-center width-30 px-2`}>
-                    <p className={`text-orange`}>{t("MarketView.mostDecreased")}</p>
-                </div>
-                <div className={`${classes.content} row jc-between ai-center px-3 width-70`}>
-                    <div className={`fle row jc-start ai-center`}>
-                        <img src={images.ETH} alt="" className={`img-md-plus ml-1`}/>
-                        <span className={`mr-2`}>{t("currency." + "ETH")}</span>
-                    </div>
-                    <div className={`column jc-center ai-end`}>
-                        <span className={`mr-025 text-red`}>25،1254،248</span>
-                        <span className={`ml-025 text-red`}>(10% +)</span>
-                    </div>
-                </div>
-            </div>
-            <div className={`${classes.container} card-bg card-border row width-100 my-1`}>
-                <div className={`${classes.header} card-header-bg flex jc-center ai-center text-center width-30 px-2`}>
-                    <p className={`text-orange`}>{t("MarketView.mostVolume")}</p>
-                </div>
-                <div className={`${classes.content} row jc-between ai-center px-3 width-70`}>
-                    <div className={`fle row jc-start ai-center`}>
-                        <img src={images.USDT} alt="" className={`img-md-plus ml-1`}/>
-                        <span className={`mr-2`}>{t("currency." + "USDT")}</span>
-                    </div>
-                    <div className={`column jc-center ai-end`}>
-                        <span className={`mr-025 text-green`}>1،200</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+
+
     );
 };
 
