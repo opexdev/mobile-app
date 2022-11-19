@@ -6,6 +6,7 @@ import Spinner from "./components/Spinner/Spinner";
 import MarketView from "./components/MarketView/MarketView";
 import MarketInfo from "./components/MarketInfo/MarketInfo";
 import Footer from "../../../../../../components/Footer/Footer";
+import GeneralInfo from "./components/GeneralInfo/GeneralInfo";
 
 const LandingContent = () => {
     return (
@@ -15,6 +16,7 @@ const LandingContent = () => {
                 <Spinner/>
                 <MarketView/>
                 <MarketInfo/>
+                <GeneralInfo/>
                 <Footer/>
             </ScrollBar>
         </div>
