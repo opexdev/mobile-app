@@ -44,6 +44,12 @@ export const setInfoMessage = (messageType, message) => {
   };
 };
 
+export const setMarketInterval = (interval) => {
+  return {
+    type: actionTypes.Set_MARKET_INTERVAL,
+    interval,
+  };
+};
 
 export const showSideMenu = (isOpen) => {
   return {

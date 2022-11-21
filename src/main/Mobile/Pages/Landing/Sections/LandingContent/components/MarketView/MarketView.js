@@ -12,7 +12,6 @@ const MarketView = () => {
     const interval = "24h"
     const {data: stats, isLoading, error} = useGetMarketStats(interval)
 
-    console.log("stats" , stats)
     const allSymbols = useSelector((state) => state.exchange.symbols)
     const mostIncreasedPrice = stats?.mostIncreasedPrice[0]
     const mostDecreasedPrice = stats?.mostDecreasedPrice[0]

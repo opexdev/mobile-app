@@ -1,0 +1,15 @@
+.container {
+    height: 20vh;
+    width: 60vw;
+}
+.container:last-child{
+    margin-left: initial;
+}
+
+.header {
+    height: 33%;
+}
+
+.content {
+    height: 67%;
+}

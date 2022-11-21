@@ -104,4 +104,9 @@
 .icon-right-open-1:before { content: '\0203'; } /* 'ȃ' */
 .icon-row:before { content: '\0204'; } /* 'Ȅ' */
 .icon-grid:before { content: '\0205'; } /* 'ȅ' */
+.icon-up-micro:before { content: '\0206'; } /* 'Ȇ' */
+.icon-down-micro:before { content: '\0207'; } /* 'ȇ' */
+.icon-down-dir:before { content: '\0208'; } /* 'Ȉ' */
+.icon-up-dir:before { content: '\0209'; } /* 'ȉ' */
+.icon-play:before { content: '\0210'; } /* 'Ȑ' */
 .icon-cancel-circled2:before { content: '\e801'; } /* '' */

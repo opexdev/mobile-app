@@ -1,0 +1,16 @@
+.header {
+    /*height: 10vh;*/
+}
+.container {
+    margin: 0 auto 2vh auto;
+
+
+}
+/*.title {
+    background-color: var(--cardBodyAlpha);
+}*/
+
+.active {
+    background-color: var(--activeTitle);
+    color: var(--activeTab);
+}

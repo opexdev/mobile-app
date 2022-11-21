@@ -293,6 +293,9 @@ html, body {
     text-decoration: underline;
 }
 
+.overflow-hidden {
+    overflow: hidden;
+}
 .card-bg {
     background-color: var(--cardBody);
     -webkit-transition: background-color 0.7s, background-color 0.4s;
