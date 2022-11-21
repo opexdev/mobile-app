@@ -81,7 +81,7 @@ const MarketInfo = () => {
                     </div>
 
                 </div>
-                <div className={`${classes.content}`}>
+                <div className={`${classes.content} overflow-hidden`}>
                     {content()}
                 </div>
             </div>

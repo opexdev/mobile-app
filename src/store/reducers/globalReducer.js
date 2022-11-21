@@ -1,10 +1,10 @@
 import * as actionTypes from "../actions/actionTypes";
-import {ACTIVE_ACTION_SHEET, Active_Action_Sheet} from "../actions/actionTypes";
 
 const initialState = {
     isDark: true,
     isLoading: true,
     hasError: false,
+    marketInterval: "24h",
     showSideMenu: false,
     activeOrderLayout: false,
     activeActionSheet: {
@@ -41,6 +41,11 @@ const globalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 hasError: action.error,
+            };
+        case actionTypes.Set_MARKET_INTERVAL:
+            return {
+                ...state,
+                marketInterval: action.interval
             };
         case actionTypes.SET_SHOW_SIDE_MENU:
             return {

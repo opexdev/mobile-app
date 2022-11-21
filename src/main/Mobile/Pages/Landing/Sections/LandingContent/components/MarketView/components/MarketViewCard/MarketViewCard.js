@@ -11,7 +11,7 @@ const MarketViewCard = ({title , data , error , isLoading ,volume}) => {
 
     const {t} = useTranslation();
 
-    console.log("data" , data)
+    /*console.log("data" , data)*/
 
     const content = () => {
         if (isLoading) return <span className={`py-3 width-100`}><Loading type="linear"/></span>
