@@ -35,7 +35,7 @@ const MostDecreasedPrice = ({mostDecreasedPrice}) => {
                     <span className={`${i18n.language !== "fa" ? 'mL-025' : 'mr-025'} fs-01`}>{new BN(mostDecreasedPrice?.lastPrice).toFormat()}</span>
                 </div>
                 <div className={`row jc-end ai-center width-100 text-green mt-05`}>
-                    <span>% {new BN(mostDecreasedPrice?.mostDecreasedPrice).toFormat(2)}+</span>
+                    <span>% {new BN(mostDecreasedPrice?.priceChangePercent).toFormat(2)}+</span>
                 </div>
             </div>
 

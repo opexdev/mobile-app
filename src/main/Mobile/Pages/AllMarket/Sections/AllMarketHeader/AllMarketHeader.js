@@ -18,11 +18,11 @@ const AllMarketHeader = () => {
                 <h2 className={`ml-2`}>{t("market.title")}</h2>
                 {/*<span className={`fs-0-8 mr-025`}>( {t("marketInterval." + interval)} )</span>*/}
 
-                <div className={`mr-2 fs-0-7`}>
+                <div className={`mr-2 fs-0-8`}>
 
-                    <span className={`px-2 py-1 rounded-5 cursor-pointer hover-text ${interval === "24h" && classes.active}`} onClick={()=>dispatch(setMarketInterval("24h"))}>{t("marketInterval.24h")}</span>
-                    <span className={`px-2 py-1 rounded-5 cursor-pointer hover-text ${interval === "7d" && classes.active}`} onClick={()=>dispatch(setMarketInterval("7d"))}>{t("marketInterval.7d")}</span>
-                    <span className={`px-2 py-1 rounded-5 cursor-pointer hover-text ${interval === "1M" && classes.active}`} onClick={()=>dispatch(setMarketInterval("1M"))}>{t("marketInterval.1M")}</span>
+                    <span className={`px-2 py-1 rounded-5 cursor-pointer hover-text ${interval === "24h" && classes.active}`} onClick={()=>dispatch(setMarketInterval("24h"))}>{t("marketIntervalMini.24h")}</span>
+                    <span className={`px-2 py-1 rounded-5 cursor-pointer hover-text ${interval === "7d" && classes.active}`} onClick={()=>dispatch(setMarketInterval("7d"))}>{t("marketIntervalMini.7d")}</span>
+                    <span className={`px-2 py-1 rounded-5 cursor-pointer hover-text ${interval === "1M" && classes.active}`} onClick={()=>dispatch(setMarketInterval("1M"))}>{t("marketIntervalMini.1M")}</span>
 
 
                 </div>

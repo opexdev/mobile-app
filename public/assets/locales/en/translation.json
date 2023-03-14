@@ -75,6 +75,11 @@
     "7d": "7 days",
     "1M": "30 days"
   },
+  "marketIntervalMini": {
+    "24h": "24 h",
+    "7d": "7 d",
+    "1M": "30 d"
+  },
   "routes": {
     "/panel/settings/profile": "User Profile",
     "/panel/settings/security": "Security",
