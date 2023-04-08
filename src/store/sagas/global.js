@@ -85,7 +85,7 @@ export function* loadConfig(action) {
         yield call([localStorage, 'removeItem'], "refreshToken")
         const jwt = jwtDecode(action.token)
         yield put(actions.setUserInfo(jwt));
-        yield getUserAccount();
+       // yield getUserAccount();
         return yield put(actions.setLoading(false));
     }
 
@@ -107,7 +107,7 @@ export function* loadConfig(action) {
             yield call([localStorage, 'setItem'], "refreshToken", refreshToken)
             yield put(actions.setUserTokens({refreshToken, accessToken: access_token}));
             yield put(actions.setUserInfo(jwt));
-            yield getUserAccount();
+           // yield getUserAccount();
         } catch (e) {
             yield put(actions.setLogoutInitiate());
         }

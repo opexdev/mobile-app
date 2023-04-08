@@ -47,8 +47,8 @@ const OpenOrders = () => {
             <table className="text-center double-striped" cellSpacing="0" cellPadding="0">
                 <thead className="th-border-y">
                 <tr>
-                    <th>{t("date")}</th>
-                    <th>{t("time")}</th>
+                    {/*<th>{t("date")}</th>
+                    <th>{t("time")}</th>*/}
                     <th>
                         {t("volume")}({activePair.baseAsset})
                     </th>
@@ -68,13 +68,24 @@ const OpenOrders = () => {
                         const pricePerUnit = new BN(tr.price)
                         const totalPrice = pricePerUnit.multipliedBy(origQty)
                         return (<Fragment key={index}>
-                            <tr className={tr.side === "BUY" ? "text-green" : "text-red"}>
-                                <td><Date date={tr.time}/></td>
-                                <td>{moment(tr.time).format("HH:mm:ss")}</td>
-                                <td>{origQty.decimalPlaces(activePair.baseAssetPrecision).toFormat()}</td>
-                                <td>{pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</td>
-                                <td>{totalPrice.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</td>
-                                <td>{executedQty.dividedBy(origQty).multipliedBy(100).toFormat(0)}</td>
+                            <tr className={` ${tr.side} === "BUY" ? "text-green" : "text-red"  row width-100`}>
+                                <td className={`column`}>
+                                   <span> <Date date={tr.time}/></span>
+                                   <span>{moment(tr.time).format("HH:mm:ss")}</span>
+                                </td>
+                                <td className={`column`}>
+                                    <span>{origQty.decimalPlaces(activePair.baseAssetPrecision).toFormat()}</span>
+                                    <span>{pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span>
+                                </td>
+                                <td className={`column`}>
+                                    <span>{totalPrice.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span>
+                                    <span>{executedQty.dividedBy(origQty).multipliedBy(100).toFormat(0)}</span>
+                                </td>
+                                {/*<td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>*/}
                                 <td
                                     onClick={() => cancelOrder(tr.orderId)}
                                     data-html={true}
