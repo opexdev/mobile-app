@@ -43,10 +43,14 @@ const Trades = () => {
                     <th>{t("date")}</th>
                     <th>{t("time")}</th>
                     <th>
-                        {t("volume")}({activePair.baseAsset})
+                        {t("volume")}
+                        <br/>
+                        ({activePair.baseAsset})
                     </th>
                     <th>
-                        {t("pricePerUnit")}({activePair.quoteAsset})
+                        {t("pricePerUnit")}
+                        <br/>
+                        ({activePair.quoteAsset})
                     </th>
                     <th>{t("totalPrice")}</th>
                     <th/>

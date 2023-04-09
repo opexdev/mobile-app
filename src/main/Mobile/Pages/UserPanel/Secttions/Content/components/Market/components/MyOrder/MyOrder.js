@@ -31,7 +31,7 @@ const MyOrder = () => {
         ];
 
     return (
-        <div className={`container width-100 card-bg card-border column ${classes.container}`}>
+        <div className={`width-100 card-bg card-border ${classes.container}`}>
             <AccordionBox
                 title={t("myOrders.title")}
                 content={data}

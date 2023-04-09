@@ -47,8 +47,8 @@ const OpenOrders = () => {
             <table className="text-center double-striped" cellSpacing="0" cellPadding="0">
                 <thead className="th-border-y">
                 <tr>
-                    {/*<th>{t("date")}</th>
-                    <th>{t("time")}</th>*/}
+  {/*                  <th>{t("date")}</th>
+                    <th>{t("time")}</th>
                     <th>
                         {t("volume")}({activePair.baseAsset})
                     </th>
@@ -56,7 +56,10 @@ const OpenOrders = () => {
                         {t("pricePerUnit")}({activePair.quoteAsset})
                     </th>
                     <th>{t("totalPrice")}</th>
-                    <th>{t("myOrders.donePercentage")}</th>
+                    <th>{t("myOrders.donePercentage")}</th>*/}
+                    <th/>
+                    <th/>
+                    <th/>
                     <th/>
                     <th/>
                 </tr>
@@ -68,51 +71,50 @@ const OpenOrders = () => {
                         const pricePerUnit = new BN(tr.price)
                         const totalPrice = pricePerUnit.multipliedBy(origQty)
                         return (<Fragment key={index}>
-                            <tr className={` ${tr.side} === "BUY" ? "text-green" : "text-red"  row width-100`}>
-                                <td className={`column`}>
-                                   <span> <Date date={tr.time}/></span>
+                            <tr className={` ${tr.side === "BUY" ? "text-green" : "text-red"}  width-100`}>
+                                <td className={``}>
+                                   <span> <Date date={tr.time}/></span> <br/>
                                    <span>{moment(tr.time).format("HH:mm:ss")}</span>
                                 </td>
-                                <td className={`column`}>
-                                    <span>{origQty.decimalPlaces(activePair.baseAssetPrecision).toFormat()}</span>
+                                <td className={``}>
+                                    <span>{origQty.decimalPlaces(activePair.baseAssetPrecision).toFormat()}</span><br/>
                                     <span>{pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span>
                                 </td>
-                                <td className={`column`}>
-                                    <span>{totalPrice.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span>
+                                <td className={``}>
+                                    <span>{totalPrice.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span><br/>
                                     <span>{executedQty.dividedBy(origQty).multipliedBy(100).toFormat(0)}</span>
                                 </td>
-                                {/*<td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>*/}
-                                <td
-                                    onClick={() => cancelOrder(tr.orderId)}
-                                    data-html={true}
-                                    data-place="bottom"
-                                    data-effect="float"
-                                    data-tip={t("myOrders.cancelOrder")}
-                                >
-                                    <Icon
-                                        iconName="icon-cancel text-red fs-0-7"
-                                        customClass={`${classes.iconBG} cursor-pointer`}
-                                    />
+                                <td className={``}>
+                                    <span
+                                        onClick={() => cancelOrder(tr.orderId)}
+                                        data-html={true}
+                                        data-place="bottom"
+                                        data-effect="float"
+                                        data-tip={t("myOrders.cancelOrder")}
+
+                                    >
+                                        <Icon
+                                            iconName="icon-cancel text-red fs-0-9"
+                                            customClass={`${classes.iconBG} cursor-pointer`}
+                                        />
+                                    </span><br/>
+                                    {openOrder === index ? (
+                                        <span onClick={() => setOpenOrder(null)}>
+                                        <Icon
+                                            iconName="icon-up-open text-blue fs-0-9"
+                                            customClass={`${classes.iconBG} cursor-pointer`}
+                                        />
+                                    </span>
+                                    ) : (
+                                        <span onClick={() => setOpenOrder(index)}>
+                                        <Icon
+                                            iconName="icon-down-open text-blue fs-0-9"
+                                            customClass={`${classes.iconBG} cursor-pointer`}
+                                        />
+                                    </span>
+                                    )}
                                 </td>
-                                {openOrder === index ? (
-                                    <td onClick={() => setOpenOrder(null)}>
-                                        <Icon
-                                            iconName="icon-up-open text-blue fs-0-7"
-                                            customClass={`${classes.iconBG} cursor-pointer`}
-                                        />
-                                    </td>
-                                ) : (
-                                    <td onClick={() => setOpenOrder(index)}>
-                                        <Icon
-                                            iconName="icon-down-open text-blue fs-0-7"
-                                            customClass={`${classes.iconBG} cursor-pointer`}
-                                        />
-                                    </td>
-                                )}
+                                
                             </tr>
                             <tr style={{display: openOrder === index ? "revert" : "none"}}>
                                 <td colSpan="8" className={`py-1 px-1 fs-0-9`}>

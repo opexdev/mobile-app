@@ -7,14 +7,14 @@ import MarketChart from "./components/MarketChart/MarketChart";
 const TradingView = () => {
     const {t} = useTranslation();
 
-    /*const charts = [
+    const charts = [
         {title: t("charts.globalChart"), body: <MarketChart/>},
         {title: t("charts.opexChart"), body: <MarketChart type="Opex"/>},
-    ];*/
-    const charts = [
+    ];
+    /*const charts = [
         {title: t("charts.globalChart"), body: ""},
         {title: t("charts.opexChart"), body: ""},
-    ];
+    ];*/
 
     return (
         <div className={`width-100 ${classes.container} card-bg card-border`}>

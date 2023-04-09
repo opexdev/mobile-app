@@ -1,6 +1,8 @@
 .container {
-    height: 100%;
-    border-radius: 9px;
+    height: 100%;/*
+    border-radius: 9px;*/
+
+    /*height: 60vh;*/
 }
 .iconBG {
     vertical-align: middle;
