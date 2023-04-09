@@ -57,11 +57,22 @@ const OpenOrders = () => {
                     </th>
                     <th>{t("totalPrice")}</th>
                     <th>{t("myOrders.donePercentage")}</th>*/}
-                    <th/>
-                    <th/>
-                    <th/>
-                    <th/>
-                    <th/>
+                    <th className={`text-start pr-2`}>
+                        {t("date")}
+                        <br/>
+                        {t("time")}
+                    </th>
+                    <th>
+                        {t("volume")}{/*({activePair.baseAsset})*/}
+                        <br/>
+                        {t("pricePerUnit")}{/*({activePair.quoteAsset})*/}
+                    </th>
+                    <th>
+                        {t("totalPrice")}
+                        <br/>
+                        {t("myOrders.donePercentage")}
+                    </th>
+                    <th className={`pl-2`}/>
                 </tr>
                 </thead>
                 <tbody>
@@ -71,20 +82,20 @@ const OpenOrders = () => {
                         const pricePerUnit = new BN(tr.price)
                         const totalPrice = pricePerUnit.multipliedBy(origQty)
                         return (<Fragment key={index}>
-                            <tr className={` ${tr.side === "BUY" ? "text-green" : "text-red"}  width-100`}>
-                                <td className={``}>
+                            <tr className={` ${tr.side === "BUY" ? "text-green" : "text-red"}`}>
+                                <td className={`text-start pr-2`}>
                                    <span> <Date date={tr.time}/></span> <br/>
                                    <span>{moment(tr.time).format("HH:mm:ss")}</span>
                                 </td>
                                 <td className={``}>
-                                    <span>{origQty.decimalPlaces(activePair.baseAssetPrecision).toFormat()}</span><br/>
-                                    <span>{pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span>
+                                    <span>({activePair.baseAsset}) {origQty.decimalPlaces(activePair.baseAssetPrecision).toFormat()} </span><br/>
+                                    <span>({activePair.quoteAsset}) {pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span>
                                 </td>
                                 <td className={``}>
                                     <span>{totalPrice.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span><br/>
                                     <span>{executedQty.dividedBy(origQty).multipliedBy(100).toFormat(0)}</span>
                                 </td>
-                                <td className={``}>
+                                <td className={`text-end pl-2`}>
                                     <span
                                         onClick={() => cancelOrder(tr.orderId)}
                                         data-html={true}
@@ -117,7 +128,7 @@ const OpenOrders = () => {
                                 
                             </tr>
                             <tr style={{display: openOrder === index ? "revert" : "none"}}>
-                                <td colSpan="8" className={`py-1 px-1 fs-0-9`}>
+                                <td colSpan="8" className={`py-1 px-2 fs-0-9`}>
                                     <div className="row jc-between  ai-center"
                                         style={{width: "100%"}}>
                                         <p className="width-47 row jc-between">
