@@ -5,6 +5,10 @@
 .container:last-child{
     margin-left: initial;
 }
+:global(.ltr) .container:last-child{
+    margin-left: 5vw;
+    margin-right: initial;
+}
 
 .header {
     height: 33%;

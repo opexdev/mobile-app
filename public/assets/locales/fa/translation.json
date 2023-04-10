@@ -75,6 +75,11 @@
     "7d": "7 روز",
     "1M": "30 روز"
   },
+  "marketIntervalMini": {
+    "24h": "24 س",
+    "7d": "7 ر",
+    "1M": "30 ر"
+  },
   "routes": {
     "/panel/settings/profile": "مشخصات کاربری",
     "/panel/settings/security": "امنیت",

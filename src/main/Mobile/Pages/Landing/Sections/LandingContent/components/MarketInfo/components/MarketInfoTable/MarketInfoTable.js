@@ -9,6 +9,7 @@ import {setActivePairInitiate} from "../../../../../../../../../../store/actions
 import {BN} from "../../../../../../../../../../utils/utils";
 import {LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions} from "react-swipeable-list";
 import Button from "../../../../../../../../../../components/Button/Button";
+import i18n from "i18next";
 
 const MarketInfoTable = ({data, activeCurrency}) => {
 
@@ -31,9 +32,13 @@ const MarketInfoTable = ({data, activeCurrency}) => {
         <LeadingActions>
             <SwipeAction
                 onClick={() => {
-
-                    if (swipLeft === index) return setSwipLeft(null)
-                    return setSwipRight(prevState => prevState === index ? null : index)
+                    if (i18n.language === "fa") {
+                        if (swipLeft === index) return setSwipLeft(null)
+                        return setSwipRight(prevState => prevState === index ? null : index)
+                    } else {
+                        if (swipRight === index) return setSwipRight(null)
+                        return setSwipLeft(prevState => prevState === index ? null : index)
+                    }
                 }}
             />
         </LeadingActions>
@@ -44,8 +49,13 @@ const MarketInfoTable = ({data, activeCurrency}) => {
             <SwipeAction
                 destructive={false}
                 onClick={() => {
-                    if (swipRight === index) return setSwipRight(null)
-                    return setSwipLeft(prevState => prevState === index ? null : index)
+                    if (i18n.language === "fa") {
+                        if (swipRight === index) return setSwipRight(null)
+                        return setSwipLeft(prevState => prevState === index ? null : index)
+                    } else {
+                        if (swipLeft === index) return setSwipLeft(null)
+                        return setSwipRight(prevState => prevState === index ? null : index)
+                    }
                 }}
             />
         </TrailingActions>

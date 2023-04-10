@@ -11,8 +11,16 @@
     transform: translateX(25vw);
     transition: transform 0.5s ease-out;
 }
+:global(.ltr) .activeSwipRight {
+    transform: translateX(-25vw);
+    transition: transform 0.5s ease-out;
+}
 .activeSwipLeft {
     transform: translateX(-32vw);
+    transition: transform 0.5s ease-out;
+}
+:global(.ltr) .activeSwipLeft {
+    transform: translateX(32vw);
     transition: transform 0.5s ease-out;
 }
 

@@ -21,7 +21,7 @@ export function* getUserKYCStatus() {
     }
 }
 
-export function* getUserAccount() {
+/*export function* getUserAccount() {
     const timestamp = Date.now()
     const params = new URLSearchParams();
     params.append('timestamp', timestamp.toString());
@@ -37,8 +37,9 @@ export function* getUserAccount() {
     } catch (e) {
         console.log(e)
     }
-}
+}*/
 
+/*
 export const parseWalletsResponse = (res) => {
     let wallets = {}
     res.balances.forEach((wallet) => {
@@ -55,4 +56,4 @@ export const parseWalletsResponse = (res) => {
         wallets: wallets,
         isServerData : true
     };
-}
+}*/

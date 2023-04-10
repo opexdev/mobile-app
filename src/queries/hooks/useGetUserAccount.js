@@ -6,6 +6,7 @@ export const useGetUserAccount = () => {
     return useQuery(['userAccount'], getUserAccountFunc,
         {
             retry: 1,
+            refetchInterval: 10000
         }
     );
 }

@@ -15,6 +15,7 @@ import {LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingA
 const AllMarketInfoTable = ({data, activeCurrency}) => {
 
     const {t} = useTranslation();
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const allExchangeSymbols = useSelector((state) => state.exchange.symbols)
@@ -32,9 +33,13 @@ const AllMarketInfoTable = ({data, activeCurrency}) => {
         <LeadingActions>
             <SwipeAction
                 onClick={() => {
-
-                    if (swipLeft === index) return setSwipLeft(null)
-                    return setSwipRight(prevState => prevState === index ? null : index)
+                    if (i18n.language === "fa") {
+                        if (swipLeft === index) return setSwipLeft(null)
+                        return setSwipRight(prevState => prevState === index ? null : index)
+                    } else {
+                        if (swipRight === index) return setSwipRight(null)
+                        return setSwipLeft(prevState => prevState === index ? null : index)
+                    }
                 }}
             />
         </LeadingActions>
@@ -45,8 +50,13 @@ const AllMarketInfoTable = ({data, activeCurrency}) => {
             <SwipeAction
                 destructive={false}
                 onClick={() => {
-                    if (swipRight === index) return setSwipRight(null)
-                    return setSwipLeft(prevState => prevState === index ? null : index)
+                    if (i18n.language === "fa") {
+                        if (swipRight === index) return setSwipRight(null)
+                        return setSwipLeft(prevState => prevState === index ? null : index)
+                    } else {
+                        if (swipLeft === index) return setSwipLeft(null)
+                        return setSwipRight(prevState => prevState === index ? null : index)
+                    }
                 }}
             />
         </TrailingActions>
