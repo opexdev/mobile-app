@@ -17,28 +17,22 @@ const WalletSubHeader = () => {
     const allEstimateValue = (isLoading || error) ?  0 : (estimateValue?.find( q => q.asset === id ))
 
     return (
-        <div className={`my-5`}>
-            <div className={`col-25`}>
-                <h2 className={`text-orange mb-05`}>{t("currency." + id)}</h2>
-                <span className={`text-orange mt-05`}>{id}</span>
-            </div>
+        <div className={`my-1 row`}>
+
             <div className={`col-35 column ai-center`}>
                 <span className={`mb-05`}>{t("header.free")}</span>
-                <span className={`mt-05`}>{new BN(userAccount?.wallets[id]?.free || 0).toFormat()}
-                    <span className={`fs-0-7 text-gray`}> ( {refCurrency === id ? new BN(userAccount?.wallets[id]?.free || 0).toFormat() : new BN(allEstimateValue?.free || 0).toFormat()} {t("currency."+refCurrency)} )</span>
-                </span>
+                <span className={`mt-05`}>{new BN(userAccount?.wallets[id]?.free || 0).toFormat()}</span>
+                <span className={`fs-0-7 text-gray`}> ( {refCurrency === id ? new BN(userAccount?.wallets[id]?.free || 0).toFormat() : new BN(allEstimateValue?.free || 0).toFormat()} {t("currency."+refCurrency)} )</span>
             </div>
             <div className={`col-35 column ai-center ${classes.border}`}>
                 <span className={`mb-05`}>{t("header.locked")}</span>
-                <span className={`mt-05`}>{new BN(userAccount?.wallets[id]?.locked || 0).toFormat()}
-                    <span className={`fs-0-7 text-gray`}> ( {refCurrency === id ? new BN(userAccount?.wallets[id]?.locked || 0).toFormat() : new BN(allEstimateValue?.locked || 0).toFormat()} {t("currency."+refCurrency)} )</span>
-                </span>
+                <span className={`mt-05`}>{new BN(userAccount?.wallets[id]?.locked || 0).toFormat()}</span>
+                <span className={`fs-0-7 text-gray`}> ( {refCurrency === id ? new BN(userAccount?.wallets[id]?.locked || 0).toFormat() : new BN(allEstimateValue?.locked || 0).toFormat()} {t("currency."+refCurrency)} )</span>
             </div>
             <div className={`col-35 column ai-center`}>
                 <span className={`mb-05`}>{t("header.inWithdrawalProcess")}</span>
-                <span className={`mt-05`}>{new BN(userAccount?.wallets[id]?.withdraw || 0).toFormat()}
-                    <span className={`fs-0-7 text-gray`}> ( {refCurrency === id ? new BN(userAccount?.wallets[id]?.withdraw || 0).toFormat() : new BN(allEstimateValue?.withdrawing || 0).toFormat()} {t("currency."+refCurrency)} )</span>
-                </span>
+                <span className={`mt-05`}>{new BN(userAccount?.wallets[id]?.withdraw || 0).toFormat()}</span>
+                <span className={`fs-0-7 text-gray`}> ( {refCurrency === id ? new BN(userAccount?.wallets[id]?.withdraw || 0).toFormat() : new BN(allEstimateValue?.withdrawing || 0).toFormat()} {t("currency."+refCurrency)} )</span>
             </div>
         </div>
     );
