@@ -1,5 +1,4 @@
 import * as actionTypes from "./actionTypes";
-import {ACTIVE_ACTION_SHEET} from "./actionTypes";
 
 export const setThemeInitiate = (isDark) => {
   return {

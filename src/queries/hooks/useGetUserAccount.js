@@ -1,4 +1,3 @@
-/*
 import {useQuery} from "@tanstack/react-query";
 import {getUserAccount, parseWalletsResponse} from "js-api-client";
 
@@ -16,4 +15,4 @@ export const getUserAccountFunc = async () => {
     params.append('timestamp', Date.now().toString());
     const {data} = await getUserAccount()
     return parseWalletsResponse(data);
-}*/
+}

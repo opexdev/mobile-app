@@ -1,7 +1,7 @@
 import React from "react";
 import Icon from "../Icon/Icon";
 import Select from "react-select";
-import * as classes from "./TextInput.module.css";
+import classes from "./TextInput.module.css";
 
 const TextInput = (props) => {
     const {customRef,readOnly,onchange,customClass,options, lead , after ,select ,alerts ,max , ...other} = props

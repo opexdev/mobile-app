@@ -19,7 +19,9 @@ export {
     setLastPrice,
     setLastTradePrice,
     setIPG,
-    setIPGInitiate
+    setIPGInitiate,
+    setVerifyEmailLock,
+    setVerifyEmailLockInitiate
 
 } from "./exchange";
 
@@ -32,7 +34,8 @@ export {
     changeUserInfo,
     setUserAccountInfo,
     setUserAccountInfoInitiate,
-    setKYCStatus
+    setKYCStatus,
+    setKYCStatusInitiate
 } from "./auth";
 
 

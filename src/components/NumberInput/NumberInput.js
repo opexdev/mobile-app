@@ -1,6 +1,6 @@
 import React from "react";
 import NumberFormat from "react-number-format";
-import * as classes from "./NumberInput.module.css";
+import classes from "./NumberInput.module.css";
 import Icon from "../Icon/Icon";
 
 const NumberInput = (props) => {
