@@ -12,7 +12,7 @@ const WalletBalance = () => {
     const {data , isLoading, error} = useGetUserAssetsEstimatedValue(refCurrency)
     const totalValue = (isLoading || error) ?  0 : data.value
 
-    return ( <div className={"container row ai-center cursor-pointer position-relative px-1 py-105"} style={{cursor:"initial"}}>
+    return ( <div className={"row ai-center cursor-pointer position-relative px-3 py-105"} style={{cursor:"initial"}}>
             <div className={` row jc-start ai-center ${classes.PairImage}`}>
                 <img
                     className={`img-md flex`}

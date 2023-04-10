@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "../../WalletSubMenu.module.css";
-import {NavLink} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {images} from "../../../../../../../../../../assets/images";
 import * as Routes from "../../../../../../../../Routes/routes";
@@ -9,7 +9,9 @@ import {useGetUserAccount} from "../../../../../../../../../../queries/hooks/use
 import {useGetUserAssets} from "../../../../../../../../../../queries";
 
 const WalletListItem = ({assetName, showZero}) => {
+
     const {t} = useTranslation();
+    const {path} = useParams()
     const refCurrency = window.env.REACT_APP_REFERENCE_FIAT_CURRENCY
     const {data: userAccount} = useGetUserAccount()
     const free = userAccount?.wallets[assetName]?.free || 0
@@ -19,12 +21,16 @@ const WalletListItem = ({assetName, showZero}) => {
 
     if (showZero && free === 0) return <></>
 
+    console.log("asset: ",  assetName)
+
     return (
         <NavLink
             className={({isActive}) =>
-                isActive ? "width-100 row ai-center cursor-pointer position-relative px-1 py-105 " + classes.selected : "width-100 row ai-center cursor-pointer position-relative px-1 py-105"
+                isActive ? "width-100 row ai-center cursor-pointer position-relative px-3 py-105 " + classes.selected : "width-100 row ai-center cursor-pointer position-relative px-3 py-105"
             }
-            to={Routes.Wallet + "/" + assetName}>
+            to={`${Routes.Wallet}/${assetName}/${path}`}
+            >
+
             <div className={` row jc-start ai-center ${classes.PairImage}`}>
                 <img
                     className={`img-md flex`}
