@@ -5,7 +5,7 @@ const initialState = {
     pairs: [],
     symbols: [],
     activePair: {},
-    lastPrice:{},
+    //lastPrice:{},
     activePairOrders: {
         bestBuyPrice: 0,
         bestSellPrice: 0,
@@ -20,6 +20,7 @@ const initialState = {
         },
     },
     ipgLock: null,
+    verifyEmailLock: null,
 };
 
 const exchangeReducer = (state = initialState, action) => {
@@ -28,6 +29,11 @@ const exchangeReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ipgLock: action.lockTime,
+            };
+        case actionTypes.SET_VERIFY_EMAIL_LOCK:
+            return {
+                ...state,
+                verifyEmailLock: action.verifyEmailLockTime,
             };
         case actionTypes.SET_ACTIVE_PAIR:
             return {
@@ -71,14 +77,6 @@ const exchangeReducer = (state = initialState, action) => {
                     },
                 },
             };
-        case actionTypes.SET_LAST_TRADE_PRICE:
-            return {
-                ...state,
-                activePairOrders: {
-                    ...state.activePairOrders,
-                    lastTradePrice: action.lastTradePrice
-                },
-            };
         case actionTypes.SET_SELL_ORDERS:
             return {
                 ...state,
@@ -93,15 +91,7 @@ const exchangeReducer = (state = initialState, action) => {
         case actionTypes.SET_EXCHANGE:
             return {
                 ...state,
-               ...action.exchangeInfo
-            };
-        case actionTypes.SET_LAST_PRICE:
-            return {
-                ...state,
-                lastPrice: {
-                    ...state.lastPrice,
-                    ...action.lastPrice
-                }
+                ...action.exchangeInfo
             };
         default:
             return state;

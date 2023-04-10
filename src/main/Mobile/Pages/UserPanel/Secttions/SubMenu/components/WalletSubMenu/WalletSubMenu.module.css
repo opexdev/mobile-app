@@ -1,0 +1,61 @@
+.container {
+    /*height: 100vh;*/
+}
+.header {
+    height: 10%;
+    z-index: 100;
+    vertical-align: middle;
+}
+.header h2 {
+    color: var(--orange);
+}
+.header span {
+    width: 50%;
+    text-align: center;
+}
+.content {
+    height: 81%;
+}
+.footer{
+    height: 9%;
+}
+.content div {
+    display: flex;
+    align-items: center;
+}
+.PairRow{
+    /*height: 6vh;*/
+}
+.PairImage {
+    width: 15%;
+}
+.pairDetails {
+    width: 85%;
+}
+.container a {
+    /*height: 8.5vh;*/
+}
+.loadingImg {
+    background: var(--mainContent);
+    height: 2.3vw;
+    border-radius: 50%;
+}
+.loadingText {
+    background: var(--mainContent);
+    height: 3.5vh;
+    margin: 0.5vh 0;
+    border-radius: 4px;
+}
+.selected{
+    background-color: var(--mainContent);
+}
+.selected {
+    background-color: var(--mainContent);
+    border-radius: 10px;
+    transition: 0.4s background-color;
+    width: 97% !important;
+}
+:global(.ltr) .selected {
+    border-radius: 10px;
+}
+
