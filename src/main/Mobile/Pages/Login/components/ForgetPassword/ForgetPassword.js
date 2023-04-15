@@ -91,7 +91,7 @@ const ForgetPassword = ({returnFunc}) => {
         if (captcha.image.value === undefined ) {
             return <span>{t('captchaAnswer')}</span>
         }
-        return <span style={{backgroundImage: `url("${captcha.image.value}")`}}/>
+        return <img src={captcha.image.value} className={`height-100`} alt={t('captchaAnswer')}/>
     }
 
 

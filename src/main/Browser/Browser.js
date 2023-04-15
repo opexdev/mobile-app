@@ -9,11 +9,15 @@ import useQuery from "../../Hooks/useQuery";
 import useInterval from "../../Hooks/useInterval";
 import {setLastPriceInitiate} from "../../store/actions/exchange";
 import FullWidthError from "../../components/FullWidthError/FullWidthError";
+import {useNavigate} from "react-router-dom";
 
 
 const Browser = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const query = useQuery();
+
 
     const isDark = useSelector((state) => state.global.isDark)
     const isLoading = useSelector((state) => state.global.isLoading)
@@ -37,6 +41,18 @@ const Browser = () => {
             window.removeEventListener('online', () => dispatch(setInfoMessage(null, null)));
         }
     }, []);
+
+
+    const redirectURL = window.env.REACT_APP_REDIRECT_URL
+
+    const redirectFunc = () => {
+        window.location.replace(redirectURL);
+    };
+
+    useEffect(()=>{
+        redirectFunc()
+    }, [])
+
 
 
     useInterval(() => {
@@ -81,8 +97,16 @@ const Browser = () => {
     if (hasError) {
         return <FullWidthError/>
     }
+
+
+
+
     return (
-        <div className={`flex jc-center ai-center card-header-bg text-color fs-04`} style={{height: "100vh", direction:"ltr"}}>Open in Mobile ...</div>
+        <div className={`flex jc-center ai-center card-header-bg text-color fs-04`} style={{height: "100vh", direction:"ltr"}}>
+
+            Open in Mobile ...
+
+        </div>
     );
 };
 

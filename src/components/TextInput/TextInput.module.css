@@ -94,7 +94,7 @@
   justify-content: center;
 }
 .alert {
-  font-size: 0.7vw;
+  /*font-size: 0.7vw;*/
   color: var(--red);
   line-height:2.8vh;
 }
