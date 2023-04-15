@@ -3,9 +3,9 @@ import classes from './WalletSubMenu.module.css'
 import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
 import ToggleSwitch from "../../../../../../../../components/ToggleSwitch/ToggleSwitch";
-import WalletBalance from "./components/WalletBalance/WalletBalance";
 import ScrollBar from "../../../../../../../../components/ScrollBar";
 import WalletListItem from "./components/WalletListItem/WalletListItem";
+import WalletBalance from "./components/WalletBalance/WalletBalance";
 
 
 const WalletSubMenu = () => {

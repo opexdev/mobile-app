@@ -43,7 +43,7 @@ const Browser = () => {
     }, []);
 
 
-    const redirectURL = window.env.REACT_APP_REDIRECT_URL
+    const redirectURL = window.env.REACT_APP_BROWSER_URL
 
     const redirectFunc = () => {
         window.location.replace(redirectURL);
