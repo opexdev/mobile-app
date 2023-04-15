@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 
 const LoginFormLoading = ({isDark}) => {
     return <div className= "flex jc-center ai-center" style={{height: "35vh"}}>
-        <img style={{width: "2.5vw", textAlign: "center"}} src={isDark ? images.squareLoading : images.squareLoadingLight} alt="Loading"/>
+        <img style={{width: "8vw", textAlign: "center"}} src={isDark ? images.squareLoading : images.squareLoadingLight} alt="Loading"/>
     </div>
 }
 

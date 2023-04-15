@@ -46,7 +46,7 @@ const TextInput = (props) => {
                 iconName={`${classes.iconInfo} text-white fs-0-6 flex`}
                 customClass="hint-icon"
             />
-            <div className="column pt-05">
+            <div className="column pt-05 fs-0-7">
                 { alerts.map((alert , index) => <span key={index} className={`${classes.alert} pr-05 `}>{alert}</span>) }
             </div>
         </div>

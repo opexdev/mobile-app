@@ -48,8 +48,8 @@
     width: 75%;
 }
 
-.loginInput{
-    width: 75%;
+.loginInput {
+    width: 85%;
     margin-bottom: 1vh;
 }
 .loginInput > div{
@@ -84,7 +84,7 @@
 }
 
 .thisLoading{
-    width: 5vw;
+    width: 9vw;
 }
 
 .loginInput.otpInput :global(input){
