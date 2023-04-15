@@ -10,6 +10,7 @@ import * as RoutesName from "../../../../../../../../Routes/routes";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
+import i18n from "i18next";
 
 const OrderSection = () => {
 
@@ -45,7 +46,7 @@ const OrderSection = () => {
         <>
             <div className={`width-100 col-06 row jc-around ai-center`}>
                 <div className={`width-100 col-10 flex jc-center ai-center ${classes.headerItem}`}>
-                    <Icon iconName="icon-right-open fs-01 flex" onClick={BackClickHandler}/>
+                    <Icon iconName={`${i18n.language !== "fa" ? 'icon-left-open': 'icon-right-open'} fs-01 flex`} onClick={BackClickHandler}/>
                 </div>
                 <div className={`width-100 col-38 row jc-center ai-center ${classes.headerItem}`} onClick={()=>setShowChart(false)}>
                     <Icon iconName={`icon-orderbook fs-04 flex ${showChart ?  '' : 'text-blue fs-05'}`} customClass={`ml-1`}/>
@@ -64,7 +65,7 @@ const OrderSection = () => {
                     />
                 </div>
                 <div className={`width-100 col-10 flex jc-center ai-center ${classes.headerItem}`}>
-                    <Icon iconName="icon-left-open fs-01 flex" onClick={NextClickHandler}/>
+                    <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open': 'icon-left-open'} fs-01 flex`} onClick={NextClickHandler}/>
 
                 </div>
             </div>

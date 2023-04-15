@@ -36,13 +36,15 @@ const OrderBookSection = () => {
                     buttonClass={`${classes.thisButton} ${classes.buyOrder}`}
                     type="submit"
                     onClick={GoToOrderHandler}
-                    buttonTitle="سفارش خرید"
+                    // buttonTitle="سفارش خرید"
+                    buttonTitle={t("buy")}
                 />
                 <Button
                     buttonClass={`${classes.thisButton} ${classes.sellOrder}`}
                     type="submit"
                     onClick={GoToOrderHandler}
-                    buttonTitle="سفارش فروش"
+                    // buttonTitle="سفارش فروش"
+                    buttonTitle={t("sell")}
                 />
             </div>
         </>

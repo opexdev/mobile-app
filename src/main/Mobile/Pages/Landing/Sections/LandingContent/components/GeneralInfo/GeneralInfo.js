@@ -18,15 +18,15 @@ const GeneralInfo = () => {
         if (error) return <Error/>
         else return <>
             <div className={`column jc-center ai-center`}>
-                <span className={`fs-02`}>{data.activeUsers} </span>
+                <span className={`fs-02`}>{data.activeUsers.toLocaleString()} </span>
                 <span className={`fs-0-7`}>{t("GeneralInfo.activeUsers")}</span>
             </div>
             <div className={`column jc-center ai-center`}>
-                <span className={`fs-02`}>{data.totalOrders} </span>
+                <span className={`fs-02`}>{data.totalOrders.toLocaleString()} </span>
                 <span className={`fs-0-7`}>{t("GeneralInfo.totalOrders")}</span>
             </div>
             <div className={`column jc-center ai-center`}>
-                <span className={`fs-02`}>{data.totalTrades} </span>
+                <span className={`fs-02`}>{data.totalTrades.toLocaleString()} </span>
                 <span className={`fs-0-7`}>{t("GeneralInfo.totalTrades")}</span>
             </div>
         </>

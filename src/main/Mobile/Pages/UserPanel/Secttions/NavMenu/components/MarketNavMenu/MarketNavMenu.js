@@ -4,9 +4,11 @@ import {NavLink} from "react-router-dom";
 import * as Routes from "../../../../../../Routes/routes";
 import Icon from "../../../../../../../../components/Icon/Icon";
 import {useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 const MarketNavMenu = () => {
 
+    const {t} = useTranslation();
 
     const activeOrderLayout = useSelector((state) => state.global.activeOrderLayout)
 
@@ -20,7 +22,7 @@ const MarketNavMenu = () => {
                 }
             >
                 <Icon iconName="icon-overview fs-06"/>
-                <span className={`fs-0-6`}>نمای کلی</span>
+                <span className={`fs-0-7`}>{t("overview.title")}</span>
             </NavLink>
             <NavLink
                 to={Routes.OrderBook}
@@ -29,7 +31,7 @@ const MarketNavMenu = () => {
                 }
             >
                 <Icon iconName="icon-orderbook fs-06"/>
-                <span className={`fs-0-6`}>پیشنهادات</span>
+                <span className={`fs-0-7`}>{t("orderBook.title")}</span>
             </NavLink>
             <NavLink
                 to={Routes.Order}
@@ -38,7 +40,7 @@ const MarketNavMenu = () => {
                 }
             >
                 <Icon iconName="icon-order fs-06"/>
-                <span className={`fs-0-6`}>سفارش</span>
+                <span className={`fs-0-7`}>{t("orders.title")}</span>
             </NavLink>
             <NavLink
                 to={Routes.MyOrder}
@@ -47,7 +49,7 @@ const MarketNavMenu = () => {
                 }
             >
                 <Icon iconName="icon-myorder fs-06"/>
-                <span className={`fs-0-6`}>تراکنش ها</span>
+                <span className={`fs-0-7`}>{t("myOrders.title")}</span>
             </NavLink>
             <NavLink
                 to={Routes.LastTrades}
@@ -56,7 +58,7 @@ const MarketNavMenu = () => {
                 }
             >
                 <Icon iconName="icon-lasttrades fs-06"/>
-                <span className={`fs-0-6`}>اخیر</span>
+                <span className={`fs-0-7`}>{t("LastTrades.title")}</span>
             </NavLink>
         </div>
     );

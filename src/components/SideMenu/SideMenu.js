@@ -14,6 +14,8 @@ import i18n from "i18next";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import *  as Routes from "../../main/Mobile/Routes/routes";
 import {toAbsoluteUrl} from "../../utils/utils";
+import packageJson from "../../../package.json"
+
 
 
 
@@ -149,12 +151,12 @@ const SideMenu = () => {
 
                     <div className={`row ai-center ${classes.languages} my-3`}>
                         {
-                            window.env.REACT_APP_MULTI_LANGS_SUPPORT === 'TRUE' && <>
+                            window.env.REACT_APP_MULTI_LANGS_SUPPORT === 'TRUE' && <div onClick={()=>dispatch(showSideMenu(false))}>
                                <span className="cursor-pointer pl-2"
                                      onClick={() => i18n.changeLanguage("fa")}>{t("Languages.Persian")}</span>
                                 <span className="cursor-pointer pr-2"
                                       onClick={() => i18n.changeLanguage("en")}>{t("Languages.English")}</span>
-                            </>
+                            </div>
                         }
                     </div>
 
@@ -165,7 +167,7 @@ const SideMenu = () => {
 
 
                     <img src={toAbsoluteUrl('/assets/logo/logo.svg')} alt={t("title")} title={t("title")} className={`img-lg-1 mb-1 mt-2`}/>
-                    <span className={`mt-1`}>v1.0.0-beta.1</span>
+                    <span className={`mt-1`}>{packageJson.version}</span>
 
                 </div>
 

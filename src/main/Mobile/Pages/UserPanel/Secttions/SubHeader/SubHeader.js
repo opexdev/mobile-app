@@ -14,6 +14,7 @@ import {activeOrderLayout} from "../../../../../../store/actions/global";
 
 const SubHeader = (props) => {
 
+
     const [expand, setExpand] = useState(false)
 
     /*useEffect(() => {
@@ -46,7 +47,7 @@ const SubHeader = (props) => {
 
         return <div className={`width-100 column ai-center jc-center position-relative ${classes.container}`}>
 
-            {expand && <div className={`width-100 column position-absolute ${classes.content} py-1 px-2`}>
+            {expand && <div className={`width-100 column position-absolute ${classes.content} py-1 px-3`}>
                 <Routes>
                     <Route path={RoutesName.MarketRelative + "/*"} element={
                         <MarketSubHeader/>

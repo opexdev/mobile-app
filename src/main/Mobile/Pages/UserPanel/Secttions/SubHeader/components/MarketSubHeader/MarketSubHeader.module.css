@@ -1,0 +1,8 @@
+.container {
+    height: 10vh;
+}
+.content {
+    width: 95%;
+    height: 100%;
+    /*padding: 0 1.5vw 0 0.5vw;*/
+}

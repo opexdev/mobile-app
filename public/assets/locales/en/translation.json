@@ -46,6 +46,7 @@
   "unit": "Unit",
   "offline": "Check your connection!",
   "improperMobileView ": "Not optimized for mobile view.",
+  "home": "Home",
   "country": {
     "iran" : "I. R. IRAN",
     "germany" : "Germany",
@@ -84,7 +85,8 @@
     "/panel/settings/profile": "User Profile",
     "/panel/settings/security": "Security",
     "/panel/settings/personalization": "Customize",
-    "/panel/settings/authentication": "Identity Verification"
+    "/panel/settings/authentication": "Identity Verification",
+    "/panel/settings/api-key": "API KEY"
   },
   "orderStatus": {
     "NEW": "New Order",
@@ -124,7 +126,7 @@
     "availableBalance" : "Available Balance",
     "free": "Available",
     "locked": "Locked",
-    "inWithdrawalProcess": "Pending Withdrawal",
+    "inWithdrawalProcess": "Pending",
     "logOutSuccess": "Successfully logged out.",
     "logOutError": "An error occurred. please try again!"
   },
@@ -270,7 +272,7 @@
     "13007": "Unknown Error"
   },
   "DepositWithdrawTx": {
-    "title": "Deposit / Withdraw Transactions",
+    "title": "Transactions",
     "depositWithdrawal": "Deposit / Withdrawal",
     "withdrawalSend": "Withdrawal / Send",
     "transactionType": "Transaction Type",
@@ -483,7 +485,34 @@
     "enable": "Enable API Key",
     "disable": "Disable API Key",
     "delete": "Delete API Key",
-    "reachedLimit": "Reached API key limit. Maximum number of API key is 10"
+    "label": "Title",
+    "secret": "Secret",
+    "success": "API Key successfully created.",
+    "apiKey": "API Key",
+    "expiration": "Validity",
+    "allowedIPs": "Allowed IPs",
+    "ONE_MONTH": "One month",
+    "THREE_MONTHS": "Three months",
+    "SIX_MONTHS": "Six months",
+    "ONE_YEAR": "One year",
+    "content": "Enter the following information to create an API Key.",
+    "selectExpiration": "Select expiration time",
+    "allowedIPsExample": "IP 1 , IP 2 , IP 3 , ...",
+    "noActiveAPIKey": "API Key not created.",
+    "understand": "I understand!",
+    "warning": "Be careful, the secret cannot be recovered, and if you forget it, you must create a new API Key!",
+    "copied": "Copied",
+    "enableButton": "Enable",
+    "disableButton": "Disable",
+    "deleteButton": "Delete",
+    "successEnable": "Successfully enabled.",
+    "successDisable": "Disabled successfully.",
+    "failedEnable": "Failed to enable, please try again!",
+    "failedDisable": "Failed to disable, please try again!",
+    "successDelete": "Successfully deleted!",
+    "failedDelete": "Error deleting, please try again!",
+    "emptyLabel": "Label cannot be empty!",
+    "reachedLimit": "Reached API key limit. Maximum number of API keys is 10."
   },
   "login": {
     "title": "Login/Register",
@@ -534,7 +563,7 @@
     "serverError": "Server error, please try again."
   },
   "Landing": {
-    "title": "Cryptocurrency Exchange Platform"
+    "title": "Crypto Exchange Platform"
   },
   "MarketTitle": {
     "content": "Designed specifically to meet your needs.",

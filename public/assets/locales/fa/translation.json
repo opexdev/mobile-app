@@ -46,6 +46,7 @@
   "unit": "واحد",
   "offline": "اتصال اینترنت را بررسی کنید!",
   "improperMobileView ": "فعلاً برای موبایل بهینه نشده است.",
+  "home": "صفحه‌اصلی",
   "country": {
     "iran" : "جمهوری اسلامی ایران",
     "germany" : "آلمان",
@@ -191,7 +192,7 @@
     "success": "ثبت سفارش {{type}} {{reqAmount}} {{base}} با قیمت {{pricePerUnit}} {{quote}} با موفقیت انجام شد."
   },
   "LastTrades": {
-    "title": "معامله های اخیر"
+    "title": "معامله‌های اخیر"
   },
   "charts": {
     "title": "نمودار قیمت",
@@ -203,7 +204,7 @@
     "title": "دفتر پیشنهادها"
   },
   "myOrders": {
-    "title": "سفارش‌ها و معامله‌های من",
+    "title": "سفارش‌های من",
     "donePercentage": "درصد انجام",
     "stoppedPrice": "قیمت توقف",
     "orderId": "شناسه سفارش",
@@ -271,7 +272,7 @@
     "13007": "خطای ناشناخته"
   },
   "DepositWithdrawTx": {
-    "title": "تراکنش‌های واریز / برداشت",
+    "title": "تراکنش‌ها",
     "depositWithdrawal": "واریز / دریافت",
     "withdrawalSend": "برداشت / ارسال",
     "transactionType": "نوع تراکنش",

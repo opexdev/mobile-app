@@ -1,32 +1,18 @@
 .underline{
-
     height: 0.7vh;
     left: 0;
     right: 0;
     transform: rotate3d(1, 1, 1, -8deg);
-
     position: absolute;
     bottom: 0vh;
     background-color: #A8A8AF;
     z-index:2;
     opacity: 0.5;
-
-
-
+}
+:global(.ltr) .underline {
+    transform: rotate3d(1, 1, 1, 8deg);
 }
 
 .title{
     z-index: 3;
 }
-
-/*
-.container span:after{
-content:"111";
-position: absolute;
-bottom: 0;
-right: 0;
-color: transparent;
-text-decoration: underline;
-text-decoration-color: var(--gray);
-width: 100%;
-}*/

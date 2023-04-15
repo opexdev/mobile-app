@@ -3,8 +3,11 @@ import classes from "../../NavMenu.module.css";
 import {NavLink, useParams} from "react-router-dom";
 import * as Routes from "../../../../../../Routes/routes";
 import Icon from "../../../../../../../../components/Icon/Icon";
+import {useTranslation} from "react-i18next";
 
 const WalletNavMenu = () => {
+
+    const {t} = useTranslation();
 
     const {id} = useParams()
 
@@ -18,7 +21,7 @@ const WalletNavMenu = () => {
             }
                 >
                 <Icon iconName="icon-overview fs-06"/>
-                <span className={`1`}>واریز</span>
+                <span className={`fs-0-8`}>{t("deposit")}</span>
             </NavLink>
             <NavLink
                 to={Routes.Wallet+"/"+id + Routes.WithdrawalRelative}
@@ -27,7 +30,7 @@ const WalletNavMenu = () => {
                 }
             >
                 <Icon iconName="icon-orderbook fs-06"/>
-                <span className={`1`}>برداشت</span>
+                <span className={`fs-0-8`}>{t("withdrawal")}</span>
             </NavLink>
             <NavLink
                 to={Routes.Wallet+"/"+id + Routes.transactionRelative}
@@ -37,7 +40,7 @@ const WalletNavMenu = () => {
             >
                 <Icon iconName="icon-order fs-06"/>
 
-                <span className={`fs-0-6`}>تراکنش ها</span>
+                <span className={`fs-0-8`}>{t("DepositWithdrawTx.title")}</span>
             </NavLink>
         </div>
     );

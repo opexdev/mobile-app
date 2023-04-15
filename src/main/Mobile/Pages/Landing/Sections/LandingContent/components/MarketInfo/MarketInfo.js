@@ -10,6 +10,7 @@ import Loading from "../../../../../../../../components/Loading/Loading";
 import Error from "../../../../../../../../components/Error/Error";
 import MarketInfoCard from "./components/MarketInfoCard/MarketInfoCard";
 import {useTranslation} from "react-i18next";
+import i18n from "i18next";
 
 
 
@@ -60,8 +61,10 @@ const MarketInfo = () => {
                 </div>
 
                 <div className={`row jc-center ai-center cursor-pointer hover-text`}>
-                        <Link to={Routes.AllMarket} className={`ml-05 hover-text`}>نمایش تمام بازار</Link>
-                        <Icon iconName="icon-left-open-1 fs-01 flex" className={`mr-05`}/>
+                        <Link to={Routes.AllMarket} className={`ml-05 hover-text`}>{t("MarketInfo.viewAllMarket")}</Link>
+                        <Icon
+                              iconName={`${i18n.language !== "fa" ? 'icon-right-open-1' : 'icon-left-open-1'} fs-01 flex`}
+                              className={`mr-05`}/>
                     </div>
 
             </span>
