@@ -1,6 +1,6 @@
 import React from "react";
 import NumberFormat from "react-number-format";
-import * as classes from "./VerticalNumberInput.module.css";
+import classes from "./VerticalNumberInput.module.css";
 import Icon from "../Icon/Icon";
 
 const VerticalNumberInput = (props) => {
@@ -43,7 +43,7 @@ const VerticalNumberInput = (props) => {
             data-effect="float"
             data-tip={hint}>
             <Icon
-                iconName="icon-info icon-white font-size-sm flex"
+                iconName="icon-info text-white fs-0-6 flex"
                 customClass={classes.hintIcon}
             />
             <span className="alert pr-05">{

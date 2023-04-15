@@ -1,51 +1,53 @@
 import React, {useEffect, useState} from "react";
 import classes from "./ActionSheet.module.css";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import Menu from "../../main/Mobile/Pages/UserPanel/Secttions/Menu/Menu";
+import SubMenu from "../../main/Mobile/Pages/UserPanel/Secttions/SubMenu/SubMenu";
+import {activeActionSheet} from "../../store/actions/global";
 
 
-
-const ActionSheet = ({children , show , onChangeShow}) => {
+const ActionSheet = () => {
 
     const location = useLocation();
+    const dispatch = useDispatch();
 
+    const active = useSelector((state) => state.global.activeActionSheet)
 
-  /*  const [showAction, setShowAction] = useState(show);*/
     const [isFirst, setIsFirst] = useState(false);
 
-   /* useEffect(() => {
-        setShowAction(show)
-    }, [show]);
-
     useEffect(() => {
-        onChangeShow(showAction)
-    }, [showAction]);
-*/
+        dispatch(activeActionSheet({
+            menu: false,
+            subMenu: false,
+        }))
+    }, [location.pathname])
 
-    useEffect(() => {
-        console.log("location" , location)
-        onChangeShow(false)
-    },[location.pathname])
-
-    const onClickHandler = ()=> {
-        onChangeShow(false)
+    const onClickHandler = () => {
+        dispatch(activeActionSheet({
+            menu: false,
+            subMenu: false,
+        }))
         setIsFirst(true)
-
     }
-    const classHandler = ()=> {
-       if (isFirst && !show){
-           return classes.close
-       }
-       if (show){
-           return classes.show
-       }
+    const classHandler = () => {
+        if (isFirst && (!active.menu && !active.subMenu)) {
+            return classes.close
+        }
+        if (active.menu || active.subMenu) {
+            return classes.show
+        }
     }
 
     return (
         <>
-            <div className={`container ${classes.wrapper} ${ show ? classes.show : ""}`} onClick={onClickHandler}/>
-            <div className={`container ${classes.container} column jc-end py-2  ${classHandler()}`}>
-                <div className={`${classes.header} flex jc-center ai-center pb-1`} onClick={onClickHandler}><span/></div>
-                {children}
+            <div className={`width-100 ${classes.wrapper} ${(active.menu || active.subMenu) && classes.show}`}
+                 onClick={onClickHandler}/>
+            <div className={`width-100 ${classes.container} column jc-end  ${classHandler()}`}>
+                <div className={`${classes.header} flex jc-center ai-center py-2`} onClick={onClickHandler}><span/>
+                </div>
+                {active.menu && <Menu/>}
+                {active.subMenu && <SubMenu/>}
             </div>
         </>
     );

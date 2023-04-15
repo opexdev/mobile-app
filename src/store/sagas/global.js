@@ -2,7 +2,6 @@ import {call, put} from "redux-saga/effects";
 import * as actions from "../actions/index";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
-import {getUserAccount} from "./auth";
 
 export function* setThemeSaga(action) {
     yield call([localStorage, 'setItem'], "isDark", action.isDark)
@@ -18,6 +17,11 @@ export function* setActivePair(action) {
 export function* setIPGLock(action) {
     yield call([localStorage, 'setItem'], "lockTime", action.lockTime)
     yield put(actions.setIPG(action.lockTime));
+}
+
+export function* setVerifyEmailLock(action) {
+    yield call([localStorage, 'setItem'], "verifyEmailLockTime", action.verifyEmailLockTime)
+    yield put(actions.setVerifyEmailLock(action.verifyEmailLockTime));
 }
 
 export function* getExchangeLastPrice() {
@@ -79,18 +83,20 @@ export function* loadConfig(action) {
     const isDark = yield call([localStorage, 'getItem'], 'isDark')
     if (isDark) yield put(actions.setTheme(JSON.parse(isDark)));
 
-
     if (action.token) {
         yield put(actions.setUserTokens({refreshToken : null, accessToken: action.token}));
         yield call([localStorage, 'removeItem'], "refreshToken")
         const jwt = jwtDecode(action.token)
         yield put(actions.setUserInfo(jwt));
-        yield getUserAccount();
+        yield put(actions.setKYCStatusInitiate());
         return yield put(actions.setLoading(false));
     }
 
     const lockTime = yield call([localStorage, 'getItem'], 'lockTime')
     if (lockTime) yield put(actions.setIPG(lockTime));
+
+    const verifyEmailLockTime = yield call([localStorage, 'getItem'], 'verifyEmailLockTime')
+    if (verifyEmailLockTime) yield put(actions.setVerifyEmailLock(verifyEmailLockTime));
 
     const refreshToken = localStorage.getItem("refreshToken")
 
@@ -107,7 +113,7 @@ export function* loadConfig(action) {
             yield call([localStorage, 'setItem'], "refreshToken", refreshToken)
             yield put(actions.setUserTokens({refreshToken, accessToken: access_token}));
             yield put(actions.setUserInfo(jwt));
-            yield getUserAccount();
+            yield put(actions.setKYCStatusInitiate());
         } catch (e) {
             yield put(actions.setLogoutInitiate());
         }

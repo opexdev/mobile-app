@@ -42,3 +42,31 @@ export const setInfoMessage = (messageType, message) => {
     message,
   };
 };
+
+export const setMarketInterval = (interval) => {
+  return {
+    type: actionTypes.Set_MARKET_INTERVAL,
+    interval,
+  };
+};
+
+export const showSideMenu = (isOpen) => {
+  return {
+    type: actionTypes.SET_SHOW_SIDE_MENU,
+    isOpen,
+  };
+};
+
+export const activeOrderLayout = (active) => {
+  return {
+    type: actionTypes.ACTIVE_ORDER_LAYOUT,
+    active,
+  };
+};
+
+export const activeActionSheet = (status) => {
+  return {
+    type: actionTypes.ACTIVE_ACTION_SHEET,
+    status
+  };
+};

@@ -1,11 +1,8 @@
 .container{
-    height: 12vh;
+    height: 10%;
     background-color: var(--menu);
 }
-.content {
-    width: 95%;
-    height: 100%;
-}
+
 
 .signOut {
     width: 5%;

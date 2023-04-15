@@ -1,9 +1,11 @@
 .container{
     position: absolute;
     bottom: -100%;
-    background-color: var(--menu);
-    z-index: 3;
+    background-color: var(--cardHeader);
+    z-index: 4;
     border-radius: 37px 37px 0 0;
+    min-height: 5vh;
+    display: none;
 }
 .header span{
     width: 27%;
@@ -17,7 +19,7 @@
     top: initial;
     left: 0;
     bottom: 0;
-    z-index: 2;
+    z-index: 3;
 }
 .show.container{
     animation: BottomToTop ease 0.5s forwards;
@@ -25,6 +27,7 @@
     -moz-animation: BottomToTop ease 0.5s forwards;
     -o-animation: BottomToTop ease 0.5s forwards;
     -ms-animation: BottomToTop ease 0.5s forwards;
+    display: block;
 }
 @-webkit-keyframes BottomToTop {
     0% {
@@ -43,11 +46,11 @@
     }
 }
 .close.container{
-    animation: TopToBottom ease 0.5s forwards;
-    -webkit-animation: TopToBottom ease 0.5s forwards;
-    -moz-animation: TopToBottom ease 0.5s forwards;
-    -o-animation: TopToBottom ease 0.5s forwards;
-    -ms-animation: TopToBottom ease 0.5s forwards;
+    animation: TopToBottom ease 1s forwards;
+    -webkit-animation: TopToBottom ease 1s forwards;
+    -moz-animation: TopToBottom ease 1s forwards;
+    -o-animation: TopToBottom ease 1s forwards;
+    -ms-animation: TopToBottom ease 1s forwards;
 }
 @-webkit-keyframes TopToBottom {
     0% {

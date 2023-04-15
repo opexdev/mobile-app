@@ -3,7 +3,7 @@ import classes from './FullWidthError.module.css'
 
 const FullWidthLoading = () => {
     return (
-        <div className={`container ${classes.container} flex jc-center ai-center`}>
+        <div className={`width-100 ${classes.container} flex jc-center ai-center`}>
             <div className="row ai-center jc-center">
                 <div className={`${classes.dash} ${classes.one}`} />
                 <div className={`${classes.dash} ${classes.two}`} />

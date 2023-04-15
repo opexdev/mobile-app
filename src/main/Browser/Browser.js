@@ -1,11 +1,7 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Route, Routes} from "react-router-dom";
 import i18n from "i18next";
-import ReactTooltip from "react-tooltip";
-import * as RoutesName from "../../routes/routes";
 import {Toaster} from "react-hot-toast";
-import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute";
 import FullWidthLoading from "../../components/FullWidthLoading/FullWidthLoading";
 import {loadConfig, setInfoMessage, setUserAccountInfoInitiate} from "../../store/actions";
 import "./Browser.css"
@@ -13,11 +9,15 @@ import useQuery from "../../Hooks/useQuery";
 import useInterval from "../../Hooks/useInterval";
 import {setLastPriceInitiate} from "../../store/actions/exchange";
 import FullWidthError from "../../components/FullWidthError/FullWidthError";
+import {useNavigate} from "react-router-dom";
 
 
 const Browser = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const query = useQuery();
+
 
     const isDark = useSelector((state) => state.global.isDark)
     const isLoading = useSelector((state) => state.global.isLoading)
@@ -43,6 +43,18 @@ const Browser = () => {
     }, []);
 
 
+    const redirectURL = window.env.REACT_APP_BROWSER_URL
+
+    const redirectFunc = () => {
+        window.location.replace(redirectURL);
+    };
+
+    useEffect(()=>{
+        redirectFunc()
+    }, [])
+
+
+
     useInterval(() => {
         dispatch(setUserAccountInfoInitiate());
     }, isLogin ? 3000 : null)
@@ -64,12 +76,12 @@ const Browser = () => {
             },
             success: {
                 style: {
-                    background: "var(--bgGreen)",
+                    background: "var(--darkGreen)",
                 },
             },
             error: {
                 style: {
-                    background: "var(--bgRed)",
+                    background: "var(--darkRed)",
                 },
             },
             custom: {
@@ -85,8 +97,16 @@ const Browser = () => {
     if (hasError) {
         return <FullWidthError/>
     }
+
+
+
+
     return (
-        <div className={`flex jc-center ai-center card-header-bg text-color font-size-md-plus`} style={{height: "100vh", direction:"ltr"}}>Open in Mobile ...</div>
+        <div className={`flex jc-center ai-center card-header-bg text-color fs-04`} style={{height: "100vh", direction:"ltr"}}>
+
+            Open in Mobile ...
+
+        </div>
     );
 };
 

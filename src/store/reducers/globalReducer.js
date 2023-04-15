@@ -1,9 +1,16 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    isDark: true,
+    isDark: window.env.REACT_APP_DEFAULT_THEME === 'DARK',
     isLoading: true,
     hasError: false,
+    marketInterval: "24h",
+    showSideMenu: false,
+    activeOrderLayout: false,
+    activeActionSheet: {
+        menu: false,
+        subMenu: false,
+    },
     info: {
         type: null,
         message: null,
@@ -34,6 +41,30 @@ const globalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 hasError: action.error,
+            };
+        case actionTypes.Set_MARKET_INTERVAL:
+            return {
+                ...state,
+                marketInterval: action.interval
+            };
+        case actionTypes.SET_SHOW_SIDE_MENU:
+            return {
+                ...state,
+                showSideMenu: action.isOpen,
+            };
+        case actionTypes.ACTIVE_ORDER_LAYOUT:
+            return {
+                ...state,
+                activeOrderLayout: action.active,
+            };
+
+        case actionTypes.ACTIVE_ACTION_SHEET:
+            return {
+                ...state,
+                activeActionSheet: {
+                    ...state.activeActionSheet,
+                    ...action.status,
+                }
             };
         default:
             return state;

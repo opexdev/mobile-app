@@ -1,0 +1,66 @@
+.container{
+    position: absolute;
+    background-color: var(--menu);
+    z-index: 6;
+    border-radius: 0px 0px 0 0;
+    top: 0;
+    bottom: 0;
+    width: 65%;
+    right: -65%;
+}
+:global(.ltr) .container {
+    left: -65%;
+    right: initial;
+}
+
+.wrapper{
+    position: absolute;
+    background-color: #0000008c;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: initial;
+    z-index: 5;
+}
+
+.container.show {
+    right: 0;
+    transition: right 0.3s ease-out;
+}
+:global(.ltr) .container.show {
+    left: 0;
+    transition: left 0.3s ease-out;
+    right: initial;
+}
+.container.hide {
+    right: -65%;
+    transition: right 0.3s ease-out;
+}
+:global(.ltr) .container.hide {
+    left: -65%;
+    transition: left 0.3s ease-out;
+    right: initial;
+}
+.wrapper.show {
+    bottom: 0;
+}
+.wrapper.hide {
+    bottom: initial;
+}
+
+
+
+.languages span:first-child {
+    border-left: 0.01vh solid #f58634;
+}
+:global(.ltr) .languages span:first-child {
+    border-right: 0.01vh solid #f58634;
+    border-left: initial;
+}
+.languages span:last-child {
+    border-right: 0.01vh solid #f58634;
+}
+:global(.ltr) .languages span:last-child {
+    border-left: 0.01vh solid #f58634;
+    border-right: initial;
+}

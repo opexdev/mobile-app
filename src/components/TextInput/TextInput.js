@@ -1,7 +1,7 @@
 import React from "react";
 import Icon from "../Icon/Icon";
 import Select from "react-select";
-import * as classes from "./TextInput.module.css";
+import classes from "./TextInput.module.css";
 
 const TextInput = (props) => {
     const {customRef,readOnly,onchange,customClass,options, lead , after ,select ,alerts ,max , ...other} = props
@@ -43,10 +43,10 @@ const TextInput = (props) => {
             data-effect="float"
             data-tip={props.hint}>
             <Icon
-                iconName={`${classes.iconInfo} icon-white font-size-sm flex`}
+                iconName={`${classes.iconInfo} text-white fs-0-6 flex`}
                 customClass="hint-icon"
             />
-            <div className="column pt-05">
+            <div className="column pt-05 fs-0-7">
                 { alerts.map((alert , index) => <span key={index} className={`${classes.alert} pr-05 `}>{alert}</span>) }
             </div>
         </div>

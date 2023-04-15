@@ -1,0 +1,67 @@
+.row:active {
+    background-color: initial;
+}
+
+.front {
+    z-index: 1;
+    background-color: var(--cardBody);
+}
+
+.activeSwipRight {
+    transform: translateX(25vw);
+    transition: transform 0.5s ease-out;
+}
+
+:global(.ltr) .activeSwipRight {
+    transform: translateX(-25vw);
+    transition: transform 0.5s ease-out;
+}
+
+.activeSwipLeft {
+    transform: translateX(-32vw);
+    transition: transform 0.5s ease-out;
+}
+
+:global(.ltr) .activeSwipLeft {
+    transform: translateX(32vw);
+    transition: transform 0.5s ease-out;
+}
+
+.hideSwip {
+    transform: translateX(0vw);
+    transition: transform 0.5s ease-out;
+}
+
+.behind {
+    /*background-color: #d73e36;*/
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    background-color: var(--tableRow)
+}
+
+.row .front:last-child {
+    border-bottom: none;
+}
+
+/*
+.front:nth-child(odd) {
+    background-color: red;
+}*/
+
+.thisButton:hover {
+    background-color: var(--container);
+}
+
+.thisButton {
+    width: 80%;
+    background: var(--cardHeaderAlpha);
+    color: var(--textColor);
+    bottom: 0;
+}
+
+.filter {
+    filter: blur(4px);
+}

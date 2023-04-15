@@ -1,0 +1,129 @@
+@media (max-width: 480px) {
+
+    html, body {
+        font-size: 3.3vw;
+        line-height: 3.5vh;
+        /*overflow: hidden;*/
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        position: absolute;
+
+    }
+
+    .mobile-container {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        position: absolute;
+        color: var(--textColor);
+        background-color: var(--mainContent);
+    }
+
+    .button {
+        height: 5vh;
+        border: none;
+        border-radius: 7px;
+        font-family: "IRANYekan", serif;
+        font-size: 3vw;
+        color: #f2f2f2;
+    }
+
+    tr {
+        position: relative;
+        line-height: 4.5vh;
+    }
+
+
+    .fs-0-5 {
+        font-size: 0.5rem;
+    }
+
+    .fs-0-6 {
+        font-size: 0.6rem;
+    }
+
+    .fs-0-7 {
+        font-size: 0.7rem;
+    }
+
+    .fs-0-8 {
+        font-size: 0.8rem;
+    }
+
+    .fs-0-8 {
+        font-size: 0.8rem;
+    }
+
+    .fs-01 {
+        font-size: 1.1rem;
+    }
+
+    .fs-02 {
+        font-size: 1.2rem;
+    }
+
+    .fs-03 {
+        font-size: 1.31rem;
+    }
+
+    .fs-04 {
+        font-size: 1.4rem;
+    }
+
+    .fs-05 {
+        font-size: 1.5rem;
+    }
+
+    .fs-06 {
+        font-size: 1.6rem;
+    }
+
+    .fs-07 {
+        font-size: 1.7rem;
+    }
+
+    .fs-08 {
+        font-size: 1.8rem;
+    }
+
+    .fs-09 {
+        font-size: 1.9rem;
+    }
+
+    .fs-20 {
+        font-size: 2rem;
+    }
+
+    .fs-21 {
+        font-size: 2.1rem;
+    }
+
+    .fs-22 {
+        font-size: 2.2rem;
+    }
+
+    .fs-50 {
+        font-size: 5rem;
+    }
+
+}
+
+
+@media screen and (orientation: landscape) {
+    .mobile-view {
+        font-size: 1vw;
+        line-height: 14vh;
+        border: 0.4vw dotted #4a5eab;
+    }
+
+    .mobile-view img {
+        width: 12vw;
+    }
+
+    .mobile-view h1 {
+        padding: 5vh 0;
+    }
+}

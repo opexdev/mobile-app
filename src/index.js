@@ -15,6 +15,9 @@ import setupAxios from "./setup/axios/setupAxios";
 import axios from "axios";
 import exchangeReducer from "./store/reducers/exchangeReducer";
 import {StyleRoot} from "radium";
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
 
 const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers({
@@ -22,6 +25,11 @@ const rootReducer = combineReducers({
     global: globalReducer,
     auth: authReducer,
 });
+
+//add custom title & meta
+const meta = document.getElementsByTagName('meta')
+document.title = window.env.REACT_APP_TITLE;
+meta.description.content = window.env.REACT_APP_DESCRIPTION_CONTENT
 
 /**
  * Base URL of the website.
@@ -43,12 +51,18 @@ sagaMiddleware.run(watchGlobal);
 
 setupAxios(axios, store);
 
+//React query client
+const queryClient = new QueryClient()
+
 ReactDOM.render(
     <React.StrictMode>
         <Suspense fallback={"loading"}>
             <Provider store={store}>
                 <StyleRoot>
-                    <Main baseURL={PUBLIC_URL}/>
+                    <QueryClientProvider client={queryClient}>
+                        <Main baseURL={PUBLIC_URL}/>
+                       {/* <ReactQueryDevtools initialIsOpen={false} />*/}
+                    </QueryClientProvider>
                 </StyleRoot>
             </Provider>
         </Suspense>

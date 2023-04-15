@@ -1,16 +1,22 @@
 import React, {useEffect} from 'react';
 import classes from './HeaderBuilder.module.css'
 import {Link} from "react-router-dom";
-import {Login , Dashboard} from "../../routes/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {Trans, useTranslation} from "react-i18next";
 import ReactTooltip from "react-tooltip";
-import * as Routes from "../../routes/routes";
+import * as Routes from "../../main/Mobile/Routes/routes";
 import {toast} from "react-hot-toast";
-import {logOut} from "../../pages/Login/api/auth";
+/*
+import {logOut} from "../../main/Mobile/Pages/Login/api/auth";
+*/
 import {images} from "../../assets/images";
 import {setLogoutInitiate} from "../../store/actions";
-import Clock from "../../main/Browser/Sections/Header/components/Clock/Clock";
+import Clock from "../Clock/Clock";
+import * as RoutesName from "../../main/Mobile/Routes/routes";
+import SideMenu from "../SideMenu/SideMenu";
+import {showSideMenu} from "../../store/actions/global";
+import Icon from "../Icon/Icon";
+import {toAbsoluteUrl} from "../../utils/utils";
 
 const HeaderBuilder = ({children}) => {
 
@@ -26,77 +32,38 @@ const HeaderBuilder = ({children}) => {
     });
 
     const logOutHandler = async () => {
-        logOut().then(()=>{
+        /*logOut().then(()=>{
             toast.success(<Trans
                 i18nKey="header.logOutSuccess"
             />)
-        })
+        })*/
         dispatch(setLogoutInitiate())
     }
 
 
     return (
-        <div className={`${classes.container} container row jc-between ai-center px-2`}>
-            <div className={`row jc-between ai-center ${classes.content}`}>
-                <div className={`flex jc-start ai-center  width-30`}>
-                    <Link to={Routes.Landing}>
-                        <img src={images.opexLogoPlus} alt="" className={`img-lg-plus`}/>
-                    </Link>
-                </div>
+        <div className={`${classes.container} width-100 row jc-between ai-center`}>
+               <div className={`width-90 m-auto row jc-between ai-center`}>
 
-                <div className={`width-40 text-center`}>
-                    {children}
-                </div>
+                   <div className={`column ai-start width-20`}>
+
+                       <Icon iconName="icon-menu_vertical fs-04 flex" onClick={()=>dispatch(showSideMenu(true))}/>
+                   </div>
 
 
 
-                <div className={`column ai-end width-25`}>
-                    {firstName === null ? (
-                        <Link to={Login} className="hover-text">
-                            <p>{t("signIn")} | {t("signUp")}</p>
-                        </Link>
-                    ) : (
-                        <p className="mb-05">
-                            {firstName + " " + lastName}
-                        </p>
-                    )}
-                    <p style={{direction: "ltr"}}>
-                        <Clock/>
-                    </p>
-
-                </div>
-            </div>
-            <div className={`flex jc-end ai-center ${classes.signOut}`}>
-                {isLogin ? (
-                    <img
-                        className="img-md-plus cursor-pointer"
-                        src={images.signOut}
-                        alt={t("signOut")}
-                        onClick={logOutHandler}
-                        data-html={true}
-                        data-place="right"
-                        data-effect="float"
-                        data-tip={`<span class="column jc-between col-100">${t("signOut")}</span>`}
-                    />
-                ) : (
-                    <Link to={Login} className="flex">
-                        <img
-                            className="img-md-plus cursor-pointer"
-                            src={images.signIn}
-                            alt={t("signIn")}
-                            data-html={true}
-                            data-place="right"
-                            data-effect="float"
-                            data-tip={`<span class="column jc-between col-100">${t("signIn")}</span>`}
-                        />
-                    </Link>
-                )}
-            </div>
+                   <div className={`width-60 text-center`}>
+                       {children}
+                   </div>
 
 
+                   <div className={`flex jc-end ai-center width-20`}>
+                       <Link to={Routes.Landing}>
+                           <img src={toAbsoluteUrl('/assets/logo/logo-mini.svg')} alt={t("title")} title={t("title")} className={`img-lg-plus flex`}/>
+                       </Link>
+                   </div>
 
-
-
+               </div>
 
         </div>
     );
