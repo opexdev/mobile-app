@@ -1,26 +1,18 @@
 import axios from "axios";
 
-export const createOrder = async (activePair , side , order) => {
-    const timestamp = Date.now()
+export const createOrder = async (symbol, side, order, type = "LIMIT", timeInForce = "GTC", timestamp = Date.now().toString()) => {
     const params = new URLSearchParams();
-    params.append('symbol', activePair.symbol);
+    params.append('symbol',symbol );
     params.append('side', side);
-    params.append('type', "LIMIT");
-    params.append('timeInForce', "GTC");
-    params.append('timestamp', timestamp.toString());
+    params.append('type', type);
+    params.append('timeInForce', timeInForce);
+    params.append('timestamp', timestamp);
     params.append('quantity', order.reqAmount.toString());
     params.append('price', order.pricePerUnit.toString());
-    return await axios.post(`/api/v3/order`, null , {
+    return axios.post(`/api/v3/order`, null, {
         params,
-        headers : {
-            'Content-Type':'application/x-www-form-urlencoded'
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
         }
-    }).then((res) => {
-        return res;
-    }).catch((e) => {
-        if (!e.response) {
-            return false;
-        }
-        return e.response;
     })
 }
