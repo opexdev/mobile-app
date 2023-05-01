@@ -3,7 +3,7 @@ import classes from "../../Order.module.css";
 import {Trans, useTranslation} from "react-i18next";
 import VerticalNumberInput from "../../../../../../../../../../../../components/VerticalTextInput/VerticalNumberInput";
 import {setLastTransaction} from "../../../../../../../../../../../../store/actions/auth";
-import {connect} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {BN, parsePriceString} from "../../../../../../../../../../../../utils/utils";
 import {useNavigate} from "react-router-dom";
 import Icon from "../../../../../../../../../../../../components/Icon/Icon";
@@ -12,15 +12,30 @@ import {Login as LoginRoute} from "../../../../../../../../../../Routes/routes";
 import {toast} from "react-hot-toast";
 import {images} from "../../../../../../../../../../../../assets/images";
 import {createOrder} from "../../api/order";
+import {useGetUserAccount} from "../../../../../../../../../../../../queries/hooks/useGetUserAccount";
+import NumberInput from "../../../../../../../../../../../../components/NumberInput/NumberInput";
 
 
 
-const BuyOrder = (props) => {
+const BuyOrder = () => {
 
     const navigate = useNavigate();
+
     const {t} = useTranslation();
+    const dispatch = useDispatch();
+
+    const {data: userAccount} = useGetUserAccount()
     const [isLoading, setIsLoading] = useState(false)
-    const {wallets, activePair, tradeFee, bestBuyPrice, accessToken, isLogin, selectedBuyOrder} = props
+
+    const activePair = useSelector((state) => state.exchange.activePair)
+    const bestBuyPrice = useSelector((state) => state.exchange.activePairOrders.bestBuyPrice)
+    const selectedBuyOrder = useSelector((state) => state.exchange.activePairOrders.selectedBuyOrder)
+
+    const tradeFee = useSelector((state) => state.auth.tradeFee)
+    const isLogin = useSelector((state) => state.auth.isLogin)
+
+    const quote = userAccount?.wallets[activePair.quoteAsset]?.free || 0;
+
     const [alert, setAlert] = useState({
         submit: false,
         reqAmount: null,
@@ -36,13 +51,39 @@ const BuyOrder = (props) => {
         pricePerUnit: new BN(0),
         totalPrice: new BN(0),
     });
+
+    /*useEffect(() => {
+        if (alert.submit) {
+            setAlert({
+                ...alert, submit: false
+            })
+        }
+    }, [order, activePair])*/
+
     useEffect(() => {
         if (alert.submit) {
             setAlert({
                 ...alert, submit: false
             })
         }
-    }, [order, activePair])
+    }, [order])
+
+    useEffect(() => {
+        setOrder({
+            tradeFee: new BN(0),
+            stopLimit: false,
+            stopMarket: false,
+            stopPrice: new BN(0),
+            reqAmount: new BN(0),
+            pricePerUnit: new BN(0),
+            totalPrice: new BN(0),
+        })
+        setAlert({
+            submit: false,
+            reqAmount: null,
+            totalPrice: null,
+        })
+    }, [activePair])
 
     const currencyValidator = (key, val, rule) => {
         if (!val.isZero() && val.isLessThan(rule.min)) {
@@ -78,7 +119,7 @@ const BuyOrder = (props) => {
                 ...alert,
                 [key]: (<Trans
                     i18nKey="orders.divisibility"
-                    values={{mod:rule.step.toString()}}
+                    values={{mod: rule.step.toString()}}
                 />)
             })
         }
@@ -123,7 +164,7 @@ const BuyOrder = (props) => {
     };
 
     useEffect(() => {
-        if(order.totalPrice.isGreaterThan(wallets[activePair.quoteAsset].free)){
+        if (order.totalPrice.isGreaterThan(quote)) {
             return setAlert({
                 ...alert,
                 totalPrice: t('orders.notEnoughBalance')
@@ -163,10 +204,24 @@ const BuyOrder = (props) => {
         currencyValidator("reqAmount", reqAmount, activePair.baseRange);
     }, [selectedBuyOrder]);
 
+    useEffect(() => {
+        const reqAmount = new BN(selectedBuyOrder.amount);
+        const pricePerUnit = new BN(selectedBuyOrder.pricePerUnit);
+        setOrder({
+            ...order,
+            reqAmount,
+            pricePerUnit: pricePerUnit,
+            totalPrice: reqAmount.multipliedBy(pricePerUnit).decimalPlaces(activePair.quoteAssetPrecision),
+            tradeFee: reqAmount.multipliedBy(tradeFee[activePair.quoteAsset]).decimalPlaces(activePair.baseAssetPrecision),
+        });
+        currencyValidator("reqAmount", reqAmount, activePair.baseRange);
+    }, [selectedBuyOrder]);
+
 
     const fillBuyByWallet = () => {
+        if(order.pricePerUnit.isEqualTo(0) && bestBuyPrice === 0 ) return toast.error(t("orders.hasNoOffer"));
         if (order.pricePerUnit.isEqualTo(0)) {
-            const totalPrice = new BN(wallets[activePair.quoteAsset].free);
+            const totalPrice = new BN(quote);
             setOrder({
                 ...order,
                 reqAmount: totalPrice.dividedBy(bestBuyPrice).decimalPlaces(activePair.baseAssetPrecision),
@@ -176,7 +231,7 @@ const BuyOrder = (props) => {
             });
         } else {
             buyPriceHandler(
-                wallets[activePair.quoteAsset].free.toString(),
+                quote.toString(),
                 "totalPrice",
             );
         }
@@ -189,6 +244,8 @@ const BuyOrder = (props) => {
         );
     };
 
+    console.log("activePair.symbol" , activePair.symbol)
+
     const submit = async () => {
         if (!isLogin) {
             navigate(LoginRoute, { replace: true });
@@ -198,121 +255,117 @@ const BuyOrder = (props) => {
             return false
         }
         setIsLoading(true)
-        const submitOrder = await createOrder(activePair, "BUY", accessToken, order)
-        if (!submitOrder) {
-            setIsLoading(false)
-        }
-        if (submitOrder.status === 200) {
-            setOrder({
-                tradeFee: new BN(0),
-                stopLimit: false,
-                stopMarket: false,
-                stopPrice: new BN(0),
-                reqAmount: new BN(0),
-
-                pricePerUnit: new BN(0),
-                totalPrice: new BN(0),
-            })
-            toast.success(<Trans
-                i18nKey="orders.success"
-                values={{
-                    base: t("currency." + activePair.baseAsset),
-                    quote: t("currency." + activePair.quoteAsset),
-                    type: t("buy"),
-                    reqAmount: order.reqAmount,
-                    pricePerUnit: order.pricePerUnit,
-                }}
-            />);
-            setTimeout(() => props.setLastTransaction(submitOrder.data.transactTime), 2000);
-        } else {
+        createOrder(activePair.symbol, "BUY", order)
+            .then((res) => {
+                setOrder({
+                    tradeFee: new BN(0),
+                    stopLimit: false,
+                    stopMarket: false,
+                    stopPrice: new BN(0),
+                    reqAmount: new BN(0),
+                    pricePerUnit: new BN(0),
+                    totalPrice: new BN(0),
+                })
+                toast.success(<Trans
+                    i18nKey="orders.success"
+                    values={{
+                        base: t("currency." + activePair.baseAsset),
+                        quote: t("currency." + activePair.quoteAsset),
+                        type: t("buy"),
+                        reqAmount: order.reqAmount,
+                        pricePerUnit: order.pricePerUnit,
+                    }}
+                />);
+                dispatch(setLastTransaction(res.data.transactTime))
+            }).catch(() => {
             toast.error(t("orders.error"));
             setAlert({
                 ...alert, submit: true
             })
-        }
-        setIsLoading(false)
+        }).finally(() => {
+            setIsLoading(false)
+        })
     }
     const submitButtonTextHandler = () => {
         if (isLoading) {
             return <img className={`${classes.thisLoading}`} src={images.linearLoading} alt="linearLoading"/>
         }
-        if (alert.submit) {
+        /*if (alert.submit) {
             return <span>{t("login.loginError")}</span>
-        }
+        }*/
         if (isLogin) {
+            return t("buy")
+        }
+        /*if (isLogin) {
             return <span>{t("buy")} {order.reqAmount.minus(order.tradeFee).decimalPlaces(activePair.baseAssetPrecision).toNumber()}{" "}
                 {t("currency." + activePair.baseAsset)}</span>
-        }
+        }*/
         return t("pleaseLogin")
     }
 
 
-    const volumeTop = <div className={`width-100 row jc-center ai-center fs-0-6`} onClick={() => {fillBuyByBestPrice()}}>
-        <Icon iconName={`icon-plus fs-0-6 flex`} customClass={`mx-1`}/>
-        <span>{wallets[activePair.quoteAsset].free.toLocaleString()}{" "}{t("currency." + activePair.quoteAsset)}</span>
-    </div>
-
-    const pricePerUnitTop = <div className={`width-100 row jc-center ai-center fs-0-6`} onClick={() => {fillBuyByWallet()}}>
-        <Icon iconName={`icon-plus fs-0-6 flex`} customClass={`mx-1`}/>
-        <span>{bestBuyPrice.toLocaleString()}{" "}{t("currency." + activePair.quoteAsset)}</span>
-    </div>
-
-    const totalPriceTop = <div className={`width-100 row jc-around ai-center fs-0-6`}>
-        <p>{t("commission")}</p>
-        <p>
-            {order.tradeFee.toFormat()}{" "}
-            {t("currency." + activePair.baseAsset)}
-        </p>
-    </div>
-
 
 
     return (
-        <div className={`column jc-between ${classes.content}`}>
+        <div className={`column jc-between ${classes.content} px-2 py-1`}>
 
-            <div className={`row jc-around`}>
-                <div className={`col-48`}>
-                    <VerticalNumberInput
-                        top={volumeTop}
-                        lead={t("volume")}
-                        value={order.reqAmount.toString()}
-                        maxDecimal={activePair.baseAssetPrecision}
-                        onchange={(e) => buyPriceHandler(e.target.value, "reqAmount")}
-                        //alert={alert.reqAmount}
-                    />
+            <div className={`column`}>
+                <div className={`row jc-between ai-center fs-0-8`} onClick={() => {fillBuyByWallet()}}>
+                    <span>{t("orders.availableAmount")}:</span>
+                    <span>{new BN(quote).toFormat()}{" "}{t("currency." + activePair.quoteAsset)}</span>
                 </div>
-                <div className={`col-48`}>
-                    <VerticalNumberInput
-                        top={pricePerUnitTop}
-                        lead={t("pricePerUnit")}
-                        value={order.pricePerUnit.toString()}
-                        maxDecimal={activePair.quoteAssetPrecision}
-                        onchange={(e) => buyPriceHandler(e.target.value, "pricePerUnit")}
-                    />
+                <div className={`row jc-between ai-center fs-0-8`} onClick={() => fillBuyByBestPrice()}>
+                    <span>{t("orders.bestOffer")}:</span>
+                    <span>{new BN(bestBuyPrice).toFormat()}{" "}{t("currency." + activePair.quoteAsset)}</span>
                 </div>
             </div>
-            <div className={`row jc-around`}>
-                <div className={`col-98`}>
-                    <VerticalNumberInput
-                        top={totalPriceTop}
-                        lead={t("totalPrice")}
-                        value={order.totalPrice.toString()}
-                        maxDecimal={activePair.quoteAssetPrecision}
-                        onchange={(e) => buyPriceHandler(e.target.value, "totalPrice")}
-                        //alert={alert.totalPrice}
-                    />
+
+            <NumberInput
+                lead={t("volume")}
+                after={t("currency." + activePair.baseAsset)}
+                value={order.reqAmount.toString()}
+                maxDecimal={activePair.baseAssetPrecision}
+                onchange={(e) => buyPriceHandler(e.target.value, "reqAmount")}
+                alert={alert.reqAmount}
+                customClass={`${classes.smallInput} fs-0-8`}
+            />
+            <NumberInput
+                lead={t("orders.pricePerUnit")}
+                after={t("currency." + activePair.quoteAsset)}
+                value={order.pricePerUnit.toString()}
+                maxDecimal={activePair.quoteAssetPrecision}
+                onchange={(e) => buyPriceHandler(e.target.value, "pricePerUnit")}
+                customClass={`${classes.smallInput} fs-0-8 my-05`}
+            />
+            <NumberInput
+                lead={t("totalPrice")}
+                value={order.totalPrice.toString()}
+                maxDecimal={activePair.quoteAssetPrecision}
+                after={t("currency." + activePair.quoteAsset)}
+                onchange={(e) => buyPriceHandler(e.target.value, "totalPrice")}
+                customClass={`${classes.smallInput} fs-0-8`}
+            />
+            <div className={`row jc-between ai-center`}>
+                <div className="column jc-center fs-0-8">
+                    <p>
+                        {t("orders.tradeFee")}:{" "}
+                        {order.tradeFee.toFormat()}{" "}
+                        {t("currency." + activePair.quoteAsset)}
+                    </p>
+                    <p>
+                        {t("orders.getAmount")}:{" "}
+                        {order.totalPrice.minus(order.tradeFee).decimalPlaces(activePair.baseAssetPrecision).toNumber()}{" "}
+                        {t("currency." + activePair.quoteAsset)}
+                    </p>
                 </div>
-            </div>
-            <div className={`row jc-around`}>
-                <div className={`col-98`}>
-                    <Button
-                        buttonClass={`${classes.thisButton} ${alert.submit ? classes.alertSubmit : classes.buyOrder} ${isLoading ? "cursor-not-allowed" : "cursor-pointer"} flex jc-center ai-center`}
-                        type="submit"
-                        onClick={submit}
-                        disabled={alert.reqAmount || order.reqAmount.isZero() || order.pricePerUnit.isZero() || !isLogin}
-                        buttonTitle={submitButtonTextHandler()}
-                    />
-                </div>
+                <Button
+                    buttonClass={`${classes.thisButton} width-50 ${classes.buyOrder} ${isLoading ? "cursor-not-allowed" : "cursor-pointer"} flex jc-center ai-center`}
+                    type="submit"
+                    onClick={submit}
+                    disabled={alert.reqAmount || order.reqAmount.isZero() || order.pricePerUnit.isZero() || !isLogin}
+                    buttonTitle={submitButtonTextHandler()}
+
+                />
             </div>
 
 
@@ -321,22 +374,6 @@ const BuyOrder = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        activePair: state.exchange.activePair,
-        bestBuyPrice: state.exchange.activePairOrders.bestBuyPrice,
-        selectedBuyOrder: state.exchange.activePairOrders.selectedBuyOrder,
-        wallets: state.auth.wallets,
-        tradeFee: state.auth.tradeFee,
-        accessToken: state.auth.accessToken,
-        isLogin: state.auth.isLogin,
-    };
-};
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setLastTransaction: (time) => dispatch(setLastTransaction(time)),
-    };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(BuyOrder);
+export default BuyOrder;

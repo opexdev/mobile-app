@@ -3,11 +3,11 @@
 }
 .content {
     height: 100%;
-    padding: 1vh 0.5vw;
+   /* padding: 1vh 0.5vw;*/
 }
 
 .thisButton {
-    width: 100%;
+    /*width: 100%;*/
 }
 .alertSubmit{
     background-color: var(--orange);
@@ -45,4 +45,14 @@
 }
 .stopMarket input {
     cursor: not-allowed;
+}
+
+.smallInput :global(.lead){
+    width: 24%;
+}
+.smallInput :global(input){
+    width: 52%;
+}
+.smallInput :global(.after){
+    width: 24%;
 }
