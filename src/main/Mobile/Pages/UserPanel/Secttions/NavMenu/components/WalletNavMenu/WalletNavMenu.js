@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import classes from "../../NavMenu.module.css";
 import {NavLink, useParams} from "react-router-dom";
 import * as Routes from "../../../../../../Routes/routes";
 import Icon from "../../../../../../../../components/Icon/Icon";
 import {useTranslation} from "react-i18next";
+import {toast} from "react-hot-toast";
 
 const WalletNavMenu = () => {
 
     const {t} = useTranslation();
 
     const {id} = useParams()
+
+
 
 
     return (

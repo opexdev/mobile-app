@@ -494,7 +494,7 @@
     },
     {
       "uid": "c759418c008e9562944080fee617fc76",
-      "css": "cancel-circled",
+      "css": "cancel-circled-1",
       "code": 353,
       "src": "entypo"
     },
@@ -518,7 +518,7 @@
     },
     {
       "uid": "fd32deda7b2f5b8cad46d13897c19ae8",
-      "css": "cancel-circled-1",
+      "css": "cancel-circled-2",
       "code": 357,
       "src": "elusive"
     },
@@ -935,6 +935,12 @@
       "css": "play",
       "code": 528,
       "src": "typicons"
+    },
+    {
+      "uid": "b429436ec5a518c78479d44ef18dbd60",
+      "css": "paste",
+      "code": 529,
+      "src": "fontawesome"
     }
   ]
 }

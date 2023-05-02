@@ -17,6 +17,10 @@ const Deposit = () => {
     const {t} = useTranslation();
     const addressRef = useRef(null);
 
+    useEffect(() => {
+        toast.dismiss()
+    }, [])
+
     const copyToClipboard = () => {
         addressRef.current.select();
         document.execCommand("copy");
@@ -135,6 +139,7 @@ const Deposit = () => {
 
 
    // if (id === "IRT") return <IRTDeposit/>
+    if (id === "IRT") return <div className={`flex jc-center ai-center card-bg card-border height-98 width-95`}><h3>{t("comingSoon")}</h3></div>
     if (isLoading) return <div className={`card-bg card-border height-98 width-95`}><Loading/></div>
     if (error) return <div className={`card-bg card-border height-98 width-95`}><Error retryFunc={refetch}/></div>
 
