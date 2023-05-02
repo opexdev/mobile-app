@@ -43,7 +43,7 @@ const WalletNavMenu = () => {
             >
                 <Icon iconName="icon-order fs-06"/>
 
-                <span className={`fs-0-8`}>{t("DepositWithdrawTx.title")}</span>
+                <span className={`fs-0-8`}>{t("DepositWithdrawTx.transactions")}</span>
             </NavLink>
         </div>
     );

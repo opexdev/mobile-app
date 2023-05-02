@@ -273,7 +273,8 @@
     "13007": "Unknown Error"
   },
   "DepositWithdrawTx": {
-    "title": "Transactions",
+    "title": "Deposit / Withdraw Transactions",
+    "transactions": "Transactions",
     "depositWithdrawal": "Deposit / Withdrawal",
     "withdrawalSend": "Withdrawal / Send",
     "transactionType": "Transaction Type",

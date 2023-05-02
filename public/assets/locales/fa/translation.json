@@ -273,7 +273,8 @@
     "13007": "خطای ناشناخته"
   },
   "DepositWithdrawTx": {
-    "title": "تراکنش‌ها",
+    "title": "تراکنش‌های واریز / برداشت",
+    "transactions": "تراکنش‌ها",
     "depositWithdrawal": "واریز / دریافت",
     "withdrawalSend": "برداشت / ارسال",
     "transactionType": "نوع تراکنش",
