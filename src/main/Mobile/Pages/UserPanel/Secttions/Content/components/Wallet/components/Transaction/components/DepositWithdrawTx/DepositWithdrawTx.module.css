@@ -1,0 +1,7 @@
+
+.doubleStriped div:nth-child(2n-1) div{
+    background-color: var(--tableRow);
+    -webkit-transition: background-color 0.4s;
+    -o-transition: background-color 0.4s;
+    transition: background-color 0.4s;
+}

@@ -100,7 +100,7 @@
 }
 .selectBox {
   width: 50%;
-  font-size: 0.75vw;
+  /*font-size: 0.75vw;*/
 }
 :global .select__control {
   border-color: transparent !important;

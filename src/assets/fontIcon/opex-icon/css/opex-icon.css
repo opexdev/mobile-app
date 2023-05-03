@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'opex-icon';
-  src: url('../font/opex-icon.eot?42850643');
-  src: url('../font/opex-icon.eot?42850643#iefix') format('embedded-opentype'),
-       url('../font/opex-icon.woff2?42850643') format('woff2'),
-       url('../font/opex-icon.woff?42850643') format('woff'),
-       url('../font/opex-icon.ttf?42850643') format('truetype'),
-       url('../font/opex-icon.svg?42850643#opex-icon') format('svg');
+  src: url('../font/opex-icon.eot?88500404');
+  src: url('../font/opex-icon.eot?88500404#iefix') format('embedded-opentype'),
+       url('../font/opex-icon.woff2?88500404') format('woff2'),
+       url('../font/opex-icon.woff?88500404') format('woff'),
+       url('../font/opex-icon.ttf?88500404') format('truetype'),
+       url('../font/opex-icon.svg?88500404#opex-icon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'opex-icon';
-    src: url('../font/opex-icon.svg?42850643#opex-icon') format('svg');
+    src: url('../font/opex-icon.svg?88500404#opex-icon') format('svg');
   }
 }
 */
@@ -115,10 +115,10 @@
 .icon-help-circled-2:before { content: '\0158'; } /* 'Ř' */
 .icon-help-circled-alt:before { content: '\0159'; } /* 'ř' */
 .icon-menu_vertical:before { content: '\0160'; } /* 'Š' */
-.icon-cancel-circled:before { content: '\0161'; } /* 'š' */
+.icon-cancel-circled-1:before { content: '\0161'; } /* 'š' */
 .icon-cancel-circle:before { content: '\0162'; } /* 'Ţ' */
 .icon-cancel-circle-1:before { content: '\0163'; } /* 'ţ' */
-.icon-cancel-circled-1:before { content: '\0165'; } /* 'ť' */
+.icon-cancel-circled-2:before { content: '\0165'; } /* 'ť' */
 .icon-cancel-circle-2:before { content: '\0166'; } /* 'Ŧ' */
 .icon-profilesetting:before { content: '\0167'; } /* 'ŧ' */
 .icon-protectsetting:before { content: '\0168'; } /* 'Ũ' */
@@ -164,4 +164,5 @@
 .icon-down-dir:before { content: '\0208'; } /* 'Ȉ' */
 .icon-up-dir:before { content: '\0209'; } /* 'ȉ' */
 .icon-play:before { content: '\0210'; } /* 'Ȑ' */
+.icon-paste:before { content: '\0211'; } /* 'ȑ' */
 .icon-cancel-circled2:before { content: '\e801'; } /* '' */

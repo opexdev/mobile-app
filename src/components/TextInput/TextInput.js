@@ -27,7 +27,7 @@ const TextInput = (props) => {
             onChange={onchange}
             options={options}
             classNamePrefix="select"
-            className={classes.selectBox}
+            className={`select ${classes.selectBox}`}
             {...other}
         />
     }

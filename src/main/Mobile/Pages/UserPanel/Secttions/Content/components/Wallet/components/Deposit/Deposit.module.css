@@ -1,0 +1,12 @@
+.depositInput {
+    width: 100%;
+}
+.depositInput :global(.after) {
+    width: 15%;
+    cursor: pointer;
+}
+.depositInput :global(input) {
+    width: 85% !important;
+    cursor: not-allowed;
+    font-family: 'Roboto', sans-serif;
+}

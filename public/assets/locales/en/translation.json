@@ -234,6 +234,7 @@
     "title": "Deposit / Withdraw",
     "success": "The Address is copied.",
     "copy": "Copied!",
+    "paste": "Pasted!",
     "IRTAllowable": "The minimum amount must be {{min}} IRT and the maximum {{max}} IRT.",
     "emptyInput": "Enter the required value.",
     "IRTText": "The invoice with the amount of {{amount}} IRT is created on {{date}}, {{time}. you will be directed to the payment portal through the green button below. To create a new invoice, pay or cancel the previous invoice.",
@@ -272,7 +273,8 @@
     "13007": "Unknown Error"
   },
   "DepositWithdrawTx": {
-    "title": "Transactions",
+    "title": "Deposit / Withdraw Transactions",
+    "transactions": "Transactions",
     "depositWithdrawal": "Deposit / Withdrawal",
     "withdrawalSend": "Withdrawal / Send",
     "transactionType": "Transaction Type",
