@@ -32,47 +32,29 @@ const DepositWithdrawTxTables = ({txs, id}) => {
         }
     };
 
-    return <table
-        className="text-center double-striped"
-        cellSpacing="0"
-        cellPadding="0">
-        <thead className="th-border-y">
-        <tr>
-            <th>{t("date")}</th>
-            <th>{t("time")}</th>
-            <th>{t("DepositWithdrawTx.transactionType")}</th>
-            <th>{t("DepositWithdrawTx.network")}</th>
-            <th>{t("volume")} ({id})</th>
-            <th>{t("status")}</th>
-            <th>{t("details")}</th>
-        </tr>
-        </thead>
-        <tbody>{txs.map((tr, index) => (
-            <Fragment key={index}>
-                <tr className={tr.hasOwnProperty('withdrawOrderId') ? "text-red" :  "text-green"}>
-                    <td><Date date={tr.time}/></td>
-                    <td>{moment(tr.time).format("HH:mm:ss")}</td>
-                    <td>{tr.hasOwnProperty('withdrawOrderId')  ? t("withdrawal") :  t("deposit")}</td>
-                    <td className={`width-20`}>{tr.network}</td>
-                    <td>{new BN(tr.amount).toFormat()}</td>
-                    <td className={`text-color`}>{txStatus(tr.status)}</td>
-                    {openItem === index ? (
-                        <td onClick={() => setOpenItem(null)}>
-                            <Icon iconName="icon-up-open text-blue fs-0-7 cursor-pointer"
-                                  customClass={classes.iconBG}
-                            />
-                        </td>
-                    ) : (
-                        <td onClick={() => setOpenItem(index)}>
-                            <Icon iconName="icon-down-open text-blue fs-0-7 cursor-pointer"
-                                  customClass={classes.iconBG}
-                            />
-                        </td>
-                    )}
-                </tr>
-                <tr style={{display: openItem === index ? "revert" : "none"}}>
-                    <td colSpan="9" className={`py-1 px-2`}>
-                        <div className="row jc-around  ai-center" style={{width: "100%"}}>
+    return <div className={`${classes.doubleStriped}`}>
+        {txs.map((tr, index) => (
+            <div key={index}>
+                <div className={`row  fs-0-9`}>
+                    <div className={`width-43 column ai-start pr-3 pt-025 pb-025`}>
+                        <span className={`mb-025`}><Date date={tr.time}/> | {moment(tr.time).format("HH:mm:ss")}</span>
+                        <span className={`row ${tr.hasOwnProperty('withdrawOrderId') ? "text-red" :  "text-green"} mt-025`} >
+                            <span>{tr.hasOwnProperty('withdrawOrderId')  ? t("withdrawal") :  t("deposit")}</span>
+                            <span className={`mx-2`}>{id}</span>
+                            <span>{new BN(tr.amount).toFormat()}</span>
+                        </span>
+                    </div>
+                    <div className={`width-43 column ai-end pt-025 pb-025`}>
+                        <span>{txStatus(tr.status)}</span>
+                        <span>{tr.network}</span>
+                    </div>
+                    <div className={`width-14 flex jc-end ai-center pl-3 pt-025 pb-025`} onClick={() => setOpenItem(openItem === index ? null : index)}>
+                        <Icon iconName={`${openItem === index ? 'icon-up-open' : 'icon-down-open'} text-blue fs-0-7 cursor-pointer`} customClass={classes.iconBG}/>
+                    </div>
+                </div>
+                <span style={{display: openItem === index ? "revert" : "none"}} className={`fs-0-9`}>
+                    <div  className={``}>
+                        <div className="row jc-around  ai-center px-3" style={{width: "100%"}}>
                             <p className="col-94 row jc-between">
                                 {t("DepositWithdrawTx.destination")} :
                                 <span>{tr.address}</span>
@@ -82,7 +64,7 @@ const DepositWithdrawTxTables = ({txs, id}) => {
                                       onClick={() => copyAddressToClipboard(tr.address)}/>
                             </p>
                         </div>
-                        <div className="row jc-around ai-center" style={{width: "100%"}}>
+                        <div className="row jc-around ai-center px-3 pb-05" style={{width: "100%"}}>
                             <p className="col-94 row jc-between">
                                 {t("DepositWithdrawTx.transactionId")} :
                                 <span>{id === "BTC" ? tr.txId.slice(0, tr.txId.indexOf("_")) : tr.txId}</span>
@@ -95,12 +77,12 @@ const DepositWithdrawTxTables = ({txs, id}) => {
                                 />
                             </p>
                         </div>
-                    </td>
-                </tr>
-            </Fragment>
+                    </div>
+                </span>
+
+            </div>
         ))}
-        </tbody>
-    </table>
+    </div>
 };
 
 export default DepositWithdrawTxTables;
