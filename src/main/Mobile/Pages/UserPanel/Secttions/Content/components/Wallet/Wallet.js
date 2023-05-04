@@ -26,7 +26,7 @@ const Wallet = () => {
     }
 
     return (
-        <div className={`width-100 flex ai-center jc-center`} style={{height:"100%"}}>
+        <div className={`width-100 flex ai-center jc-center height-100`}>
             {content()}
         </div>
     );
