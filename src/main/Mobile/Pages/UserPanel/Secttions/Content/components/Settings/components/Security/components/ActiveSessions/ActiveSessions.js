@@ -77,7 +77,6 @@ const ActiveSessions = () => {
             <div className={`column container ${classes.content} position-relative`}>
                 {content()}
             </div>
-
         </div>
     );
 };
