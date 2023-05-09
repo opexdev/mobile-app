@@ -361,7 +361,7 @@
     "birthdayJ": "Date of birth (Hijri)",
     "birthday": "Date of birth",
     "nationalId": "National ID",
-    "idNumber": "National ID / Passport Number",
+    "idNumber": "ID / Passport",
     "idNumberPlaceHolder": "Enter National ID or Passport Number",
     "passportNumber": "Passport Number",
     "mobile": "Phone Number",
@@ -370,7 +370,9 @@
     "postalCode": "Postal Code",
     "address": "Address",
     "selectNationality": "Select your nationality",
-    "selectResidence": "Select your country of residence"
+    "selectResidence": "Select your country of residence",
+    "noKYC": "Authentication is not done, after authentication and confirmation by an expert, your personal information will be displayed.",
+    "doKYC": "Authentication"
   },
   "LoginReports": {
     "title": "Login Reports"
