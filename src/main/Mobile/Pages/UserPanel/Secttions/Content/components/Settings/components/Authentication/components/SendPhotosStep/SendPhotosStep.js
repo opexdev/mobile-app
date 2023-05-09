@@ -32,7 +32,6 @@ const SendPhotosStep = (props) => {
             toast.error(t("SendPhotosStep.idCardEmpty"));
             return;
         }
-
         setSending(true)
         const acceptForm = await sendFileToUserStorage(id, images.img1)
         const selfie = await sendFileToUserStorage(id, images.img2)
@@ -49,13 +48,13 @@ const SendPhotosStep = (props) => {
                     props.nextStep()
                 }).catch(() => {
                 toast.error(t("SendPhotosStep.serverError"));
+                setImages({...images})
             })
         } else {
             toast.error(t("SendPhotosStep.serverError"));
         }
         setSending(false)
     }
-
 
     return (
         <div className={`card-bg card-border column ${classes.container}`}>

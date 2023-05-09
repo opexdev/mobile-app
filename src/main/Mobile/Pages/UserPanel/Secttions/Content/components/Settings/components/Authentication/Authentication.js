@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ScrollBar from "../../../../../../../../../../components/ScrollBar";
 import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
@@ -13,6 +13,12 @@ const Authentication = () => {
     const [step, setStep] = useState(1);
 
     const KYCStatus = useSelector(state => state.auth.kyc);
+
+    useEffect(()=>{
+        if (KYCStatus && KYCStatus !== "NOT_REQUESTED" ) {
+            setStep(4)
+        }
+    }, [KYCStatus])
 
     const titleHandler = () => {
 

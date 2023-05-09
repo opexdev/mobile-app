@@ -24,8 +24,8 @@
     border: 0.3vh dotted var(--cardBorder);
 }
 .cancel {
-    top: 0.8vh;
-    left: 0.1vw;
+    top: 1.2vh;
+    left: 2.1vw;
 }
 .zone {
     padding: 2vh 5vw;
