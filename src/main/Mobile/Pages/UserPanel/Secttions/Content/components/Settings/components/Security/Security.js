@@ -6,15 +6,11 @@ import SetTwoStepVerification from "./components/SetTwoStepVerification/SetTwoSt
 
 const Security = () => {
     return (
-
         <ScrollBar>
             <ActiveSessions/>
             <ChangePassword/>
             <SetTwoStepVerification/>
-
-
         </ScrollBar>
-
     );
 };
 

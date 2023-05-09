@@ -371,6 +371,7 @@
     "address": "Address",
     "selectNationality": "Select your nationality",
     "selectResidence": "Select your country of residence",
+    "select": "Select",
     "noKYC": "Authentication is not done, after authentication and confirmation by an expert, your personal information will be displayed.",
     "doKYC": "Authentication"
   },
