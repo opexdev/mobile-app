@@ -1,0 +1,21 @@
+.container {
+    height: 100%;
+}
+.header {
+    height: 12%;
+}
+.content {
+    height: 88%;
+}
+.thisButton {
+    width: 10%;
+}
+.thisButton.prev{
+    background-color: var(--orange);
+}
+.thisButton.submit{
+    background-color: var(--darkGreen);
+}
+.content img{
+    width: 25%;
+}

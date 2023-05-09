@@ -27,7 +27,8 @@ export const Personalization = "/panel/settings/personalization";
 export const PersonalizationRelative = "personalization";
 export const Authentication = "/panel/settings/authentication";
 export const AuthenticationRelative = "/authentication";
-
+export const APIKey = "/panel/settings/api-key";
+export const APIKeyRelative = "/api-key";
 
 
 export const Overview = "/panel/market/overview";

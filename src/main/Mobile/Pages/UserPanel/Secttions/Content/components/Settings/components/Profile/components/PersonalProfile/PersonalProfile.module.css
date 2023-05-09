@@ -1,0 +1,24 @@
+.container {
+    /*min-height: 100%;*/
+}
+.header {
+    height: 15%;
+}
+.content {
+    height: 85%;
+}
+
+.thisInput :global(.lead) {
+    width: 40%;
+}
+.thisInput :global(input) {
+    width: 60%;
+}
+
+.thisButton {
+    width: 35%;
+    background-color: var(--darkGreen);
+}
+.content img{
+    width: 25%;
+}

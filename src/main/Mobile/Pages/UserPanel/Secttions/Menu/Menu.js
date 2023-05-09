@@ -6,6 +6,7 @@ import * as RoutesName from "../../../../Routes/routes";
 import {activeActionSheet} from "../../../../../../store/actions/global";
 import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
+import {Profile} from "../../../../Routes/routes";
 
 
 const Menu = () => {
@@ -44,15 +45,15 @@ const Menu = () => {
                 <Icon iconName="icon-safe fs-20" customClass={`col-48 flex jc-end ai-center`}/>
                 <span className={`col-48 ai-start`}>{t("wallet.title")}</span>
             </NavLink>
-           {/* <NavLink
-                to={RoutesName.Settings}
+            <NavLink
+                to={RoutesName.Profile}
                 className={({ isActive }) =>
                     isActive ? `${classes.selected} width-50 row jc-between ai-center py-1` : "width-50 row jc-between ai-center py-1"
                 }
             >
                 <Icon iconName="icon-settings fs-20" customClass={`col-48 flex jc-end ai-center`}/>
                 <span className={`col-48 ai-start`}>{t("settings.title")}</span>
-            </NavLink>*/}
+            </NavLink>
         </div>
     );
 };

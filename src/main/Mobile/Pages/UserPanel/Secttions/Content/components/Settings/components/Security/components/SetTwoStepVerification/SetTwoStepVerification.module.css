@@ -1,0 +1,36 @@
+.container {
+    height: 62vh;
+}
+.header {
+    height: 13%;
+}
+.content {
+    height: 87%;
+}
+.thisLoading{
+    width: 5vw;
+}
+
+.thisButton {
+    width: 25%;
+    background-color: var(--darkGreen);
+}
+.submit{
+    width: 20%;
+}
+.disableOtp{
+    background-color: var(--darkRed);
+    width: 25%;
+}
+
+.thisInput :global(.lead) {
+    width: 35%;
+}
+.thisInput :global(input) {
+    width: 75% !important;
+    letter-spacing: 1rem;
+}
+/*.thisInput :global(input) {
+  width: 85% !important;
+}*/
+

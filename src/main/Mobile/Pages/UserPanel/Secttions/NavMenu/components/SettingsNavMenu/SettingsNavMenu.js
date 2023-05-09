@@ -3,48 +3,52 @@ import classes from "../../NavMenu.module.css";
 import {NavLink} from "react-router-dom";
 import * as Routes from "../../../../../../Routes/routes";
 import Icon from "../../../../../../../../components/Icon/Icon";
+import {useTranslation} from "react-i18next";
 
 const SettingsNavMenu = () => {
+
+    const {t} = useTranslation();
+
     return (
         <div className={`width-100 ${classes.container} row ai-center jc-between`}>
 
             <NavLink
-                to={Routes.Overview}
-                className={({ isActive }) =>
+                to={Routes.Profile}
+                className={({isActive}) =>
                     isActive ? `col-25 column jc-center ai-center ${classes.selected}` : `col-25 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-overview fs-06"/>
-                <span className={`fs-0-6`}>امنیت</span>
+                <Icon iconName="icon-username-icon fs-06"/>
+                <span className={`fs-0-6`}>{t("SettingsSubMenu.userProfile")}</span>
             </NavLink>
             <NavLink
-                to={Routes.OrderBook}
-                className={({ isActive }) =>
+                to={Routes.Security}
+                className={({isActive}) =>
                     isActive ? `col-25 column jc-center ai-center ${classes.selected}` : `col-25 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-orderbook fs-06"/>
-                <span className={`fs-0-6`}>احراز هویت</span>
+                <Icon iconName="icon-privacy-icon-1 fs-06"/>
+                <span className={`fs-0-6`}>{t("SettingsSubMenu.security")}</span>
             </NavLink>
             <NavLink
-                to={Routes.Order}
-                className={({ isActive }) =>
+                to={Routes.Authentication}
+                className={({isActive}) =>
                     isActive ? `col-25  column jc-center ai-center ${classes.selected}` : `col-25 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-order fs-06"/>
+                <Icon iconName="icon-file-user-icon fs-06"/>
 
-                <span className={`fs-0-6`}>مشخصات کاربری</span>
+                <span className={`fs-0-6`}>{t("SettingsSubMenu.authentication")}</span>
             </NavLink>
             <NavLink
-                to={Routes.Order}
-                className={({ isActive }) =>
+                to={Routes.APIKey}
+                className={({isActive}) =>
                     isActive ? `col-25  column jc-center ai-center ${classes.selected}` : `col-25 column jc-center ai-center`
                 }
             >
-                <Icon iconName="icon-order fs-06"/>
+                <Icon iconName="icon-user-key-icon fs-06"/>
 
-                <span className={`fs-0-6`}>شخصی سازی</span>
+                <span className={`fs-0-6`}> {t("APIKey.title")}</span>
             </NavLink>
         </div>
     );
