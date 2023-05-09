@@ -617,7 +617,7 @@
   },
   "ImageInput": {
     "title": "",
-    "dropText": "Upload by drag and drop / browsing.",
+    "dropText": "Browsing.",
     "iconErrorText": "The uploaded photo is not valid, please try again!",
     "fileTooLarge": "The uploaded file size is larger than the maximum allowed!",
     "fileInvalidType": "Uploaded file format is not acceptable!",

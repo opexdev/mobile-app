@@ -1,7 +1,6 @@
 import React from "react";
 import {setThemeInitiate} from "../../../../../../../../store/actions";
 import {connect} from "react-redux";
-import {useTranslation} from "react-i18next";
 import {Navigate, Route, Routes, useParams} from "react-router-dom";
 import Profile from "./components/Profile/Profile";
 import Security from "./components/Security/Security";
