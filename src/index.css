@@ -2116,6 +2116,10 @@ table {
     margin-top: 10vh;
     margin-bottom: 10vh;
 }
+.my-20 {
+    margin-top: 20vh;
+    margin-bottom: 20vh;
+}
 
 .m-auto {
     margin: 0 auto;

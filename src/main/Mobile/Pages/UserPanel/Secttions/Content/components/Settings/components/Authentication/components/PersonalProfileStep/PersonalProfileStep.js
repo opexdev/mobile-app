@@ -167,18 +167,18 @@ const PersonalProfileStep = (props) => {
 
     return (
         <div className={`card-bg card-border column ${classes.container}`}>
-            <div className={`column border-bottom jc-center card-header-bg px-4 py-1 ${classes.header}`}>
+            <div className={`column border-bottom jc-center card-header-bg px-4 py-2 ${classes.header}`}>
                 <div className="row jc-start ">
                     <h3>{t("PersonalProfileStep.title")}</h3>
                 </div>
             </div>
-            {loading ?<Loading/> :
+            {loading ? <div className={`my-20`}><Loading/></div> :
                 <div className={`column jc-between ai-center px-4 py-2 ${classes.content}`}>
                         <TextInput
                             lead={t('PersonalProfile.firstName')}
                             type="text"
                             value={profile.firstName.value}
-                            customClass={`${classes.thisInput} width-100`}
+                            customClass={`${classes.thisInput} width-100 my-1`}
                             data-name="firstName"
                             data-type="input"
                             data-min={2}
@@ -189,7 +189,7 @@ const PersonalProfileStep = (props) => {
                             lead={t('PersonalProfile.lastName')}
                             type="text"
                             value={profile.lastName.value}
-                            customClass={`${classes.thisInput} width-100`}
+                            customClass={`${classes.thisInput} width-100 my-1`}
                             data-name="lastName"
                             data-type="input"
                             data-min={2}
@@ -199,7 +199,7 @@ const PersonalProfileStep = (props) => {
                         <TextInput
                             select={true}
                             placeholder={t('PersonalProfile.select')}
-                            customClass={`${classes.thisInput} width-100`}
+                            customClass={`${classes.thisInput} width-100 my-1`}
                             options={countries}
                             defaultValue={countries.filter((v) => v.value === profile.nationality.value)}
                             lead={t('PersonalProfile.nationality')}
@@ -210,7 +210,7 @@ const PersonalProfileStep = (props) => {
                         <TextInput
                             select={true}
                             placeholder={t('PersonalProfile.select')}
-                            customClass={`${classes.thisInput} width-100`}
+                            customClass={`${classes.thisInput} width-100 my-1`}
                             lead={t('PersonalProfile.residence')}
                             defaultValue={countries.filter((v) => v.value === profile.residence.value)}
                             type="select"
@@ -224,7 +224,7 @@ const PersonalProfileStep = (props) => {
                             lead={t('PersonalProfile.birthday')}
                             type="text"
                             placeholder={t('PersonalProfileStep.yy/mm//dd')}
-                            customClass={`${classes.thisInput} width-100`}
+                            customClass={`${classes.thisInput} width-100 my-1`}
                             ltr={true}
                             value={profile.birthday.value}
                             data-name="birthday"
@@ -237,7 +237,7 @@ const PersonalProfileStep = (props) => {
                             placeholder={t('PersonalProfile.idNumberPlaceHolder')}
                             type="text"
                             value={profile.idNumber.value}
-                            customClass={`${classes.thisInput} width-100 fs-0-9`}
+                            customClass={`${classes.thisInput} width-100 fs-0-9 my-1`}
                             data-name="idNumber"
                             data-type="idNumber"
                             onchange={(e) => inputHandler(e)}
@@ -248,7 +248,7 @@ const PersonalProfileStep = (props) => {
                         <TextInput
                             lead={t('PersonalProfile.mobile')}
                             type="text"
-                            customClass={`${classes.thisInput} width-100`}
+                            customClass={`${classes.thisInput} width-100 my-1`}
                             ltr={true}
                             value={profile.mobile.value}
                             data-name="mobile"
@@ -259,7 +259,7 @@ const PersonalProfileStep = (props) => {
                         <TextInput
                             lead={t('PersonalProfile.postalCode')}
                             type="text"
-                            customClass={`${classes.thisInput} width-100`}
+                            customClass={`${classes.thisInput} width-100 my-1`}
                             ltr={true}
                             value={profile.postalCode.value}
                             data-name="postalCode"
@@ -272,12 +272,13 @@ const PersonalProfileStep = (props) => {
                             type="email"
                             disabled={true}
                             value={email}
-                            customClass={`${classes.email} ${classes.thisInput} width-100`}
+                            customClass={`${classes.email} ${classes.thisInput} width-100 my-1`}
+                            alerts={[]}
                         />
                         <TextInput
                             lead={t('PersonalProfile.address')}
                             type="text"
-                            customClass={`${classes.thisInput} width-100`}
+                            customClass={`${classes.thisInput} width-100 my-1`}
                             ltr={true}
                             value={profile.address.value}
                             data-name="address"

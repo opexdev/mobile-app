@@ -362,7 +362,7 @@
     "birthday": "Date of birth",
     "nationalId": "National ID",
     "idNumber": "ID / Passport",
-    "idNumberPlaceHolder": "Enter National ID or Passport Number",
+    "idNumberPlaceHolder": "National ID or Passport Number",
     "passportNumber": "Passport Number",
     "mobile": "Phone Number",
     "telephone": "Telephone",

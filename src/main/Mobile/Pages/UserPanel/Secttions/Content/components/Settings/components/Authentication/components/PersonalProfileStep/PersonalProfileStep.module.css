@@ -1,12 +1,7 @@
 .container {
-    height: 115vh;
+    min-height: 65vh;
 }
-.header {
-    height: 8%;
-}
-.content {
-    height: 92%;
-}
+
 .content :global(.row) {
     width: 100%;
 }
