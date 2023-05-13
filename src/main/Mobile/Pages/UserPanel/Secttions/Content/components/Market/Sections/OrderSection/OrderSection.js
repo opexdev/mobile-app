@@ -69,10 +69,10 @@ const OrderSection = () => {
 
                 </div>
             </div>
-            <div className={`width-100 col-46`}>
+            <div className={`width-100 col-40`}>
                 {showChart ? <TradingView/> : <OrderBook orderLayout={true}/>}
             </div>
-            <div className={`width-100 col-46`}>
+            <div className={`width-100 col-52`}>
                 <Order/>
             </div>
         </>

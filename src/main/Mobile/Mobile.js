@@ -58,14 +58,14 @@ const Mobile = () => {
         dispatch(setLastPriceInitiate());
     }, 3000)
 
-    const Toast = () => <Toaster position="bottom-right" toastOptions={
+    const Toast = () => <Toaster position="top-center" toastOptions={
         {
             className: "rtl",
             style: {
                 padding: "0.3vh 0.8vw 0.3vh 0",
                 color: "white",
                 lineHeight: "3vh",
-                fontSize: "0.8vw",
+                fontSize: "3.3vw",
                 borderRadius: "4px",
                 background: "var(--mainContent)",
             },

@@ -1,0 +1,38 @@
+.container {
+    min-height: 65vh;
+}
+.header {
+    height: 12%;
+}
+.content {
+    height: 88%;
+}
+.thisButton {
+    width: 30%;
+}
+.thisButton.prev{
+    background-color: var(--orange);
+}
+.thisButton.next{
+    background-color: var(--darkGreen);
+}
+
+.zoneBox {
+    width: 100%;
+    padding: 2vh 3vw;
+    border-radius: 10px;
+    border: 0.3vh dotted var(--cardBorder);
+}
+.cancel {
+    top: 1.2vh;
+    left: 2.1vw;
+}
+.zone {
+    padding: 2vh 5vw;
+    height: 40vh;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: var(--cardHeader);
+}

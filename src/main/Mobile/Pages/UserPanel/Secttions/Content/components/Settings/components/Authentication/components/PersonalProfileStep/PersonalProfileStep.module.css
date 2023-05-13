@@ -1,0 +1,34 @@
+.container {
+    min-height: 65vh;
+}
+
+.content :global(.row) {
+    width: 100%;
+}
+.addressInput :global(.lead) {
+    width: 24.5%;
+}
+.addressInput :global(input) {
+    width: 75.5%;
+}
+.thisButton {
+    width: 30%;
+}
+.thisButton.prev{
+    background-color: var(--orange);
+}
+.thisButton.next{
+    background-color: var(--darkGreen);
+}
+.email :global(input){
+    background-color: var(--cardHeader);
+    cursor: not-allowed;
+}
+
+.thisInput :global(.lead) {
+    width: 40%;
+}
+.thisInput :global(input) {
+    width: 60%;
+}
+

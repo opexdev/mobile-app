@@ -115,13 +115,13 @@
 html, body {
     width: 100%;
     font-family: iranyekan, serif !important;
-    font-weight: 400;
+    font-weight: 500;
     direction: rtl;
 }
 
 .ltr {
     direction: ltr;
-    font-weight: 300;
+    font-weight: 500;
     font-family: 'Poppins', 'Roboto', sans-serif !important;
 }
 
@@ -129,7 +129,7 @@ html, body {
 :root {
     --menu: #d9d8d8;
     --subMenu: #f2f2f2;
-    --mainContent: #f2f5f9;
+    --mainContent: #f6f6f6;
     --activeTitle: #f2f5f9;
     --footer: #e5e9ef;
     --cardBody: #fff;
@@ -147,7 +147,7 @@ html, body {
     --tableHeader: #f9f9f9;
     --toolTipBG: #d8d8d8e6;
     --popupAlpha: #f0f0f0e6;
-    --textColor: #444444;
+    --textColor: #000000;
     --white: #f7f7f7;
     --black: #0707073b;
     --gray: #949494;
@@ -164,6 +164,7 @@ html, body {
     --blue: #0e4095;
     --lightBlue: #0d0d5a;
 }
+
 
 .dark {
     --menu: #24242e;
@@ -663,6 +664,11 @@ a {
     -webkit-box-flex: 0.6;
     -ms-flex: 0.6;
     flex: 0.6;
+}
+.col-52 {
+    -webkit-box-flex: 0.52;
+    -ms-flex: 0.52;
+    flex: 0.52;
 }
 
 .col-55 {
@@ -2110,6 +2116,10 @@ table {
 .my-10 {
     margin-top: 10vh;
     margin-bottom: 10vh;
+}
+.my-20 {
+    margin-top: 20vh;
+    margin-bottom: 20vh;
 }
 
 .m-auto {

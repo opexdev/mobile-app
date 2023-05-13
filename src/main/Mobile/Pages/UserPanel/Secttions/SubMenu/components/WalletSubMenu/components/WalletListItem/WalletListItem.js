@@ -21,8 +21,6 @@ const WalletListItem = ({assetName, showZero}) => {
 
     if (showZero && free === 0) return <></>
 
-    console.log("asset: ",  assetName)
-
     return (
         <NavLink
             className={({isActive}) =>

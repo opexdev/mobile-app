@@ -1,0 +1,16 @@
+.container {
+    height: 52vh;
+}
+.header {
+    height: 15%;
+}
+.content {
+    height: 85%;
+}
+
+
+.thisSession {
+    background: var(--cardHeaderAlpha);
+}
+
+

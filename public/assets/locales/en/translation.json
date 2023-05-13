@@ -234,6 +234,7 @@
     "title": "Deposit / Withdraw",
     "success": "The Address is copied.",
     "copy": "Copied!",
+    "paste": "Pasted!",
     "IRTAllowable": "The minimum amount must be {{min}} IRT and the maximum {{max}} IRT.",
     "emptyInput": "Enter the required value.",
     "IRTText": "The invoice with the amount of {{amount}} IRT is created on {{date}}, {{time}. you will be directed to the payment portal through the green button below. To create a new invoice, pay or cancel the previous invoice.",
@@ -272,7 +273,8 @@
     "13007": "Unknown Error"
   },
   "DepositWithdrawTx": {
-    "title": "Transactions",
+    "title": "Deposit / Withdraw Transactions",
+    "transactions": "Transactions",
     "depositWithdrawal": "Deposit / Withdrawal",
     "withdrawalSend": "Withdrawal / Send",
     "transactionType": "Transaction Type",
@@ -359,8 +361,8 @@
     "birthdayJ": "Date of birth (Hijri)",
     "birthday": "Date of birth",
     "nationalId": "National ID",
-    "idNumber": "National ID / Passport Number",
-    "idNumberPlaceHolder": "Enter National ID or Passport Number",
+    "idNumber": "ID / Passport",
+    "idNumberPlaceHolder": "National ID or Passport Number",
     "passportNumber": "Passport Number",
     "mobile": "Phone Number",
     "telephone": "Telephone",
@@ -368,7 +370,10 @@
     "postalCode": "Postal Code",
     "address": "Address",
     "selectNationality": "Select your nationality",
-    "selectResidence": "Select your country of residence"
+    "selectResidence": "Select your country of residence",
+    "select": "Select",
+    "noKYC": "Authentication is not done, after authentication and confirmation by an expert, your personal information will be displayed.",
+    "doKYC": "Authentication"
   },
   "LoginReports": {
     "title": "Login Reports"
@@ -612,7 +617,7 @@
   },
   "ImageInput": {
     "title": "",
-    "dropText": "Upload by drag and drop / browsing.",
+    "dropText": "Browsing.",
     "iconErrorText": "The uploaded photo is not valid, please try again!",
     "fileTooLarge": "The uploaded file size is larger than the maximum allowed!",
     "fileInvalidType": "Uploaded file format is not acceptable!",

@@ -16,14 +16,14 @@ const MarketTitle = () => {
     return (
         <div className={`width-90 column m-auto py-3`}>
             <Title title={t('title')}/>
-            <div className={`row jc-between ai-center mt-2`}>
-                <Button
+            <div className={`row jc-center ai-center mt-2`}>
+                {/*<Button
                     buttonClass={`${classes.thisButton} col-48 px-3`}
                     buttonTitle={t("MarketTitle.easyTrading")}
                     type="submit"
                     onClick={() => navigate("/", { replace: true })}
 
-                />
+                />*/}
                 <Button
                     buttonClass={`${classes.thisButton} col-48 px-3`}
                     buttonTitle={t("MarketTitle.advancedTrading")}

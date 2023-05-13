@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import classes from "../../NavMenu.module.css";
 import {NavLink, useParams} from "react-router-dom";
 import * as Routes from "../../../../../../Routes/routes";
 import Icon from "../../../../../../../../components/Icon/Icon";
 import {useTranslation} from "react-i18next";
+import {toast} from "react-hot-toast";
 
 const WalletNavMenu = () => {
 
     const {t} = useTranslation();
 
     const {id} = useParams()
+
+
 
 
     return (
@@ -40,7 +43,7 @@ const WalletNavMenu = () => {
             >
                 <Icon iconName="icon-order fs-06"/>
 
-                <span className={`fs-0-8`}>{t("DepositWithdrawTx.title")}</span>
+                <span className={`fs-0-8`}>{t("DepositWithdrawTx.transactions")}</span>
             </NavLink>
         </div>
     );
