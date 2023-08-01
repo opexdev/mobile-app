@@ -10,3 +10,11 @@
     cursor: not-allowed;
     font-family: 'Roboto', sans-serif;
 }
+
+
+.thisInput :global(.lead) {
+    width: 25%;
+}
+.thisInput :global(.select) {
+    width: 75% !important;
+}
