@@ -9,6 +9,7 @@ import Button from "../../../../../../components/Button/Button";
 import Icon from "../../../../../../components/Icon/Icon";
 import {images} from "../../../../../../assets/images";
 import ReactTooltip from "react-tooltip";
+import {Buffer} from 'buffer';
 
 const RegisterForm = () => {
     const {t} = useTranslation();
@@ -176,7 +177,7 @@ const RegisterForm = () => {
         if (captcha.image.value === undefined) {
             return <span>{t('captchaAnswer')}</span>
         }
-        return <span style={{backgroundImage: `url("${captcha.image.value}")`}}/>
+        return <img src={captcha.image.value} className={`height-100`} alt={t('captchaAnswer')}/>
     }
 
     return (
