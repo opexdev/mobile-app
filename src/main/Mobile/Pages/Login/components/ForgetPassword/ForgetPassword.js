@@ -9,6 +9,7 @@ import ReactTooltip from "react-tooltip";
 import Icon from "../../../../../../components/Icon/Icon";
 import {images} from "../../../../../../assets/images";
 import {validateEmail} from "../../../../../../utils/utils";
+import {Buffer} from 'buffer';
 
 const ForgetPassword = ({returnFunc}) => {
     const [loading, setLoading] = useState(false);
