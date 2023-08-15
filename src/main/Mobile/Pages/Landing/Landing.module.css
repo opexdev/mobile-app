@@ -1,7 +1,5 @@
-.container{
-    height: 100%;
-    background-color: var(--mainContent);
-    position: relative;
+.container {
+    min-height: 100%;
     background-repeat: repeat;
     background-position: center center;
     background-size: 400px 800px;
