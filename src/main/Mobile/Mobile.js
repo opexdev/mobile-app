@@ -16,9 +16,15 @@ import Login from "./Pages/Login/Login";
 import User from "./Pages/User/User";
 import Landing from "./Pages/Landing/Landing";
 import AllMarket from "./Pages/AllMarket/AllMarket";
-import Guide from "./Pages/Guide/Guide";
 import UserPanel from "./Pages/UserPanel/UserPanel";
 import SideMenu from "../../components/SideMenu/SideMenu";
+import Layout from "../../components/Layout/Layout";
+import AboutUs from "./Pages/Info/AboutUs/AboutUs";
+import Commission from "./Pages/Info/Commission/Commission";
+import TransferFees from "./Pages/Info/TransferFees/TransferFees";
+import Guide from "./Pages/Info/Guide/Guide";
+import Rules from "./Pages/Info/Rules/Rules";
+import ContactUs from "./Pages/Info/ContactUs/ContactUs";
 
 
 const Mobile = () => {
@@ -98,10 +104,24 @@ const Mobile = () => {
             <Routes>
                 <Route path={RoutesName.Login} element={<Login/>}/>
                 <Route path={RoutesName.User + "/*"} element={<User/>}/>
-                <Route path={RoutesName.Landing} element={<Landing/>}/>
-                <Route path={RoutesName.AllMarket} element={<AllMarket/>}/>
-                <Route path={RoutesName.Guide} element={<Guide/>}/>
+                {/*<Route path={RoutesName.Landing} element={<Landing/>}/>*/}
+                {/*<Route path={RoutesName.AllMarket} element={<AllMarket/>}/>*/}
+                {/*<Route path={RoutesName.Guide} element={<Guide/>}/>*/}
                 <Route path={RoutesName.Panel + "/*"} element={<UserPanel/>}/>
+
+
+                <Route element={<Layout/>}>
+                    <Route path={RoutesName.Landing} element={<Landing/>}/>
+                    <Route path={RoutesName.AllMarket} element={<AllMarket/>}/>
+                    <Route path={RoutesName.AboutUs} element={<AboutUs/>}/>
+                    <Route path={RoutesName.Commission} element={<Commission/>}/>
+                    <Route path={RoutesName.TransferFees} element={<TransferFees/>}/>
+                    <Route path={RoutesName.Guide} element={<Guide/>}/>
+                    <Route path={RoutesName.Rules} element={<Rules/>}/>
+                    <Route path={RoutesName.ContactUs} element={<ContactUs/>}/>
+                </Route>
+
+
             </Routes>
 
             <ReactTooltip data-html={true} data-effect="float"/>

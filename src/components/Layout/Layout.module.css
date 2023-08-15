@@ -1,0 +1,8 @@
+.container {
+    height: 100%;
+    background-color: var(--mainContent);
+    position: relative;
+}
+.content {
+    height: 90%;
+}

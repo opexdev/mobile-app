@@ -1,7 +1,14 @@
 export const Landing = "/";
 export const Login = "/login";
-export const Guide = "/guide";
 export const AllMarket = "/all-market";
+
+export const AboutUs = "/about-us";
+export const Commission = "/commission";
+export const TransferFees = "/transfer-fees";
+export const Guide = "/guide";
+export const Rules = "/rules";
+export const ContactUs = "/contact-us";
+
 
 export const User = "/user";
 export const UserVerifyRelative = "verify";
