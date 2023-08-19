@@ -7,7 +7,7 @@ import LoginFormLoading from "../LoginLoading/LoginFormLoading";
 import {setUserAccountInfoInitiate, setUserInfo, setUserTokensInitiate} from "../../../../../../store/actions";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {setKYCStatusInitiate} from "../../../../../../store/actions/auth";
+import {setKYCStatusInitiate} from "../../../../../../store/actions";
 import Button from "../../../../../../components/Button/Button";
 import jwtDecode from "jwt-decode";
 import OTPForm from "../OTPForm/OTPForm";
@@ -28,7 +28,7 @@ const LoginForm = () => {
     const [credential, setCredential] = useState({username: "", password: "", otp: ""});
     const from = location.state?.from?.pathname || "/";
 
-
+    const isDevelopment = window.env.REACT_APP_ENV === "development";
     const agent = [deviceType , browserName , fullBrowserVersion]
 
     useEffect(() => {
@@ -110,9 +110,9 @@ const LoginForm = () => {
 
     return <form onSubmit={(e) => submit(e)} className={`column ai-center jc-between ${classes.form}`}>
         <div className={`width-100 column jc-center ai-center ${classes.formBody} py-2`}>
-            {!needOTP ? <div className={`font-weight-300 fs-0-6 mb-2`}>
+            {!needOTP && isDevelopment ? <div className={`font-weight-300 fs-0-6 mb-2`}>
                 <span>برای ورود آزمایشی،  <span className={`hover-text cursor-pointer`} onClick={() => setCredential({
-                    username: "demo1@opex.dev",
+                    username: "test1@opex.dev",
                     password: "12345678",
                     otp: ""
                 })}

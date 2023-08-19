@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Header.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import Icon from "../../../../../../components/Icon/Icon";
 import ActionSheet from "../../../../../../components/ActionSheet/ActionSheet";
 import {showSideMenu} from "../../../../../../store/actions/global";
@@ -12,25 +12,14 @@ import WalletHeader from "./components/WalletHeader/WalletHeader";
 import SettingsHeader from "./components/SettingsHeader/SettingsHeader";
 
 
-const Header = (props) => {
-
-
+const Header = () => {
     const dispatch = useDispatch();
-
-
-    /*const [showMenuAction, setShowMenuAction] = useState(false);
-
-    const [showSubMenuAction, setShowSubMenuAction] = useState(false);*/
-
 
     return (
         <>
-
             <div className={`width-100 row ai-center jc-between ${classes.container} px-5`}>
 
                 <Icon iconName="icon-menu_vertical fs-05 flex" onClick={()=>dispatch(showSideMenu(true))}/>
-
-
                 <Routes>
                     <Route path={RoutesName.MarketRelative + "/*"} element={
                         <MarketHeader/>
@@ -46,21 +35,8 @@ const Header = (props) => {
                 </Routes>
 
             </div>
-
-
-
-
-
             <ActionSheet/>
-
-
-            {/*<ActionSheet show={!showAction} onChangeShow={(state)=>setShowAction(state)}>
-                    <span>new action</span>
-                </ActionSheet>*/}
-
-
         </>
-
     );
 };
 export default Header;

@@ -1,20 +1,17 @@
-import React, {useEffect} from "react";
+import React from "react";
 import classes from "./Content.module.css";
 import ScrollBar from "../../../../../../components/ScrollBar";
 import {Navigate, Route, Routes} from "react-router-dom";
 import * as RoutesName from "../../../../Routes/routes";
+import {DepositRelative} from "../../../../Routes/routes";
 import {useTranslation} from "react-i18next";
 import Wallet from "./components/Wallet/Wallet";
 import Settings from "./components/Settings/Settings";
 import ProtectedRoute from "../../../../../../components/ProtectedRoute/ProtectedRoute";
 import {useSelector} from "react-redux";
-import {Deposit, DepositRelative, MarketRelative} from "../../../../Routes/routes";
 import Market from "./components/Market/Market";
-import {activeOrderLayout} from "../../../../../../store/actions/global";
 
 const Content = () => {
-
-
 
     const {t} = useTranslation();
     const defaultWallet = useSelector((state) => state.exchange.assets[0])

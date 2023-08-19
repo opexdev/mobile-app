@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import classes from "../../Order.module.css";
 import {Trans, useTranslation} from "react-i18next";
-import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useGetUserAccount} from "../../../../../../../../../../../../queries/hooks/useGetUserAccount";
 import {toast} from "react-hot-toast";
@@ -9,17 +8,12 @@ import {setLastTransaction} from "../../../../../../../../../../../../store/acti
 import {BN, parsePriceString} from "../../../../../../../../../../../../utils/utils";
 import {createOrder} from "js-api-client";
 import {images} from "../../../../../../../../../../../../assets/images";
-import Icon from "../../../../../../../../../../../../components/Icon/Icon";
 import NumberInput from "../../../../../../../../../../../../components/NumberInput/NumberInput";
 import Button from "../../../../../../../../../../../../components/Button/Button";
 
 
-
-
-
 const SellOrder = () => {
 
-    const navigate = useNavigate();
     const {t} = useTranslation();
     const dispatch = useDispatch();
 
@@ -33,7 +27,6 @@ const SellOrder = () => {
 
     const {data: userAccount} = useGetUserAccount()
     const base = userAccount?.wallets[activePair.baseAsset]?.free || 0;
-    const quote = userAccount?.wallets[activePair.quoteAsset]?.free || 0;
 
     const [alert, setAlert] = useState({
         reqAmount: null,
@@ -181,20 +174,21 @@ const SellOrder = () => {
     }, [selectedSellOrder]);
 
     const fillSellByWallet = () => {
-        if(order.pricePerUnit.isEqualTo(0) && bestSellPrice === 0 ) return toast.error(t("orders.hasNoOffer"));
+        if (order.pricePerUnit.isEqualTo(0) && bestSellPrice === 0) return toast.error(t("orders.hasNoOffer"));
         if (order.pricePerUnit.isEqualTo(0)) {
-            const totalPrice = new BN(quote);
+            const reqAmount = new BN(base).decimalPlaces(activePair.baseAssetPrecision);
+            const pricePerUnit = new BN(bestSellPrice);
             setOrder({
                 ...order,
-                reqAmount: totalPrice.dividedBy(bestSellPrice).decimalPlaces(activePair.baseAssetPrecision),
-                pricePerUnit: new BN(bestSellPrice),
-                totalPrice,
-                tradeFee: totalPrice.multipliedBy(tradeFee[activePair.quoteAsset]).decimalPlaces(activePair.baseAssetPrecision),
+                reqAmount: reqAmount,
+                pricePerUnit: pricePerUnit,
+                totalPrice: reqAmount.multipliedBy(pricePerUnit).decimalPlaces(activePair.quoteAssetPrecision),
+                tradeFee: reqAmount.multipliedBy(pricePerUnit).multipliedBy(tradeFee[activePair.quoteAsset]).decimalPlaces(activePair.baseAssetPrecision),
             });
         } else {
             sellPriceHandler(
-                quote.toString(),
-                "totalPrice",
+                base.toString(),
+                "reqAmount",
             );
         }
     };
@@ -220,12 +214,10 @@ const SellOrder = () => {
     }, [order.reqAmount]);
 
     const submit = () => {
-        if (!isLogin) {
-            return false
-        }
-        if (isLoading) {
-            return false
-        }
+        if (!isLogin) return
+
+        if (isLoading) return
+
         setIsLoading(true)
         createOrder(activePair.symbol, "SELL", order)
             .then((res) => {
@@ -260,15 +252,10 @@ const SellOrder = () => {
     }
 
     const submitButtonTextHandler = () => {
-        if (isLoading) {
-            return <img className={`${classes.thisLoading}`} src={images.linearLoading} alt="linearLoading"/>
-        }
-        /*if (alert.submit) {
-            return <span>{t("login.loginError")}</span>
-        }*/
-        if (isLogin) {
-            return t("sell")
-        }
+        if (isLoading) return <img className={`${classes.thisLoading}`} src={images.linearLoading} alt="linearLoading"/>
+
+        if (isLogin) return t("sell")
+
         return t("pleaseLogin")
     }
 

@@ -4,9 +4,7 @@ import {useTranslation} from "react-i18next";
 import {useGetLastPrices} from "../../../../../../../../queries/hooks/useGetLastPrices";
 import {useGetUserAccount} from "../../../../../../../../queries/hooks/useGetUserAccount";
 import {BN} from "../../../../../../../../utils/utils";
-import Icon from "../../../../../../../../components/Icon/Icon";
 import classes from "./MarketSubHeader.module.css"
-import i18n from "i18next";
 
 const MarketSubHeader = () => {
 
