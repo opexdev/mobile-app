@@ -41,9 +41,6 @@
     "redux-saga": "^1.2.3",
     "web-vitals": "^0.2.4"
   },
-  "resolutions": {
-    "react-error-overlay": "6.0.9"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -68,5 +65,5 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "yarn@3.2.4"
+  "packageManager": "yarn@3.2.3"
 }
