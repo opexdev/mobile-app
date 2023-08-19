@@ -6,18 +6,14 @@ import * as RoutesName from "../../../../Routes/routes";
 import {activeActionSheet} from "../../../../../../store/actions/global";
 import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
-import {Profile} from "../../../../Routes/routes";
 
 
 const Menu = () => {
 
     const {t} = useTranslation();
 
-
     const location = useLocation();
     const dispatch = useDispatch();
-
-
 
     const onClickHandler = () => {
         dispatch(activeActionSheet({

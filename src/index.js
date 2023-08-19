@@ -1,8 +1,7 @@
-import React, {Suspense} from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import "./i18n/i18n";
 import {Provider} from "react-redux";
-import {createStore, applyMiddleware, combineReducers, compose} from "redux";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import createSagaMiddleware from "redux-saga";
 import globalReducer from "./store/reducers/globalReducer";
 import "normalize.css";
@@ -16,7 +15,8 @@ import axios from "axios";
 import exchangeReducer from "./store/reducers/exchangeReducer";
 import {StyleRoot} from "radium";
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
+import {createRoot} from "react-dom/client";
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -55,18 +55,16 @@ setupAxios(axios, store);
 //React query client
 const queryClient = new QueryClient()
 
-ReactDOM.render(
-    <React.StrictMode>
-        <Suspense fallback={"loading"}>
-            <Provider store={store}>
-                <StyleRoot>
-                    <QueryClientProvider client={queryClient}>
-                        <Main baseURL={PUBLIC_URL}/>
-                       {/* <ReactQueryDevtools initialIsOpen={false} />*/}
-                    </QueryClientProvider>
-                </StyleRoot>
-            </Provider>
-        </Suspense>
-    </React.StrictMode>,
-    document.getElementById("root"),
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
+    <Provider store={store}>
+        <StyleRoot>
+            <QueryClientProvider client={queryClient}>
+                <Main baseURL={PUBLIC_URL}/>
+                <ReactQueryDevtools initialIsOpen={false}/>
+            </QueryClientProvider>
+        </StyleRoot>
+    </Provider>
 );

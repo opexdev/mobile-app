@@ -1,24 +1,25 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef} from "react";
 import classes from "../../TradingView.module.css";
 import * as LightweightCharts from "lightweight-charts";
 import {useSelector} from "react-redux";
 import moment from "moment-jalaali";
-
-import {candleColors, darkTheme, histogramColors, lightTheme} from "../../../../../../../../../../../../constants/chart";
+import {
+    candleColors,
+    darkTheme,
+    lightTheme
+} from "../../../../../../../../../../../../constants/chart";
 import i18n from "i18next";
-import {useTranslation} from "react-i18next";
-import {getChartData, parseCandleData} from "../../api/tradingView";
+import {useGetChartCandlesticks} from "../../../../../../../../../../../../queries";
 
 
 const MarketChart = ({type}) => {
-    const {t} = useTranslation();
-    let chartProperties;
+    let chartProperties, candleSeries, volumeSeries;
     const chart = useRef();
-    const [error, setError] = useState(false)
 
-    const activePairSymbol = useSelector((state) => state.exchange.activePair.symbol)
     const isDark = useSelector((state) => state.global.isDark)
+    const activePairSymbol = useSelector((state) => state.exchange.activePair.symbol)
 
+    const {data, error} = useGetChartCandlesticks(activePairSymbol, type)
     const chartContainerRef = useRef();
     const resizeObserver = useRef();
 
@@ -29,43 +30,46 @@ const MarketChart = ({type}) => {
         },
     }
 
-    useEffect(() => {
-        setError(false)
-        const fontFamily = (i18n.language === undefined || i18n.language === "fa") ? "iranyekan" : "Segoe UI"
+    const fontFamily = (i18n.language === undefined || i18n.language === "fa") ? "iranyekan" : "Segoe UI"
+    chartProperties = {
+        layout: {
+            ...lightTheme.layout,
+            fontFamily
+        },
+        crosshair: {
+            vertLine: {
+                visible: true,
+                labelVisible: false,
+            },
+            horzLine: {
+                visible: true,
+                labelVisible: true,
+            },
+            mode: 1,
+        },
+        localization: {
+            locale: (i18n.language === undefined || i18n.language === "fa") ? "fa-IR" : "en-US",
+        },
+        grid: lightTheme.grid,
+        priceScale: lightTheme.priceScale,
+        timeScale: {...lightTheme.timeScale, ...timeScale}
+    };
+    if (isDark) {
         chartProperties = {
+            ...chartProperties,
             layout: {
-                ...lightTheme.layout,
+                ...darkTheme.layout,
                 fontFamily
             },
-            crosshair: {
-                vertLine: {
-                    visible: true,
-                    labelVisible: false,
-                },
-                horzLine: {
-                    visible: true,
-                    labelVisible: true,
-                },
-                mode: 1,
-            },
-            localization: {
-                locale: (i18n.language === undefined || i18n.language === "fa") ? "fa-IR" : "en-US",
-            },
-            grid: lightTheme.grid,
-            priceScale: lightTheme.priceScale,
-            timeScale: {...lightTheme.timeScale, ...timeScale}
+            grid: darkTheme.grid,
+            priceScale: darkTheme.priceScale,
+            timeScale: {...darkTheme.timeScale, ...timeScale},
         };
-        if (isDark) {
-            chartProperties = {
-                ...chartProperties,
-                layout: {
-                    ...darkTheme.layout,
-                    fontFamily
-                },
-                grid: darkTheme.grid,
-                priceScale: darkTheme.priceScale,
-                timeScale: {...darkTheme.timeScale, ...timeScale},
-            };
+    }
+
+    useEffect(() => {
+        if (chart.current !== null) {
+            chart.current = null;
         }
 
         chart.current = LightweightCharts.createChart(
@@ -73,18 +77,25 @@ const MarketChart = ({type}) => {
             chartProperties,
         );
 
-        const candleSeries = chart.current.addCandlestickSeries(isDark ? darkTheme : candleColors);
-        const volumeSeries = chart.current.addHistogramSeries(histogramColors);
+        candleSeries = chart.current.addCandlestickSeries(isDark ? darkTheme : candleColors);
+        volumeSeries = chart.current.addHistogramSeries({
+            priceFormat: {
+                type: 'volume',
+            },
+            priceScaleId: '',
+            lastValueVisible: false,
+        });
+        volumeSeries.priceScale().applyOptions({
+            scaleMargins: {
+                top: 0.8,
+                bottom: 0,
+            },
+        });
 
-        getChartData(activePairSymbol, type)
-            .then((res) => {
-                const candles = parseCandleData(res.data)
-                candleSeries.setData(candles);
-                volumeSeries.setData(candles);
-            }).catch((e) => {
-            console.log(e)
-            setError(t('charts.noChartData'))
-        })
+        candleSeries.setData(data);
+        volumeSeries.setData(data);
+
+        chart.current.timeScale().fitContent();
 
         return () => {
             if (chart.current !== null) {
@@ -92,7 +103,7 @@ const MarketChart = ({type}) => {
                 chart.current = null;
             }
         };
-    }, [activePairSymbol,type]);
+    }, [activePairSymbol, type, data]);
 
     useEffect(() => {
         i18n.on("languageChanged", (lng) => {

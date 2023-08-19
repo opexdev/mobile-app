@@ -1,23 +1,26 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import classes from "./OrderBookTable.module.css";
+import {useTranslation} from "react-i18next";
+import i18n from "i18next";
+import {useDispatch, useSelector} from "react-redux";
+import {BN} from "../../../../../../../../../../../../utils/utils";
+import ScrollBar from "../../../../../../../../../../../../components/ScrollBar";
 import {
     setBestBuyPrice,
     setBestSellPrice,
     setBuyOrder,
     setSellOrder
 } from "../../../../../../../../../../../../store/actions";
-import {connect} from "react-redux";
-import {useTranslation} from "react-i18next";
-import {BN} from "../../../../../../../../../../../../utils/utils";
-import i18n from "i18next";
-import ReactTooltip from "react-tooltip";
-import ScrollBar from "../../../../../../../../../../../../components/ScrollBar";
+import {useLocation, useNavigate} from "react-router-dom";
+import {OrderBook as OrderBookRoute, Order as OrderRoute} from "../../../../../../../../../../Routes/routes";
 
-
-const OrderBookTable = (props) => {
-
+const OrderBookTable = ({data, type}) => {
     const {t} = useTranslation();
-    const {activePair,data,type,onSetBuyOrder,onSetSellOrder,setBestSellPrice,setBestBuyPrice} = props
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const dispatch = useDispatch();
+    const activePair = useSelector((state) => state.exchange.activePair)
 
     let header;
 
@@ -31,31 +34,27 @@ const OrderBookTable = (props) => {
         end = "right";
     }
 
-    useEffect(() => {
-        ReactTooltip.rebuild();
-    });
-
     if (type === "buy") {
         header = (
-            <tr>
-                <th>{t("pricePerUnit")}</th>
-                <th>{t("volume")}</th>
-            </tr>
+            <div className="row jc-between">
+                <span className="width-50">{t("pricePerUnit")}</span>
+                <span className="width-50">{t("volume")}</span>
+            </div>
         );
     } else {
         header = (
-            <tr>
-                <th>{t("volume")}</th>
-                <th>{t("pricePerUnit")}</th>
-            </tr>
+            <div className="row jc-between">
+                <span className="width-50">{t("volume")}</span>
+                <span className="width-50">{t("pricePerUnit")}</span>
+            </div>
         );
     }
     useEffect(() => {
         if (data.length > 0) {
             totalAmount = data.reduce((total, asks) => parseFloat(asks[1]) + total, 0);
             type === "buy"
-                ? setBestSellPrice(data[0][0])
-                : setBestBuyPrice(data[0][0]);
+                ? dispatch(setBestSellPrice(data[0][0]))
+                : dispatch(setBestBuyPrice(data[0][0]));
         }
     }, [data]);
 
@@ -73,62 +72,65 @@ const OrderBookTable = (props) => {
 
     return (
         <div className={`column width-100 ${classes.container}`}>
-
             <ScrollBar>
-                <table className="text-center" cellSpacing="0" cellPadding="0">
-                    <thead>{header}</thead>
-                    <tbody>
-                    {data.map((tr, index) => {
-                        const pricePerUnit = new BN(tr[0])
-                        const amount = new BN(tr[1])
-                        const percent = amount.multipliedBy(100).dividedBy(totalAmount)
+                <div className="text-center">
+                    <div className={` ${classes.thead} `}>{header}</div>
+                    <div className={` ${classes.tbody} `}>
+                        {data.map((tr, index) => {
+                            const pricePerUnit = new BN(tr[0])
+                            const amount = new BN(tr[1])
+                            const percent = amount.multipliedBy(100).dividedBy(totalAmount)
 
-
-                        avg = {
-                            pricePerUnit: pricePerUnit.plus(avg.pricePerUnit),
-                            amount: amount.plus(avg.amount),
-
-                        }
-                        return type === "buy" ? (
-                            <tr
-                                key={index}
-                                style={backgroundBar(percent.toString())}
-                                >
-                                <td>{pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</td>
-                                <td>{amount.decimalPlaces(activePair.baseAssetPrecision).toFormat()}</td>
-                            </tr>
-                        ) : (
-                            <tr
-                                key={index}
-                                style={backgroundBar(percent.toString())}
-                                >
-                                <td>{amount.decimalPlaces(activePair.baseAssetPrecision).toFormat()}</td>
-                                <td>{pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</td>
-                            </tr>
-                        );
-                    })}
-                    </tbody>
-                </table>
+                            avg = {
+                                pricePerUnit: pricePerUnit.plus(avg.pricePerUnit),
+                                amount: amount.plus(avg.amount),
+                            }
+                            return type === "buy" ? (
+                                <div
+                                    key={index}
+                                    style={backgroundBar(percent.toString())}
+                                    className='cursor-pointer row jc-between'
+                                    onClick={() => {
+                                        dispatch(setSellOrder({
+                                            pricePerUnit: parseFloat(pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toString()),
+                                            amount: 0,
+                                        }))
+                                        if (location.pathname === OrderBookRoute) navigate(OrderRoute, {replace: true})
+                                    }
+                                    }>
+                                    <span
+                                        className="width-50">{pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span>
+                                    <span
+                                        className="width-50">{amount.decimalPlaces(activePair.baseAssetPrecision).toFormat()}</span>
+                                </div>
+                            ) : (
+                                <div
+                                    key={index}
+                                    style={backgroundBar(percent.toString())}
+                                    className='cursor-pointer row jc-between'
+                                    onClick={() => {
+                                        dispatch(setBuyOrder({
+                                            pricePerUnit: parseFloat(pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toString()),
+                                            amount: 0,
+                                        }))
+                                        if (location.pathname === OrderBookRoute) navigate(OrderRoute, {replace: true})
+                                    }
+                                    }>
+                                    <span className="width-50">
+                                        {amount.decimalPlaces(activePair.baseAssetPrecision).toFormat()}
+                                    </span>
+                                    <span className="width-50">
+                                        {pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}
+                                    </span>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
             </ScrollBar>
-
         </div>
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        activePair: state.exchange.activePair,
-        activePairOrders: state.exchange.activePairOrders,
-    };
-};
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onSetBuyOrder: (selected) => dispatch(setBuyOrder(selected)),
-        onSetSellOrder: (selected) => dispatch(setSellOrder(selected)),
-        setBestSellPrice: (bestSellPrice) => dispatch(setBestSellPrice(bestSellPrice)),
-        setBestBuyPrice: (bestBuyPrice) => dispatch(setBestBuyPrice(bestBuyPrice)),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrderBookTable);
+export default OrderBookTable;

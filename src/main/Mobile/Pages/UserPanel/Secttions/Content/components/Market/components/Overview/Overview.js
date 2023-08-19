@@ -2,9 +2,7 @@ import React from "react";
 import classes from "./Overview.module.css";
 import AccordionBox from "../../../../../../../../../../components/AccordionBox/AccordionBox";
 import {useTranslation} from "react-i18next";
-import TheInformationBlock from "./components/InformationBlock/InformationBlock";
 import InformationBlock from "./components/InformationBlock/InformationBlock";
-
 
 const Overview = () => {
 
@@ -23,8 +21,6 @@ const Overview = () => {
                 content={data}
                 /*safari={classes.safariFlexSize}*/
             />
-
-
         </div>
     );
 };
