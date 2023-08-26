@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {useState} from 'react';
 import {Trans, useTranslation} from "react-i18next";
 import {toast} from "react-hot-toast";
 import Icon from "../../../../../../../../../../../../../../components/Icon/Icon";
@@ -32,56 +32,78 @@ const DepositWithdrawTxTables = ({txs, id}) => {
         }
     };
 
-    return <div className={`${classes.doubleStriped}`}>
-        {txs.map((tr, index) => (
-            <div key={index}>
-                <div className={`row  fs-0-9`}>
-                    <div className={`width-43 column ai-start pr-3 pt-025 pb-025`}>
-                        <span className={`mb-025`}><Date date={tr.time}/> | {moment(tr.time).format("HH:mm:ss")}</span>
-                        <span className={`row ${tr.hasOwnProperty('withdrawOrderId') ? "text-red" :  "text-green"} mt-025`} >
-                            <span>{tr.hasOwnProperty('withdrawOrderId')  ? t("withdrawal") :  t("deposit")}</span>
-                            <span className={`mx-2`}>{id}</span>
-                            <span>{new BN(tr.amount).toFormat()}</span>
-                        </span>
-                    </div>
-                    <div className={`width-43 column ai-end pt-025 pb-025`}>
-                        <span>{txStatus(tr.status)}</span>
-                        <span>{tr.network}</span>
-                    </div>
-                    <div className={`width-14 flex jc-end ai-center pl-3 pt-025 pb-025`} onClick={() => setOpenItem(openItem === index ? null : index)}>
-                        <Icon iconName={`${openItem === index ? 'icon-up-open' : 'icon-down-open'} text-blue fs-0-7 cursor-pointer`} customClass={classes.iconBG}/>
-                    </div>
-                </div>
-                <span style={{display: openItem === index ? "revert" : "none"}} className={`fs-0-9`}>
-                    <div  className={``}>
-                        <div className="row jc-around  ai-center px-3" style={{width: "100%"}}>
-                            <p className="col-94 row jc-between">
-                                {t("DepositWithdrawTx.destination")} :
-                                <span>{tr.address}</span>
-                            </p>
-                            <p className="col-03 row jc-end">
-                                <Icon iconName="icon-copy fs-01" customClass={`hover-text cursor-pointer`}
-                                      onClick={() => copyAddressToClipboard(tr.address)}/>
-                            </p>
-                        </div>
-                        <div className="row jc-around ai-center px-3 pb-05" style={{width: "100%"}}>
-                            <p className="col-94 row jc-between">
-                                {t("DepositWithdrawTx.transactionId")} :
-                                <span>{id === "BTC" ? tr.txId.slice(0, tr.txId.indexOf("_")) : tr.txId}</span>
-                            </p>
-                            <p className="col-03 row jc-end">
-                                <Icon
-                                    iconName="icon-copy fs-01"
-                                    customClass={`hover-text cursor-pointer`}
-                                    onClick={() => copyAddressToClipboard(tr.txId)}
-                                />
-                            </p>
-                        </div>
-                    </div>
-                </span>
+    return <div className={`${classes.striped}`}>
+        {txs.map((tr, index) =>{
 
-            </div>
-        ))}
+            const color = tr.hasOwnProperty('withdrawOrderId') ? "text-red" :  "text-green"
+
+            return (
+
+                <div key={index} className={`column px-5 py-1 ${classes.row}`}
+                     onClick={() => setOpenItem(openItem === index ? null : index)}
+                >
+                    <div className={`row jc-between ai-center my-1`}>
+                        <span><Date date={tr.time}/> , {moment(tr.time).format("HH:mm:ss")}</span>
+                        <div className={`row jc-end ai-center`}>
+                            <span className={`ml-3`}>{t("volume")}:</span>
+                            <div className={`row ${color}`}>
+                                <span className={`fs-02`}>{new BN(tr.amount).toFormat()}  </span>
+                                <span className={`fs-0-8 mr-1`}>{t("currency." + id)}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={`row jc-between ai-center my-1`}>
+                        <div className={`row jc-start ai-center`}>
+                            <span className={`ml-3`}>{t("status")}:</span>
+                            <div className={`row`}>
+                                <span className={``}>{txStatus(tr.status)}</span>
+                            </div>
+                        </div>
+                        <div className={`row jc-end ai-center`}>
+
+                            <span className={`ml-3`}>{t("DepositWithdrawTx.transactionType")}:</span>
+                            <div className={`row ${color}`}>
+                                <span className={`fs-02`}>{tr.hasOwnProperty('withdrawOrderId')  ? t("withdrawal") :  t("deposit")}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style={{display: openItem === index ? "revert" : "none"}} className={`column`}>
+                        <div className={`row jc-between ai-center my-1`}>
+                            <span className={`ml-3`}>{t("DepositWithdrawTx.network")}:</span>
+                            <div className={`row`}>
+                                <span className={``}>{tr.network}</span>
+                            </div>
+                        </div>
+
+                        <div className={`column jc-center ai-start my-2`}>
+                            <div className={`row jc-between ai-center width-100`}>
+                                <span className={`ml-3`}>{t("DepositWithdrawTx.destination")}:</span>
+                                <div className={`row`}>
+
+                                    <Icon iconName="icon-copy fs-03 mr-2" customClass={`hover-text cursor-pointer`}
+                                          onClick={() => copyAddressToClipboard(tr.address)}/>
+                                </div>
+                            </div>
+                            <span className={`${classes.innerWidth} mt-05 text-start`}>{tr.address}</span>
+                        </div>
+                        <div className={`column jc-center ai-start my-2`}>
+                            <div className={`row jc-between ai-center width-100`}>
+                                <span className={`ml-3`}>{t("DepositWithdrawTx.transactionId")}:</span>
+                                <div className={`row`}>
+
+                                    <Icon iconName="icon-copy fs-03 mr-2" customClass={`hover-text cursor-pointer`}
+                                          onClick={() => copyAddressToClipboard(tr.txId)}/>
+                                </div>
+                            </div>
+                            <span className={`${classes.innerWidth} mt-05 text-start`}>{tr.txId}</span>
+                        </div>
+                    </div>
+                    </div>
+            )
+            }
+        )}
     </div>
 };
 
