@@ -19,10 +19,10 @@ const LastTradesTable = ({data}) => {
                         <th>{t("date")}</th>
                         <th>{t("time")}</th>
                         <th>
-                            {t("volume")}({activePair.baseAsset})
+                            {t("volume")} <span className={`fs-0-7`}>({activePair.baseAsset})</span>
                         </th>
                         <th>
-                            {t("price")}({activePair.quoteAsset})
+                            {t("price")} <span className={`fs-0-7`}>({activePair.quoteAsset})</span>
                         </th>
                         <th>{t("totalPrice")}</th>
                     </tr>

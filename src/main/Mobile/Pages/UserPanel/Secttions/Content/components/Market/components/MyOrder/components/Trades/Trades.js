@@ -34,12 +34,8 @@ const Trades = () => {
 
     return (
         <ScrollBar>
-            <table
-                className="text-center double-striped"
-                cellSpacing="0"
-                cellPadding="0">
-                <thead className="th-border-y">
-                <tr>
+            <div className={`${classes.striped}`}>
+               {/* <tr>
                     <th>{t("date")}</th>
                     <th>{t("time")}</th>
                     <th>
@@ -54,10 +50,69 @@ const Trades = () => {
                     </th>
                     <th>{t("totalPrice")}</th>
                     <th/>
-                </tr>
-                </thead>
-                <tbody>
-                {data.map((tr, index) => (
+                </tr>*/}
+
+                {data.map((tr, index) => {
+
+                    const color = tr.isBuyer === false ? "text-green" : "text-red"
+
+                    return (
+                        <div key={index} className={`column px-5 py-1 ${classes.row}`}
+                             onClick={() => setOpenOrder(openOrder === index ? null : index)}
+                        >
+                            <div className={`row jc-between ai-center my-1`}>
+                                <span><Date date={tr.time}/> , {moment(tr.time).format("HH:mm:ss")}</span>
+                                <div className={`row jc-end ai-center`}>
+                                    <span className={`ml-3`}>{t("volume")}:</span>
+                                    <div className={`row ${color}`}>
+                                        <span className={`fs-02`}>{tr.qty}</span>
+                                        <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.baseAsset.toUpperCase())}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className={`row jc-between ai-center my-1`}>
+                                <span className={`ml-3`}>{t("totalPrice")}:</span>
+                                <div className={`row ${color}`}>
+                                    <span className={`fs-02`}>{(tr.qty * tr.price).toLocaleString()}</span>
+                                    <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.quoteAsset.toUpperCase())}</span>
+                                </div>
+                            </div>
+
+
+                            <div style={{display: openOrder === index ? "revert" : "none"}} className={`column`}>
+
+                                <div className={`row jc-between ai-center my-1`}>
+                                    <span className={`ml-3`}>{t("pricePerUnit")}:</span>
+                                    <div className={`row ${color}`}>
+                                        <span className={`fs-02`}>{(tr.price)}</span>
+                                        <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.quoteAsset.toUpperCase())}</span>
+                                    </div>
+                                </div>
+                                <div className={`row jc-between ai-center width-100 my-1`}>
+                                    <div className={`row jc-start ai-center`}>
+                                        <span className={`ml-3`}>{t("myOrders.orderId")}:</span>
+                                        <div className={`row`}>
+                                            <span>{tr.orderId}</span>
+                                        </div>
+                                    </div>
+                                    <div className={`row jc-end ai-center`}>
+                                        <span className={`ml-3`}>{t("commission")}:</span>
+                                        <div className={`row`}>
+                                            <span>{new BN(tr.commission).toFormat()}</span>
+                                            <span className={`fs-0-8 mr-1`}>{t("currency." + tr.commissionAsset.toUpperCase())}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    )}
+
+
+                    /*
+
+                    return (
                     <Fragment key={index}>
                         <tr className={tr.isBuyer === false ? "text-green" : "text-red"}>
                             <td><Date date={tr.time}/></td>
@@ -97,9 +152,12 @@ const Trades = () => {
                             </td>
                         </tr>
                     </Fragment>
-                ))}
-                </tbody>
-            </table>
+                    )}
+
+                     */
+
+                )}
+            </div>
         </ScrollBar>
     )
 }

@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import moment from "moment-jalaali";
 import classes from "../../MyOrder.module.css";
 import {useTranslation} from "react-i18next";
@@ -6,12 +6,12 @@ import {useSelector} from "react-redux";
 import Loading from "../../../../../../../../../../../../components/Loading/Loading";
 import ScrollBar from "../../../../../../../../../../../../components/ScrollBar";
 import {BN} from "../../../../../../../../../../../../utils/utils";
-import Icon from "../../../../../../../../../../../../components/Icon/Icon";
 import {toast} from "react-hot-toast";
 import Error from "../../../../../../../../../../../../components/Error/Error";
 import {useMyOpenOrders} from "../../../../../../../../../../../../queries";
 import {cancelOrderByOrderID} from "js-api-client";
 import Date from "../../../../../../../../../../../../components/Date/Date";
+import Button from "../../../../../../../../../../../../components/Button/Button";
 
 
 const OpenOrders = () => {
@@ -44,120 +44,100 @@ const OpenOrders = () => {
 
     return (
         <ScrollBar>
-            <table className="text-center double-striped" cellSpacing="0" cellPadding="0">
-                <thead className="th-border-y">
-                <tr>
-  {/*                  <th>{t("date")}</th>
-                    <th>{t("time")}</th>
-                    <th>
-                        {t("volume")}({activePair.baseAsset})
-                    </th>
-                    <th>
-                        {t("pricePerUnit")}({activePair.quoteAsset})
-                    </th>
-                    <th>{t("totalPrice")}</th>
-                    <th>{t("myOrders.donePercentage")}</th>*/}
-                    <th className={`text-start pr-2`}>
-                        {t("date")}
-                        <br/>
-                        {t("time")}
-                    </th>
-                    <th>
-                        {t("volume")}{/*({activePair.baseAsset})*/}
-                        <br/>
-                        {t("pricePerUnit")}{/*({activePair.quoteAsset})*/}
-                    </th>
-                    <th>
-                        {t("totalPrice")}
-                        <br/>
-                        {t("myOrders.donePercentage")}
-                    </th>
-                    <th className={`pl-2`}/>
-                </tr>
-                </thead>
-                <tbody>
+            <div className={`${classes.striped}`} >
+
+
                 {data.map((tr, index) => {
                         const origQty = new BN(tr.origQty)
                         const executedQty = new BN(tr.executedQty)
                         const pricePerUnit = new BN(tr.price)
                         const totalPrice = pricePerUnit.multipliedBy(origQty)
-                        return (<Fragment key={index}>
-                            <tr className={` ${tr.side === "BUY" ? "text-green" : "text-red"}`}>
-                                <td className={`text-start pr-2`}>
-                                   <span> <Date date={tr.time}/></span> <br/>
-                                   <span>{moment(tr.time).format("HH:mm:ss")}</span>
-                                </td>
-                                <td className={``}>
-                                    <span>({activePair.baseAsset}) {origQty.decimalPlaces(activePair.baseAssetPrecision).toFormat()} </span><br/>
-                                    <span>({activePair.quoteAsset}) {pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span>
-                                </td>
-                                <td className={``}>
-                                    <span>{totalPrice.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span><br/>
-                                    <span>{executedQty.dividedBy(origQty).multipliedBy(100).toFormat(0)}</span>
-                                </td>
-                                <td className={`text-end pl-2`}>
-                                    <span
-                                        onClick={() => cancelOrder(tr.orderId)}
-                                        data-html={true}
-                                        data-place="bottom"
-                                        data-effect="float"
-                                        data-tip={t("myOrders.cancelOrder")}
+                        const color = tr.side === "BUY" ? "text-green" : "text-red"
 
-                                    >
-                                        <Icon
-                                            iconName="icon-cancel text-red fs-0-9"
-                                            customClass={`${classes.iconBG} cursor-pointer`}
-                                        />
-                                    </span><br/>
-                                    {openOrder === index ? (
-                                        <span onClick={() => setOpenOrder(null)}>
-                                        <Icon
-                                            iconName="icon-up-open text-blue fs-0-9"
-                                            customClass={`${classes.iconBG} cursor-pointer`}
-                                        />
-                                    </span>
-                                    ) : (
-                                        <span onClick={() => setOpenOrder(index)}>
-                                        <Icon
-                                            iconName="icon-down-open text-blue fs-0-9"
-                                            customClass={`${classes.iconBG} cursor-pointer`}
-                                        />
-                                    </span>
-                                    )}
-                                </td>
-                                
-                            </tr>
-                            <tr style={{display: openOrder === index ? "revert" : "none"}}>
-                                <td colSpan="8" className={`py-1 px-2 fs-0-9`}>
-                                    <div className="row jc-between  ai-center"
-                                        style={{width: "100%"}}>
-                                        <p className="width-47 row jc-between">
-                                            {t("myOrders.orderId")} : <span>{tr.orderId}</span>
-                                        </p>
-                                        <p className="width-47 row jc-between">
-                                            {t("myOrders.tradedAmount")} :{" "}
+                    return (
+                        <div key={index} className={`column px-5 py-1 ${classes.row}`}
+                             onClick={() => setOpenOrder(openOrder === index ? null : index)}
+                        >
+                            <div className={`row jc-between ai-center my-1`}>
+                                <span><Date date={tr.time}/> , {moment(tr.time).format("HH:mm:ss")}</span>
+                                <div className={`row jc-end ai-center`}>
+                                    <span className={`ml-3`}>{t("volume")}:</span>
+                                    <div className={`row ${color}`}>
+                                        <span className={`fs-02`}>{origQty.decimalPlaces(activePair.baseAssetPrecision).toFormat()}  </span>
+                                        <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.baseAsset.toUpperCase())}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={`row jc-between ai-center my-1`}>
+                                <div className={`row jc-start ai-center`}>
+                                    <span className={`ml-3`}>{t("myOrders.donePercentage")}:</span>
+                                    <div className={`row`}>
+                                        <span>{executedQty.dividedBy(origQty).multipliedBy(100).toFormat(0)}</span>
+                                    </div>
+                                </div>
+                                <div className={`row jc-end ai-center`}>
+                                    <span className={`ml-3`}>{t("totalPrice")}:</span>
+                                    <div className={`row ${color}`}>
+                                        <span className={`fs-02`}>{totalPrice.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span>
+                                        <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.quoteAsset.toUpperCase())}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style={{display: openOrder === index ? "revert" : "none"}} className={`column`}>
+
+                                <div className={`row jc-between ai-center width-100 my-1`}>
+                                    <span className={`ml-3`}>{t("pricePerUnit")}:</span>
+                                    <div className={`row ${color}`}>
+                                        <span className={`fs-02`}>{pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span>
+                                        <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.quoteAsset.toUpperCase())}</span>
+                                    </div>
+                                </div>
+
+                                <div className={`row jc-between ai-center width-100 my-1`}>
+                                    <div className={`row jc-start ai-center`}>
+                                        <span className={`ml-3`}>{t("myOrders.orderId")}:</span>
+                                        <div className={`row`}>
+                                            <span>{tr.orderId}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className={`row jc-end ai-center`}>
+                                        <span className={`ml-3`}>{t("myOrders.tradedAmount")}:</span>
+                                        <div className={`row`}>
                                             <span>{executedQty.decimalPlaces(activePair.baseAssetPrecision).toFormat()}</span>
-                                        </p>
+                                        </div>
                                     </div>
-                                    <div
-                                        className="row jc-between ai-center"
-                                        style={{width: "100%"}}>
-                                        <p className="width-47 row jc-between">
-                                            {t("myOrders.avgTradedAmount")} :{" "}
+                                </div>
+                                <div className={`row jc-between ai-center width-100 my-1`}>
+                                    <div className={`row jc-start ai-center`}>
+                                        <span className={`ml-3`}>{t("myOrders.avgTradedAmount")}:</span>
+                                        <div className={`row`}>
                                             <span>-</span>
-                                        </p>
-                                        <p className="width-47 row jc-between">
-                                            {t("myOrders.tradedPrice")} :{" "}
-                                            <span>{executedQty.multipliedBy(pricePerUnit).decimalPlaces(activePair.baseAssetPrecision).toFormat()}</span>
-                                        </p>
+                                        </div>
                                     </div>
-                                </td>
-                            </tr>
-                        </Fragment>)
+
+                                    <div className={`row jc-end ai-center`}>
+                                        <span className={`ml-3`}>{t("myOrders.tradedPrice")}:</span>
+                                        <div className={`row`}>
+                                            <span>{executedQty.multipliedBy(pricePerUnit).decimalPlaces(activePair.baseAssetPrecision).toFormat()}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={`row jc-center ai-center width-100 mb-2 mt-3`}>
+                                    <Button
+                                        type="button"
+                                        buttonClass={`${classes.thisButton} cursor-pointer`}
+                                        buttonTitle={t('myOrders.cancelOrder')}
+                                        onClick={() => cancelOrder(tr.orderId)}
+                                    />
+                                </div>
+                            </div>
+                        </div>)
                     }
                 )}
-                </tbody>
-            </table>
+
+            </div>
         </ScrollBar>
     )
 }
