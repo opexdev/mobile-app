@@ -127,14 +127,14 @@ html, body {
 
 
 :root {
-    --menu: #d9d8d8;
+    --menu: #ececec;
     --subMenu: #f2f2f2;
     --mainContent: #f6f6f6;
     --activeTitle: #f2f5f9;
-    --footer: #e5e9ef;
+    --footer: #efefef;
     --cardBody: #fff;
     --cardBodyAlpha: #ffffff8f;
-    --cardHeader: #e7e7e7;
+    --cardHeader: #f1f1f1;
     --cardHeaderAlpha: #e7e7e78a;
     --container: #eafbff;
     --activeTab: #007bff;
