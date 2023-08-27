@@ -34,23 +34,7 @@ const Trades = () => {
 
     return (
         <ScrollBar>
-            <div className={`${classes.striped}`}>
-               {/* <tr>
-                    <th>{t("date")}</th>
-                    <th>{t("time")}</th>
-                    <th>
-                        {t("volume")}
-                        <br/>
-                        ({activePair.baseAsset})
-                    </th>
-                    <th>
-                        {t("pricePerUnit")}
-                        <br/>
-                        ({activePair.quoteAsset})
-                    </th>
-                    <th>{t("totalPrice")}</th>
-                    <th/>
-                </tr>*/}
+            <div className={`${classes.striped} fs-0-9`}>
 
                 {data.map((tr, index) => {
 

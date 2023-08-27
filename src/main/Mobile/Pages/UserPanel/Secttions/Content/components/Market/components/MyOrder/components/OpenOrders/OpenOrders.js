@@ -44,7 +44,7 @@ const OpenOrders = () => {
 
     return (
         <ScrollBar>
-            <div className={`${classes.striped}`} >
+            <div className={`${classes.striped} fs-0-9`} >
 
 
                 {data.map((tr, index) => {

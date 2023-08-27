@@ -12,7 +12,8 @@ const DepositWithdrawTxTables = ({txs, id}) => {
     const [openItem, setOpenItem] = useState(false);
     const {t} = useTranslation();
 
-    const copyAddressToClipboard = (value) => {
+    const copyAddressToClipboard = (e, value) => {
+        e.stopPropagation();
         navigator.clipboard.writeText(value)
         toast.success(<Trans
             i18nKey="DepositWithdraw.copy"
@@ -83,7 +84,7 @@ const DepositWithdrawTxTables = ({txs, id}) => {
                                 <div className={`row`}>
 
                                     <Icon iconName="icon-copy fs-03 mr-2" customClass={`hover-text cursor-pointer`}
-                                          onClick={() => copyAddressToClipboard(tr.address)}/>
+                                          onClick={(e) => copyAddressToClipboard(e, tr.address)}/>
                                 </div>
                             </div>
                             <span className={`${classes.innerWidth} mt-05 text-start`}>{tr.address}</span>
@@ -94,7 +95,7 @@ const DepositWithdrawTxTables = ({txs, id}) => {
                                 <div className={`row`}>
 
                                     <Icon iconName="icon-copy fs-03 mr-2" customClass={`hover-text cursor-pointer`}
-                                          onClick={() => copyAddressToClipboard(tr.txId)}/>
+                                          onClick={(e) => copyAddressToClipboard(e,tr.txId)}/>
                                 </div>
                             </div>
                             <span className={`${classes.innerWidth} mt-05 text-start`}>{tr.txId}</span>
