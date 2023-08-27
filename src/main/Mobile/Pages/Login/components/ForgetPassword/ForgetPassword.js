@@ -129,11 +129,11 @@ const ForgetPassword = ({returnFunc}) => {
 
             <TextInput
                 lead= {LeadCaptchaHandler()}
-                after={<span data-html={true} data-place="left" data-effect="float" data-tip={`<span class="column jc-between col-100">${t("login.refreshCaptcha")}</span>`}><Icon
+                after={<Icon
                     iconName="icon-arrows-cw flex fs-01"
                     onClick={captchaReq}
                     customClass={`hover-text cursor-pointer`}
-                /></span>}
+                />}
                 type="text"
                 data-name="captchaAnswer"
                 data-type="input"

@@ -151,12 +151,11 @@ const EmailVerification = ({returnFunc, email, disable, returnFuncDisableFalse, 
             />
             <TextInput
                 lead={LeadCaptchaHandler()}
-                after={<span data-tooltip-id="opex-tooltip" data-tooltip-place="left" data-tooltip-float={true}
-                             data-tooltip-html={`<span class="column jc-between col-100">${t("login.refreshCaptcha")}</span>`}><Icon
+                after={<Icon
                     iconName="icon-arrows-cw flex fs-01"
                     onClick={captchaReq}
                     customClass={`hover-text cursor-pointer`}
-                /></span>}
+                />}
                 type="text"
                 data-name="captchaAnswer"
                 data-type="input"
