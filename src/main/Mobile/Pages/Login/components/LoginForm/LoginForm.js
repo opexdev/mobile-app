@@ -1,5 +1,4 @@
-import {login, parseToken} from "../../api/auth";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import classes from "../../Login.module.css";
 import TextInput from "../../../../../../components/TextInput/TextInput";
@@ -7,13 +6,15 @@ import LoginFormLoading from "../LoginLoading/LoginFormLoading";
 import {setUserAccountInfoInitiate, setUserInfo, setUserTokensInitiate} from "../../../../../../store/actions";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {setKYCStatusInitiate} from "../../../../../../store/actions";
 import Button from "../../../../../../components/Button/Button";
 import jwtDecode from "jwt-decode";
 import OTPForm from "../OTPForm/OTPForm";
 import {browserName, deviceType, fullBrowserVersion} from "react-device-detect";
 import {validateEmail} from "../../../../../../utils/utils";
 import ForgetPassword from "../ForgetPassword/ForgetPassword";
+import {useGetKycStatus} from "../../../../../../queries";
+import Icon from "../../../../../../components/Icon/Icon";
+import {login, parseToken} from "js-api-client";
 
 
 const LoginForm = () => {
@@ -21,82 +22,87 @@ const LoginForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
+
+    const isDevelopment = window.env.REACT_APP_ENV === "development";
+    const [isInputVisible, setIsInputVisible] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [loginError, setLoginError] = useState(false);
     const [needOTP, setNeedOTP] = useState(undefined);
     const [forgetPassword, setForgetPassword] = useState(false);
     const [credential, setCredential] = useState({username: "", password: "", otp: ""});
-    const from = location.state?.from?.pathname || "/";
+    const {refetch: getKycStatus} = useGetKycStatus();
 
-    const isDevelopment = window.env.REACT_APP_ENV === "development";
-    const agent = [deviceType , browserName , fullBrowserVersion]
+    const from = location.state?.from?.pathname || "/";
+    const isLogin = useSelector((state) => state.auth.isLogin)
+
+    const agent = [deviceType, browserName, fullBrowserVersion]
+    const clientSecret = window.env.REACT_APP_CLIENT_SECRET
+    const clientId = window.env.REACT_APP_CLIENT_ID
+
+    useEffect(() => {
+        if (isLogin) navigate(from, {replace: true});
+    }, [])
 
     useEffect(() => {
         setNeedOTP(undefined)
-
     }, [credential.username])
 
     useEffect(() => {
         setLoginError(false)
     }, [needOTP])
 
-    if (forgetPassword){
-        return <ForgetPassword returnFunc={()=>setForgetPassword(false)}/>
-    }
+    if (forgetPassword) return <ForgetPassword returnFunc={() => setForgetPassword(false)}/>
 
     const submit = async (e) => {
         e.preventDefault();
 
         if (credential.username.length === 0 || credential.password.length === 0) {
-            setLoginError(t("login.emptyCredentialError"));
-            return false;
+            return setLoginError(t("login.emptyCredentialError"));
         }
 
-        if ( !validateEmail(credential.username) || credential.password.length < 4) {
-            setLoginError(t("login.inputError"));
-
-            return false;
+        if (!validateEmail(credential.username) || credential.password.length < 4) {
+            return setLoginError(t("login.inputError"));
         }
 
         if (needOTP && credential.otp.length < 6) {
             setLoginError(t("login.otpLength"));
             setLoading(false);
-            return false;
+            return;
         }
 
         setLoading(true);
         setLoginError(false);
 
-        const submitResult = await login(credential , agent);
-        if (!submitResult) {
-            setLoginError(t("login.loginError"));
-        }
-        if (submitResult.status === 401) {
-            setLoginError(t("login.wrongPassword"));
-        }
-        if (submitResult.status === 403) {
-            setLoginError(t("login.wrongOTP"));
-            setNeedOTP(true)
-        }
+        login(credential, agent, clientId, clientSecret)
+            .then(async (res) => {
+                const userToken = parseToken(res.data);
+                const jwt = jwtDecode(userToken.accessToken)
+                await dispatch(setUserInfo(jwt));
+                await dispatch(setUserTokensInitiate(userToken));
+                await dispatch(setUserAccountInfoInitiate())
+                await getKycStatus()
+                return navigate(from, {replace: true});
+            })
+            .catch((err) => {
+                if (err?.response?.status === 401) {
+                    return setLoginError(t("login.wrongPassword"));
+                }
+                if (err?.response?.status === 403) {
+                    setLoginError(t("login.wrongOTP"));
+                    return setNeedOTP(true)
+                }
+                if (err?.response?.status === 400 && err?.response?.data?.error_description === "Account is not fully set up") {
+                    return setLoginError(t("login.accountNotActive"));
+                }
+                setLoginError(t("login.loginError"));
+            })
+            .finally(() => {
+                setLoading(false);
+            });
 
-        if (submitResult.status === 400 && submitResult.data.error_description === "Account is not fully set up") {
-            setLoginError(t("login.accountNotActive"));
-        }
-        if (submitResult && submitResult.status === 200) {
-            const userToken = parseToken(submitResult.data);
-            dispatch(setUserTokensInitiate(userToken));
-            const jwt = jwtDecode(userToken.accessToken)
-            dispatch(setUserInfo(jwt));
-            dispatch(setKYCStatusInitiate())
-            dispatch(setUserAccountInfoInitiate())
-            return navigate(from, { replace: true });
-        }
-        setLoading(false);
     };
 
-    if (isLoading) {
-        return <LoginFormLoading />
-    }
+    if (isLoading) return <LoginFormLoading/>
 
     const setOTPInputHandler = (val) => {
         setCredential({...credential, otp: val})
@@ -110,14 +116,7 @@ const LoginForm = () => {
 
     return <form onSubmit={(e) => submit(e)} className={`column ai-center jc-between ${classes.form}`}>
         <div className={`width-100 column jc-center ai-center ${classes.formBody} py-2`}>
-            {!needOTP && isDevelopment ? <div className={`font-weight-300 fs-0-6 mb-2`}>
-                <span>برای ورود آزمایشی،  <span className={`hover-text cursor-pointer`} onClick={() => setCredential({
-                    username: "test1@opex.dev",
-                    password: "12345678",
-                    otp: ""
-                })}
-                >اینجا  </span>کلیک کنید!</span>
-            </div> : ""}
+            {(!needOTP && isDevelopment) && <span className={`font-weight-300 fs-0-8 mb-2 hover-text cursor-pointer`} onClick={() => setCredential({username: "test1@opex.dev", password: "12345678", otp: ""})}>{t('login.forDemoLogin')}</span>}
             {needOTP ?
                 <OTPForm setOTP={setOTPInputHandler} initialVal={credential.otp}/>
                 :
@@ -125,16 +124,22 @@ const LoginForm = () => {
                     <TextInput
                         lead={t('email')}
                         type="text"
-                        customClass={classes.loginInput}
+                        customClass={`${classes.loginInput} ${classes.ltrInput}`}
                         value={credential.username}
                         onchange={(e) => setCredential({...credential, username: e.target.value})}
                     />
                     <TextInput
                         lead={t('password')}
-                        type="password"
-                        customClass={classes.loginInput}
+                        type={isInputVisible ? "text" : "password"}
+                        customClass={`${classes.loginInput} ${classes.passwordInput} ${classes.ltrInput}`}
                         value={credential.password}
                         onchange={(e) => setCredential({...credential, password: e.target.value})}
+                        after={
+                            <Icon
+                                iconName={`${isInputVisible ? ' icon-eye-2' : 'icon-eye-off'} fs-02 flex cursor-pointer hover-text`}
+                                onClick={() => setIsInputVisible(!isInputVisible)}
+                            />
+                        }
                     />
                 </>
             }
