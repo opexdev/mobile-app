@@ -8,16 +8,13 @@ import {useTranslation} from "react-i18next";
 import ReactTooltip from "react-tooltip";
 import {setLogoutInitiate} from "../../store/actions";
 import {toast} from "react-hot-toast";
-import {logOut} from "../../main/Mobile/Pages/Login/api/auth";
+import {logout} from "js-api-client";
 import {images} from "../../assets/images";
 import i18n from "i18next";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import *  as Routes from "../../main/Mobile/Routes/routes";
 import {toAbsoluteUrl} from "../../utils/utils";
 import packageJson from "../../../package.json"
-import {Overview} from "../../main/Mobile/Routes/routes";
-
-
 
 
 const SideMenu = () => {
@@ -37,7 +34,7 @@ const SideMenu = () => {
     });
 
     const logOutHandler = async () => {
-        logOut().then(()=>{
+        logout().then(()=>{
             toast.success(t("header.logOutSuccess"))
             dispatch(setLogoutInitiate())
         }).catch(()=>{
