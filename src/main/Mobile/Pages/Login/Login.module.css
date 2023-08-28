@@ -23,10 +23,6 @@
     background-color: var(--cardHeaderAlpha);
 }
 
-.forgetPasswordInput{
-    width: 75%;
-}
-
 .loginInput {
     width: 93%;
     margin-bottom: 2vh;
@@ -39,28 +35,38 @@
     background-color: var(--cardHeader);
     border-color: var(--cardHeader);
     color: var(--textColor);
-    width: 40%;
 }
-.loginInput :global(input){
+
+
+.loginInput :global(.lead) {
+    width: 40% !important;
+}
+.loginInput :global(input) {
     width: 60% !important;
 }
 
 
-
+.loginInput.passwordInput :global(.lead) {
+    width: 40% !important;
+}
+.loginInput.passwordInput :global(input) {
+    width: 43% !important;
+}
+.loginInput.passwordInput :global(.after) {
+    width: 17% !important;
+}
 
 
 .loginInput.captcha :global(.lead){
-    width: 40%;
+    width: 40% !important;
 }
-
 .loginInput.captcha :global(input){
     width: 43% !important;
 }
-
-
 .loginInput.captcha :global(.after){
-    width: 17%;
+    width: 17% !important;
 }
+
 
 .thisLoading{
     width: 9vw;
@@ -130,21 +136,6 @@
     background: var(--cardHeader);
     color: var(--textColor);
     cursor: not-allowed;
-}
-
-
-
-
-
-.loginInput.passwordInput :global(.before){
-    width: 40% !important;
-}
-
-.loginInput.passwordInput :global(input){
-    width: 43% !important;
-}
-.loginInput.passwordInput :global(.after){
-    width: 17% !important;
 }
 
 
