@@ -7,10 +7,8 @@
 }
 
 .content{
-    position: fixed;
     top: 27.5%;
-    left: 37.5%;
-    width: 25%;
+    width: 90%;
     height: 45%;
     background-color: var(--cardBodyAlpha);
     z-index: 7;
@@ -42,13 +40,18 @@
     width: 100%;
 }
 .passwordInput :global(.lead) {
-    width: 45%;
+    width: 40%;
     cursor: pointer;
 }
 .passwordInput :global(.after) {
-    width: 12.5%;
+    width: 17%;
     cursor: pointer;
 }
 .passwordInput :global(input) {
-    width: 42.5% !important;
+    width: 43% !important;
 }
+
+.content img{
+    width: 25%;
+}
+

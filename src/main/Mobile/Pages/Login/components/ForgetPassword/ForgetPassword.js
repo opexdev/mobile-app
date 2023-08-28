@@ -119,7 +119,7 @@ const ForgetPassword = ({returnFunc}) => {
                 type="text"
                 data-name="email"
                 data-type="email"
-                customClass={`${classes.forgetPasswordInput} ${classes.loginInput}`}
+                customClass={`${classes.loginInput}`}
                 value={forgetPass.email.value}
                 onchange={(e) =>
                     setForgetPass({...forgetPass, email: { value: e.target.value , error: []}})
