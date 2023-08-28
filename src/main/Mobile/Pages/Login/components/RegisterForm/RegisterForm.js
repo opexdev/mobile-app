@@ -256,6 +256,7 @@ const RegisterForm = () => {
                     lead={t('password')}
                     type={isInputVisible.password ? "text" : "password"}
                     data-name="password"
+                    autocomplete="new-password"
                     customClass={`${classes.loginInput} ${classes.ltrInput} ${classes.passwordInput}`}
                     value={userData.password.value}
                     onchange={(e) => inputHandler(e)}

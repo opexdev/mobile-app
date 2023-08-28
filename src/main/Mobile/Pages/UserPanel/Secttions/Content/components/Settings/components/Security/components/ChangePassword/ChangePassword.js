@@ -154,7 +154,7 @@ const ChangePassword = () => {
                                 })}
                             />
                         }
-                        autoComplete="off"
+                        autocomplete="new-password"
                         type={isInputVisible.newPassword ? "text" : "password"}
                         value={userInputs.newPassword.value}
                         data-name="newPassword"
