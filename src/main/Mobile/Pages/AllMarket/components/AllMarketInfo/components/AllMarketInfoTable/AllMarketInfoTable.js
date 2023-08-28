@@ -7,7 +7,7 @@ import {setActivePairInitiate} from "../../../../../../../../store/actions";
 import {images} from "../../../../../../../../assets/images";
 import i18n from "i18next";
 import {BN} from "../../../../../../../../utils/utils";
-import {Order, Panel} from "../../../../../../Routes/routes";
+import {Order} from "../../../../../../Routes/routes";
 import Button from "../../../../../../../../components/Button/Button";
 import Icon from "../../../../../../../../components/Icon/Icon";
 import {LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions} from "react-swipeable-list";
@@ -20,8 +20,8 @@ const AllMarketInfoTable = ({data, activeCurrency}) => {
     const dispatch = useDispatch();
     const allExchangeSymbols = useSelector((state) => state.exchange.symbols)
 
-    const [swipRight, setSwipRight] = useState(null);
-    const [swipLeft, setSwipLeft] = useState(null);
+    const [swipeRight, setSwipeRight] = useState(null);
+    const [swipeLeft, setSwipeLeft] = useState(null);
 
     const navigateToPanel = (symbol) => {
         const selectedPair = allExchangeSymbols.find( s => s.symbol === symbol)
@@ -34,11 +34,11 @@ const AllMarketInfoTable = ({data, activeCurrency}) => {
             <SwipeAction
                 onClick={() => {
                     if (i18n.language === "fa") {
-                        if (swipLeft === index) return setSwipLeft(null)
-                        return setSwipRight(prevState => prevState === index ? null : index)
+                        if (swipeLeft === index) return setSwipeLeft(null)
+                        return setSwipeRight(prevState => prevState === index ? null : index)
                     } else {
-                        if (swipRight === index) return setSwipRight(null)
-                        return setSwipLeft(prevState => prevState === index ? null : index)
+                        if (swipeRight === index) return setSwipeRight(null)
+                        return setSwipeLeft(prevState => prevState === index ? null : index)
                     }
                 }}
             />
@@ -51,11 +51,11 @@ const AllMarketInfoTable = ({data, activeCurrency}) => {
                 destructive={false}
                 onClick={() => {
                     if (i18n.language === "fa") {
-                        if (swipRight === index) return setSwipRight(null)
-                        return setSwipLeft(prevState => prevState === index ? null : index)
+                        if (swipeRight === index) return setSwipeRight(null)
+                        return setSwipeLeft(prevState => prevState === index ? null : index)
                     } else {
-                        if (swipLeft === index) return setSwipLeft(null)
-                        return setSwipRight(prevState => prevState === index ? null : index)
+                        if (swipeLeft === index) return setSwipeLeft(null)
+                        return setSwipeRight(prevState => prevState === index ? null : index)
                     }
                 }}
             />
@@ -63,14 +63,14 @@ const AllMarketInfoTable = ({data, activeCurrency}) => {
     );
 
     const swipClassHandler = (index) => {
-        if (swipRight === index) return classes.activeSwipRight;
-        if (swipLeft === index) return classes.activeSwipLeft;
+        if (swipeRight === index) return classes.activeSwipRight;
+        if (swipeLeft === index) return classes.activeSwipLeft;
         return classes.hideSwip
     }
 
     const hideSwip = (index) => {
-        if (swipRight === index) return setSwipRight(null)
-        if (swipLeft === index) return setSwipLeft(null)
+        if (swipeRight === index) return setSwipeRight(null)
+        if (swipeLeft === index) return setSwipeLeft(null)
     }
 
 

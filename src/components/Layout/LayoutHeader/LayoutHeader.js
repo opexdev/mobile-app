@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './LayoutHeader.module.css'
 import Icon from "../../Icon/Icon";
 import {setMarketInterval, showSideMenu} from "../../../store/actions/global";
-import {Link, NavLink, Route, Routes, useLocation, useParams} from "react-router-dom";
+import {Link, Route, Routes} from "react-router-dom";
 import * as RoutesName from "../../../main/Mobile/Routes/routes";
 import {toAbsoluteUrl} from "../../../utils/utils";
 import {useTranslation} from "react-i18next";
@@ -12,30 +12,15 @@ import {useDispatch, useSelector} from "react-redux";
 const LayoutHeader = () => {
 
     const {t} = useTranslation();
-
     const dispatch = useDispatch();
-
-    const isLogin = useSelector((state) => state.auth.isLogin)
-    const firstName = useSelector((state) => state.auth.firstName)
-    const lastName = useSelector((state) => state.auth.lastName)
-    const location = useLocation();
-
     const interval = useSelector((state) => state.global.marketInterval)
-
 
     return (
         <div className={`${classes.container} width-100 row jc-between ai-center`}>
             <div className={`width-90 height-100 m-auto row jc-between ai-center`}>
-
                 <div className={`column ai-start width-20`}>
-
                     <Icon iconName="icon-menu_vertical fs-04 flex" onClick={()=>dispatch(showSideMenu(true))}/>
                 </div>
-
-
-
-
-
                 <div className={`width-60 text-center`}>
                     <Routes>
                         <Route path={RoutesName.Landing} element={<h3>{t("Landing.title")}</h3>}/>
@@ -56,15 +41,12 @@ const LayoutHeader = () => {
                     </Routes>
                 </div>
 
-
                 <div className={`flex jc-end ai-center width-20`}>
                     <Link to={RoutesName.Landing}>
                         <img src={toAbsoluteUrl('/assets/logo/logo-mini.svg')} alt={t("title")} title={t("title")} className={`img-lg-plus flex`}/>
                     </Link>
                 </div>
-
             </div>
-
         </div>
     );
 };

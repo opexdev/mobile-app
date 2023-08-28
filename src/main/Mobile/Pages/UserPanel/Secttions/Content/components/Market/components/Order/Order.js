@@ -11,15 +11,22 @@ import {setBuyOrder, setSellOrder} from "../../../../../../../../../../store/act
 const Order = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();
-    const [activeTab, setActiveTab] = useState(0);
-
     const selectedSellOrder = useSelector((state) => state.exchange.activePairOrders.selectedSellOrder)
     const selectedBuyOrder = useSelector((state) => state.exchange.activePairOrders.selectedBuyOrder)
 
+    const [activeTab, setActiveTab] = useState(selectedSellOrder.pricePerUnit ? 1 : 0);
+
     const data = [
-        {id: 1, title: t("buy"), body: <BuyOrder />},
-        {id: 2, title: t("sell"), body: <SellOrder />},
+        {id: 1, title: t("buy"), body: <BuyOrder/>},
+        {id: 2, title: t("sell"), body: <SellOrder/>},
     ];
+
+    useEffect(() => {
+        return () => {
+            dispatch(setBuyOrder({pricePerUnit: 0, amount: 0,}))
+            dispatch(setSellOrder({pricePerUnit: 0, amount: 0,}))
+        }
+    }, [])
 
 
     useEffect(() => {

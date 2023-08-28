@@ -1,8 +1,6 @@
-import React from 'react';
 import moment from "moment-jalaali";
 
 const Date = ({date}) => {
-
     const calendar = () => {
         const type = window.env.REACT_APP_CALENDAR_TYPE
         switch (type) {
