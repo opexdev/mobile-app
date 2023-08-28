@@ -1,7 +1,11 @@
 
-.doubleStriped div:nth-child(2n-1) div{
+.striped .row:nth-child(even) {
     background-color: var(--tableRow);
     -webkit-transition: background-color 0.4s;
     -o-transition: background-color 0.4s;
     transition: background-color 0.4s;
+}
+
+.innerWidth {
+    word-break: break-word;
 }

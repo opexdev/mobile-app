@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useTranslation} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 import {requestForActivateOTP, sendInitialCodeToActivateOTP} from "js-api-client";
 import {toast} from "react-hot-toast";
 import Loading from "../../../../../../../../../../../../../components/Loading/Loading";
@@ -8,6 +8,7 @@ import TextInput from "../../../../../../../../../../../../../components/TextInp
 import Button from "../../../../../../../../../../../../../components/Button/Button";
 import {images} from "../../../../../../../../../../../../../assets/images";
 import classes from "../SetTwoStepVerification.module.css";
+import Icon from "../../../../../../../../../../../../../components/Icon/Icon";
 
 const ActivateOTP = ({refetchOtp}) => {
 
@@ -61,18 +62,34 @@ const ActivateOTP = ({refetchOtp}) => {
             });
     }
 
+    const copyAddressToClipboard = (value) => {
+        navigator.clipboard.writeText(value)
+        toast.success(<Trans
+            i18nKey="DepositWithdraw.copy"
+        />);
+    }
+
+
     if (loading) return <Loading/>
 
     if (reqOTP?.uri) {
         return <div className={`column width-100 jc-between ai-center height-100 px-3 py-2`}>
             <span className={``}>{t("SetTwoStepVerification.QRdescription")}</span>
             <QRCode
-                value={reqOTP.uri}
+                value={reqOTP?.uri}
                 bgColor="var(--cardBody)"
                 fgColor="var(--textColor)"
                 level='L'
                 size={140}
             />
+            <div className={`width-100 row jc-center ai-center`}>
+                <span className={`direction-ltr fs-0-9 ml-1`}>{reqOTP?.secret?.slice(0,20)}...</span>
+                <Icon
+                    iconName="icon-copy fs-03"
+                    onClick={() =>copyAddressToClipboard(reqOTP?.secret)}
+                    customClass={`hover-text cursor-pointer mr-1`}
+                />
+            </div>
             <form onSubmit={submitActivation} className={`column jc-between ai-center width-100`}>
                 <TextInput
                     lead={t("SetTwoStepVerification.code")}

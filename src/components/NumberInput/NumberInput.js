@@ -43,7 +43,7 @@ const NumberInput = (props) => {
             data-effect="float"
             data-tip={hint}>
             <Icon
-                iconName="icon-info text-white fs-0-6 flex"
+                iconName="icon-info text-red fs-01 flex"
                 customClass={classes.hintIcon}
             />
             <span className="alert pr-05">{alert}</span>

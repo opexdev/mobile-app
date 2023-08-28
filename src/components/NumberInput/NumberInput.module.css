@@ -77,10 +77,6 @@
 }
 
 .hintIcon {
-  width: 1.1vw;
-  height: 1.1vw;
-  border-radius: 50vw;
-  background-color: var(--darkRed);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

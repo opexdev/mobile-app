@@ -1,16 +1,15 @@
 import React from 'react';
 import classes from "./AllMarket.module.css";
-import AllMarketHeader from "./Sections/AllMarketHeader/AllMarketHeader";
-import AllMarketContent from "./Sections/AllMarketContent/AllMarketContent";
 import {images} from "../../../../assets/images";
+import MarketStats from "./components/MarketStats/MarketStats";
+import AllMarketInfo from "./components/AllMarketInfo/AllMarketInfo";
 
 const AllMarket = () => {
 
     return (
-        <div className={`width-100 ${classes.container} move-image column text-color`} style={{backgroundImage: `url("${images.spaceStar}")`}}>
-            <AllMarketHeader/>
-            <AllMarketContent/>
-
+        <div className={`${classes.container} move-image`} style={{backgroundImage: `url("${images.spaceStar}")`}}>
+            <MarketStats/>
+            <AllMarketInfo/>
         </div>
 
     );

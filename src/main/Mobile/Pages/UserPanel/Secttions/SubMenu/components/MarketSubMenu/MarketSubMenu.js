@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import classes from "./MarketSubMenu.module.css";
-
-import {useLocation} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import AccordionBox from "../../../../../../../../components/AccordionBox/AccordionBox";
 import Icon from "../../../../../../../../components/Icon/Icon";

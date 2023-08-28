@@ -2,15 +2,14 @@ import React from "react";
 import classes from "./LastTradesTable.module.css";
 import {useTranslation} from "react-i18next";
 import moment from "moment-jalaali";
-import {connect} from "react-redux";
+import {useSelector} from "react-redux";
 import ScrollBar from "../../../../../../../../../../../../components/ScrollBar";
 import {BN} from "../../../../../../../../../../../../utils/utils";
 import Date from "../../../../../../../../../../../../components/Date/Date";
 
-const LastTradesTable = (props) => {
+const LastTradesTable = ({data}) => {
     const {t} = useTranslation();
-    const {activePair, data} = props
-
+    const activePair = useSelector((state) => state.exchange.activePair)
     return (
         <div className={`column width-100 ${classes.container}`}>
             <ScrollBar>
@@ -20,10 +19,10 @@ const LastTradesTable = (props) => {
                         <th>{t("date")}</th>
                         <th>{t("time")}</th>
                         <th>
-                            {t("volume")}({activePair.baseAsset})
+                            {t("volume")} <span className={`fs-0-7`}>({activePair.baseAsset})</span>
                         </th>
                         <th>
-                            {t("price")}({activePair.quoteAsset})
+                            {t("price")} <span className={`fs-0-7`}>({activePair.quoteAsset})</span>
                         </th>
                         <th>{t("totalPrice")}</th>
                     </tr>
@@ -51,10 +50,4 @@ const LastTradesTable = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        activePair: state.exchange.activePair,
-    };
-};
-
-export default connect(mapStateToProps, null)(LastTradesTable);
+export default LastTradesTable;

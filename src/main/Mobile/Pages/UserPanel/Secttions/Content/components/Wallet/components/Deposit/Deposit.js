@@ -1,14 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import classes from './Deposit.module.css'
-import QRCode from "react-qr-code";
-import {Trans, useTranslation} from "react-i18next";
+import {useTranslation} from "react-i18next";
 import TextInput from "../../../../../../../../../../components/TextInput/TextInput";
 import {useParams} from "react-router-dom";
-import {useGetCurrencyInfo, useGetDepositAddress} from "../../../../../../../../../../queries";
+import {useGetCurrencyInfo} from "../../../../../../../../../../queries";
 import {toast} from "react-hot-toast";
 import Loading from "../../../../../../../../../../components/Loading/Loading";
 import Error from "../../../../../../../../../../components/Error/Error";
-import Icon from "../../../../../../../../../../components/Icon/Icon";
 import Address from "./components/Address/Address";
 
 
@@ -36,27 +34,10 @@ const Deposit = () => {
     }, [id]);
 
 
-    /*const lowestPrice = (id) => {
-        switch (id) {
-            case "BTC":
-                return 0.001;
-            case "ETH":
-                return 0.001;
-            case "USDT":
-                return 10;
-            default:
-                return 0;
-        }
-    };*/
-
-
-
    // if (id === "IRT") return <IRTDeposit/>
     if (id === "IRT") return <div className={`flex jc-center ai-center card-bg card-border height-98 width-95`}><h3>{t("comingSoon")}</h3></div>
     if (CILoading) return <div className={`card-bg card-border height-98 width-95`}><Loading/></div>
     if (CIError) return <div className={`card-bg card-border height-98 width-95`}><Error/></div>
-
-    /*<Error retryFunc={refetch}/>*/
 
 
     return (

@@ -6,12 +6,11 @@ import {activeActionSheet} from "../../../../../../../../store/actions/global";
 import {useDispatch} from "react-redux";
 import i18n from "i18next";
 
-const WalletHeader = ({showSubMenu, showMenu}) => {
+const WalletHeader = () => {
 
     const {id} = useParams()
     const {t} = useTranslation()
     const dispatch = useDispatch();
-
 
     return (
         <>

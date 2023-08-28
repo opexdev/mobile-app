@@ -7,15 +7,10 @@ import {useTranslation} from "react-i18next";
 const OTPForm = ({initialVal , setOTP}) => {
     const {t} = useTranslation();
 
-
     const OTPInputHandler = (value) => {
         const userInput = value.replace(/[^0-9]+/g, "").slice(0,6)
         setOTP(userInput)
     }
-
-
-
-
 
     return (
         <>

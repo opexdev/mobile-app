@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import classes from "../../Order.module.css";
 import {Trans, useTranslation} from "react-i18next";
-import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useGetUserAccount} from "../../../../../../../../../../../../queries/hooks/useGetUserAccount";
 import {toast} from "react-hot-toast";
@@ -9,17 +8,12 @@ import {setLastTransaction} from "../../../../../../../../../../../../store/acti
 import {BN, parsePriceString} from "../../../../../../../../../../../../utils/utils";
 import {createOrder} from "js-api-client";
 import {images} from "../../../../../../../../../../../../assets/images";
-import Icon from "../../../../../../../../../../../../components/Icon/Icon";
 import NumberInput from "../../../../../../../../../../../../components/NumberInput/NumberInput";
 import Button from "../../../../../../../../../../../../components/Button/Button";
 
 
-
-
-
 const SellOrder = () => {
 
-    const navigate = useNavigate();
     const {t} = useTranslation();
     const dispatch = useDispatch();
 
@@ -33,7 +27,6 @@ const SellOrder = () => {
 
     const {data: userAccount} = useGetUserAccount()
     const base = userAccount?.wallets[activePair.baseAsset]?.free || 0;
-    const quote = userAccount?.wallets[activePair.quoteAsset]?.free || 0;
 
     const [alert, setAlert] = useState({
         reqAmount: null,
@@ -75,6 +68,9 @@ const SellOrder = () => {
         })
     }, [activePair])
 
+    const isAllowed = ({floatValue}) => {
+        return floatValue < 10 ** 12;
+    }
 
     const currencyValidator = (key, val, rule) => {
         if (!val.isZero() && val.isLessThan(rule.min)) {
@@ -84,7 +80,7 @@ const SellOrder = () => {
                     <Trans
                         i18nKey="orders.minOrder"
                         values={{
-                            min: activePair.baseRange.min,
+                            min: activePair.baseRange.min.toString(),
                             currency: t("currency." + activePair.baseAsset),
                         }}
                     />
@@ -98,7 +94,7 @@ const SellOrder = () => {
                     (<Trans
                         i18nKey="orders.maxOrder"
                         values={{
-                            max: activePair.baseRange.max,
+                            max: activePair.baseRange.max.toLocaleString(),
                             currency: t("currency." + activePair.baseAsset),
                         }}
                     />)
@@ -181,20 +177,21 @@ const SellOrder = () => {
     }, [selectedSellOrder]);
 
     const fillSellByWallet = () => {
-        if(order.pricePerUnit.isEqualTo(0) && bestSellPrice === 0 ) return toast.error(t("orders.hasNoOffer"));
+        if (order.pricePerUnit.isEqualTo(0) && bestSellPrice === 0) return toast.error(t("orders.hasNoOffer"));
         if (order.pricePerUnit.isEqualTo(0)) {
-            const totalPrice = new BN(quote);
+            const reqAmount = new BN(base).decimalPlaces(activePair.baseAssetPrecision);
+            const pricePerUnit = new BN(bestSellPrice);
             setOrder({
                 ...order,
-                reqAmount: totalPrice.dividedBy(bestSellPrice).decimalPlaces(activePair.baseAssetPrecision),
-                pricePerUnit: new BN(bestSellPrice),
-                totalPrice,
-                tradeFee: totalPrice.multipliedBy(tradeFee[activePair.quoteAsset]).decimalPlaces(activePair.baseAssetPrecision),
+                reqAmount: reqAmount,
+                pricePerUnit: pricePerUnit,
+                totalPrice: reqAmount.multipliedBy(pricePerUnit).decimalPlaces(activePair.quoteAssetPrecision),
+                tradeFee: reqAmount.multipliedBy(pricePerUnit).multipliedBy(tradeFee[activePair.quoteAsset]).decimalPlaces(activePair.baseAssetPrecision),
             });
         } else {
             sellPriceHandler(
-                quote.toString(),
-                "totalPrice",
+                base.toString(),
+                "reqAmount",
             );
         }
     };
@@ -213,19 +210,19 @@ const SellOrder = () => {
                 reqAmount: t('orders.notEnoughBalance')
             })
         }
-        return setAlert({
-            ...alert,
-            reqAmount: null
-        })
+        if (alert.reqAmount === t('orders.notEnoughBalance')) {
+            return setAlert({
+                ...alert,
+                reqAmount: null
+            })
+        }
     }, [order.reqAmount]);
 
     const submit = () => {
-        if (!isLogin) {
-            return false
-        }
-        if (isLoading) {
-            return false
-        }
+        if (!isLogin) return
+
+        if (isLoading) return
+
         setIsLoading(true)
         createOrder(activePair.symbol, "SELL", order)
             .then((res) => {
@@ -260,15 +257,10 @@ const SellOrder = () => {
     }
 
     const submitButtonTextHandler = () => {
-        if (isLoading) {
-            return <img className={`${classes.thisLoading}`} src={images.linearLoading} alt="linearLoading"/>
-        }
-        /*if (alert.submit) {
-            return <span>{t("login.loginError")}</span>
-        }*/
-        if (isLogin) {
-            return t("sell")
-        }
+        if (isLoading) return <img className={`${classes.thisLoading}`} src={images.linearLoading} alt="linearLoading"/>
+
+        if (isLogin) return t("sell")
+
         return t("pleaseLogin")
     }
 
@@ -288,19 +280,21 @@ const SellOrder = () => {
             <NumberInput
                 lead={t("orders.amount")}
                 after={t("currency." + activePair.baseAsset)}
-                value={order.reqAmount.toString()}
+                value={order.reqAmount.toFormat()}
                 maxDecimal={activePair.baseAssetPrecision}
                 onchange={(e) => sellPriceHandler(e.target.value, "reqAmount")}
                 alert={alert.reqAmount}
                 customClass={`${classes.smallInput} fs-0-8`}
+                isAllowed={isAllowed}
             />
             <NumberInput
                 lead={t("orders.pricePerUnit")}
                 after={t("currency." + activePair.quoteAsset)}
-                value={order.pricePerUnit.toString()}
+                value={order.pricePerUnit.toFormat()}
                 maxDecimal={activePair.quoteAssetPrecision}
                 onchange={(e) => sellPriceHandler(e.target.value, "pricePerUnit")}
                 customClass={`${classes.smallInput} fs-0-8 my-05`}
+                isAllowed={isAllowed}
             />
             <NumberInput
                 lead={t("orders.totalPrice")}
@@ -309,6 +303,7 @@ const SellOrder = () => {
                 after={t("currency." + activePair.quoteAsset)}
                 onchange={(e) => sellPriceHandler(e.target.value, "totalPrice")}
                 customClass={`${classes.smallInput} fs-0-8`}
+                isAllowed={isAllowed}
             />
             <div className={`row jc-between ai-center`}>
                 <div className="column jc-center fs-0-8">
@@ -319,7 +314,7 @@ const SellOrder = () => {
                     </p>
                     <p>
                         {t("orders.getAmount")}:{" "}
-                        {order.totalPrice.minus(order.tradeFee).decimalPlaces(activePair.baseAssetPrecision).toNumber()}{" "}
+                        {order.totalPrice.minus(order.tradeFee).decimalPlaces(activePair.quoteAssetPrecision).toFormat()}{" "}
                         {t("currency." + activePair.quoteAsset)}
                     </p>
                 </div>

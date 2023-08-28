@@ -3,17 +3,25 @@ import React, {useEffect, useState} from "react";
 import TextInput from "../../../../../../components/TextInput/TextInput";
 import LoginFormLoading from "../LoginLoading/LoginFormLoading";
 import {Trans, useTranslation} from "react-i18next";
-import {getCaptcha, getToken, register} from "../../api/auth";
 import {validateEmail} from "../../../../../../utils/utils";
 import Button from "../../../../../../components/Button/Button";
 import Icon from "../../../../../../components/Icon/Icon";
 import {images} from "../../../../../../assets/images";
 import ReactTooltip from "react-tooltip";
 import {Buffer} from 'buffer';
+import {getCaptchaImage, getPanelToken, userRegister} from "js-api-client";
+import {setVerifyEmailLockInitiate} from "../../../../../../store/actions";
+import {useDispatch, useSelector} from "react-redux";
+import EmailVerification from "../EmailVerification/EmailVerification";
 
 const RegisterForm = () => {
     const {t} = useTranslation();
+    const dispatch = useDispatch();
+    const verifyEmailLock = useSelector((state) => state.exchange.verifyEmailLock)
+
     const [registerStatus, setRegisterStatus] = useState("")
+    const [verifyEmail, setVerifyEmail] = useState(false);
+    const [disable, setDisable] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [captcha, setCaptcha] = useState({
         image: {value: "", error: []},
@@ -28,64 +36,90 @@ const RegisterForm = () => {
         password: {value: "", error: []},
         confirmPassword: {value: "", error: []},
     });
+    const [isInputVisible, setIsInputVisible] = useState({
+        password: false,
+        confirmPassword: false,
+    });
+
+    const clientSecret = window.env.REACT_APP_CLIENT_SECRET
+    const clientId = window.env.REACT_APP_CLIENT_ID
 
     const captchaReq = async () => {
         setIsLoading(true)
-        const captchaData = await getCaptcha()
-        if (captchaData && captchaData.status === 200) {
-            setIsLoading(false)
-            setCaptcha({
-                image: {
-                    value: `data:${captchaData.headers['content-type']};base64,${Buffer.from(captchaData.data).toString('base64')}`,
-                    error: []
-                },
-                SessionKey: {value: captchaData.headers['captcha-session-key'], error: []},
-                expireTime: {value: captchaData.headers['captcha-expire-timestamp'], error: []},
+        await getCaptchaImage()
+            .then((res) => {
+                setCaptcha({
+                    image: {
+                        value: `data:${res.headers['content-type']};base64,${Buffer.from(res.data).toString('base64')}`,
+                        error: []
+                    },
+                    SessionKey: {value: res.headers['captcha-session-key'], error: []},
+                    expireTime: {value: res.headers['captcha-expire-timestamp'], error: []},
+                })
             })
-        } else {
-            setUserData({...userData, captchaAnswer: {value: "", error: [t("login.captchaServerError")]}})
-            setCaptcha({...captcha, image: {value: undefined, error: []}})
-            setIsLoading(false)
-        }
+            .catch(() => {
+                setUserData({...userData, captchaAnswer: {value: "", error: [t("login.captchaServerError")]}})
+                setCaptcha({...captcha, image: {value: undefined, error: []}})
+            })
+            .finally(() => {
+                setIsLoading(false)
+            });
     }
     useEffect(() => {
-        captchaReq().then(() => setIsLoading(false))
+        captchaReq()
     }, [])
-
-    /*
-    useInterval(async () => {
-        await captchaReq();
-    },  (captcha.expireTime.value)*1000);
-    */
 
     useEffect(() => {
         ReactTooltip.rebuild();
     });
 
-    if (registerStatus === "loading") {
-        return <LoginFormLoading/>
-    }
+    useEffect(() => {
+        if (verifyEmailLock && new Date().getTime() < verifyEmailLock) setDisable(true)
+    }, [verifyEmailLock]);
+
+    if (registerStatus === "loading") return <LoginFormLoading/>
+
+    if (verifyEmail) return <EmailVerification returnFunc={() => setVerifyEmail(false)} email={userData?.email?.value} disable={disable} returnFuncDisableFalse={() => setDisable(false)} returnFuncDisableTrue={() => setDisable(true)}/>
+
+
+
     if (registerStatus === "finish") {
         return <div className={`column jc-center ai-center text-center px-4`} style={{height: "35vh"}}>
-            <span>{t('login.registerFinished')}</span>
-            <span>{t('login.registerFinishedGoToMail')}</span>
-            <span
-                className={`fs-0-7 border-top-dotted pt-1 mt-1`}>{t('login.registerFinishedSpamMail')}</span>
+            <span className={`text-green mb-2`}>{t('login.registerFinished')}</span>
+            <span className={`mt-2`}>
+                <Trans
+                    i18nKey="login.registerFinishedGoToMail"
+                    values={{
+                        email: userData?.email?.value,
+                    }}
+                />
+            </span>
+            <span className={`fs-0-8 border-top-dotted pt-1 mt-1`}><Trans
+                i18nKey="login.registerFinishedSpamMail"
+                values={{email: window.env.REACT_APP_SYSTEM_EMAIL_ADDRESS,}}
+            /></span>
+
+            <div className={`column mt-3 hover-text text-orange`}>
+                <span className="cursor-pointer flex ai-center fs-0-8" onClick={() => setVerifyEmail(true)}>{t('login.verificationEmail')}</span>
+            </div>
         </div>
     }
+
+
     if (registerStatus === "finishedWithError") {
-        return <div className={`column jc-center ai-center`} style={{height: "30vh"}}>
+        return <div className={`column jc-center ai-center text-red`} style={{height: "30vh"}}>
             <span>{t('login.finishedWithError')}</span>
         </div>
     }
+
+
     const submit = async (e) => {
         e.preventDefault();
 
-        if (!isFormValid()) {
-            return false
-        }
+        if (!isFormValid()) return
+
         setRegisterStatus("loading");
-        let panelToken = await getToken();
+        const {data: {access_token: panelToken}} = await getPanelToken(clientId, clientSecret);
 
         const user = {
             firstName: userData.firstName.value,
@@ -96,26 +130,28 @@ const RegisterForm = () => {
             captchaAnswer: `${captcha.SessionKey.value}-${userData.captchaAnswer.value}`,
         }
 
-        register(user, panelToken)
+        userRegister(user, panelToken)
             .then(() => {
                 setRegisterStatus("finish");
+                setDisable(true)
+                dispatch(setVerifyEmailLockInitiate(new Date().getTime() + 2 * 60 * 1000))
             }).catch((e) => {
-                if (e?.response?.data?.error === "InvalidCaptcha") {
-                    setUserData({...userData, captchaAnswer: {value: "", error: [t("login.InvalidCaptcha")]}})
-                    setRegisterStatus("")
-                }else if (e?.response?.data?.error === "UserAlreadyExists") {
-                    setUserData({...userData, email: {...userData.email, error: [t("login.UserAlreadyExists")]}})
-                    setRegisterStatus("")
-                } else {
-                    setRegisterStatus("finishedWithError");
-                }
-            })
+            if (e?.response?.data?.error === "InvalidCaptcha") {
+                setUserData({...userData, captchaAnswer: {value: "", error: [t("login.InvalidCaptcha")]}})
+                setRegisterStatus("")
+            } else if (e?.response?.data?.error === "UserAlreadyExists") {
+                setUserData({...userData, email: {...userData.email, error: [t("login.UserAlreadyExists")]}})
+                setRegisterStatus("")
+            } else {
+                setRegisterStatus("finishedWithError");
+            }
+        })
 
     };
 
     const inputHandler = (e) => {
         let errorMessage = []
-        if (typeof e.target.dataset.min !== undefined && e.target.value.length < e.target.dataset.min) {
+        if (typeof e.target.dataset.min !== "undefined" && e.target.value.length < e.target.dataset.min) {
             errorMessage.push(<Trans
                 i18nKey="login.minInput"
                 values={{
@@ -218,31 +254,49 @@ const RegisterForm = () => {
                 />
                 <TextInput
                     lead={t('password')}
-                    type="password"
+                    type={isInputVisible.password ? "text" : "password"}
                     data-name="password"
-                    customClass={`${classes.loginInput} ${classes.ltrInput}`}
+                    autocomplete="new-password"
+                    customClass={`${classes.loginInput} ${classes.ltrInput} ${classes.passwordInput}`}
                     value={userData.password.value}
                     onchange={(e) => inputHandler(e)}
                     alerts={userData.password.error}
                     data-min={8}
+                    after={
+                        <Icon
+                            iconName={`${isInputVisible.password ? ' icon-eye-2' : 'icon-eye-off'} fs-02 flex cursor-pointer hover-text`}
+                            onClick={() => setIsInputVisible({
+                                ...isInputVisible,
+                                password: !isInputVisible.password
+                            })}
+                        />
+                    }
                 />
                 <TextInput
                     lead={t('confirmPassword')}
-                    type="password"
+                    type={isInputVisible.confirmPassword ? "text" : "password"}
                     data-name="confirmPassword"
-                    customClass={`${classes.loginInput} ${classes.ltrInput}`}
+                    customClass={`${classes.loginInput} ${classes.ltrInput} ${classes.passwordInput}`}
                     value={userData.confirmPassword.value}
                     onchange={(e) => inputHandler(e)}
                     alerts={userData.confirmPassword.error}
+                    after={
+                        <Icon
+                            iconName={`${isInputVisible.confirmPassword ? ' icon-eye-2' : 'icon-eye-off'} fs-02 flex cursor-pointer hover-text`}
+                            onClick={() => setIsInputVisible({
+                                ...isInputVisible,
+                                confirmPassword: !isInputVisible.confirmPassword
+                            })}
+                        />
+                    }
                 />
                 <TextInput
                     lead={LeadCaptchaHandler()}
-                    after={<span data-html={true} data-place="left" data-effect="float"
-                                 data-tip={`<span class="column jc-between col-100">${t("login.refreshCaptcha")}</span>`}><Icon
+                    after={<Icon
                         iconName="icon-arrows-cw flex fs-01"
                         onClick={captchaReq}
                         customClass={`hover-text cursor-pointer`}
-                    /></span>}
+                    />}
                     type="text"
                     data-name="captchaAnswer"
                     data-type="input"
@@ -253,6 +307,9 @@ const RegisterForm = () => {
                     alerts={userData.captchaAnswer.error}
                     maxLength="5"
                 />
+                <div className={`column ${classes.forgetPassword} mt-1`}>
+                    <div className="flex ai-center fs-0-8"><span className={`cursor-pointer hover-text`} onClick={() => setVerifyEmail(true)}>{t('login.verificationEmail')}</span></div>
+                </div>
             </div>
             <div className={`width-100 flex jc-center ai-center ${classes.formFooter}`}>
                 <Button

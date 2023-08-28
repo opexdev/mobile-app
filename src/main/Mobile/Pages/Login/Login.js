@@ -25,21 +25,12 @@ const Login = () => {
     ];
 
     return (
-        <div className={`width-100 column col-100 ai-center jc-center px-1 ${classes.container} move-image`}
-             style={{backgroundImage: `url("${images.spaceStar}")`}}>
-           {/* <div className={`col-40 column ai-center jc-center ${classes.intro} move-image width-100`}>
-                <div className={`column jc-center ai-center ${classes.bgicon}`}>
-                    <img src={images.astronaut} alt="logo" className={`floating mb-2`}/>
-                    <h2 className="mt-2">
-                        {t('login.description')}
-                    </h2>
-                </div>
-            </div>*/}
-            <div className={`col-100 flex jc-center ai-center width-100`} style={{height: "100%"}}>
-                <div className={`${classes.content}`}>
-                    <AccordionBox title={t('login.title')} content={data}/>
-                </div>
+        <div className={`width-100 flex  ai-center jc-center px-1 ${classes.container} move-image`} style={{backgroundImage: `url("${images.spaceStar}")`}}>
+
+            <div className={`${classes.content}`}>
+                <AccordionBox title={t('login.title')} content={data}/>
             </div>
+
 
         </div>
     );
