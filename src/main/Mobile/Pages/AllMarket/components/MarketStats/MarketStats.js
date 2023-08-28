@@ -10,14 +10,13 @@ import MostVolume from "./components/MostVolume/MostVolume";
 import MostIncreasedPrice from "./components/MostIncreasedPrice/MostIncreasedPrice";
 import MostDecreasedPrice from "./components/MostDecreasedPrice/MostDecreasedPrice";
 import MostTrades from "./components/MostTrades/MostTrades";
-import ScrollBar from "../../../../../../components/ScrollBar";
 
 const MarketStats = () => {
 
     const {t} = useTranslation();
 
     const interval = useSelector((state) => state.global.marketInterval)
-    const {data:stats, isLoading, error} = useGetMarketStats(interval)
+    const {data: stats, isLoading, error} = useGetMarketStats(interval)
 
     const allSymbols = useSelector((state) => state.exchange.symbols)
 
@@ -26,7 +25,7 @@ const MarketStats = () => {
     const mostVolume = stats?.mostVolume
     const mostTrades = stats?.mostTrades
 
-    if(!isLoading && !error && mostIncreasedPrice) {
+    if (!isLoading && !error && mostIncreasedPrice) {
         mostIncreasedPrice.pairInfo = allSymbols.find(s => s.symbol === (mostIncreasedPrice?.symbol))
         mostDecreasedPrice.pairInfo = allSymbols.find(s => s.symbol === (mostDecreasedPrice?.symbol))
         mostVolume.pairInfo = allSymbols.find(s => s.symbol === (mostDecreasedPrice?.symbol))

@@ -68,6 +68,9 @@ const SellOrder = () => {
         })
     }, [activePair])
 
+    const isAllowed = ({floatValue}) => {
+        return floatValue < 10 ** 12;
+    }
 
     const currencyValidator = (key, val, rule) => {
         if (!val.isZero() && val.isLessThan(rule.min)) {
@@ -77,7 +80,7 @@ const SellOrder = () => {
                     <Trans
                         i18nKey="orders.minOrder"
                         values={{
-                            min: activePair.baseRange.min,
+                            min: activePair.baseRange.min.toString(),
                             currency: t("currency." + activePair.baseAsset),
                         }}
                     />
@@ -91,7 +94,7 @@ const SellOrder = () => {
                     (<Trans
                         i18nKey="orders.maxOrder"
                         values={{
-                            max: activePair.baseRange.max,
+                            max: activePair.baseRange.max.toLocaleString(),
                             currency: t("currency." + activePair.baseAsset),
                         }}
                     />)
@@ -207,10 +210,12 @@ const SellOrder = () => {
                 reqAmount: t('orders.notEnoughBalance')
             })
         }
-        return setAlert({
-            ...alert,
-            reqAmount: null
-        })
+        if (alert.reqAmount === t('orders.notEnoughBalance')) {
+            return setAlert({
+                ...alert,
+                reqAmount: null
+            })
+        }
     }, [order.reqAmount]);
 
     const submit = () => {
@@ -275,19 +280,21 @@ const SellOrder = () => {
             <NumberInput
                 lead={t("orders.amount")}
                 after={t("currency." + activePair.baseAsset)}
-                value={order.reqAmount.toString()}
+                value={order.reqAmount.toFormat()}
                 maxDecimal={activePair.baseAssetPrecision}
                 onchange={(e) => sellPriceHandler(e.target.value, "reqAmount")}
                 alert={alert.reqAmount}
                 customClass={`${classes.smallInput} fs-0-8`}
+                isAllowed={isAllowed}
             />
             <NumberInput
                 lead={t("orders.pricePerUnit")}
                 after={t("currency." + activePair.quoteAsset)}
-                value={order.pricePerUnit.toString()}
+                value={order.pricePerUnit.toFormat()}
                 maxDecimal={activePair.quoteAssetPrecision}
                 onchange={(e) => sellPriceHandler(e.target.value, "pricePerUnit")}
                 customClass={`${classes.smallInput} fs-0-8 my-05`}
+                isAllowed={isAllowed}
             />
             <NumberInput
                 lead={t("orders.totalPrice")}
@@ -296,6 +303,7 @@ const SellOrder = () => {
                 after={t("currency." + activePair.quoteAsset)}
                 onchange={(e) => sellPriceHandler(e.target.value, "totalPrice")}
                 customClass={`${classes.smallInput} fs-0-8`}
+                isAllowed={isAllowed}
             />
             <div className={`row jc-between ai-center`}>
                 <div className="column jc-center fs-0-8">
@@ -306,7 +314,7 @@ const SellOrder = () => {
                     </p>
                     <p>
                         {t("orders.getAmount")}:{" "}
-                        {order.totalPrice.minus(order.tradeFee).decimalPlaces(activePair.baseAssetPrecision).toNumber()}{" "}
+                        {order.totalPrice.minus(order.tradeFee).decimalPlaces(activePair.quoteAssetPrecision).toFormat()}{" "}
                         {t("currency." + activePair.quoteAsset)}
                     </p>
                 </div>

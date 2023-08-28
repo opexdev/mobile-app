@@ -26,7 +26,7 @@ const ChangePassword = () => {
 
     const inputHandler = (e) => {
         let errorMessage = []
-        if (typeof e.target.dataset.min !== undefined && e.target.value.length < e.target.dataset.min) {
+        if (typeof e.target.dataset.min !== "undefined" && e.target.value.length < e.target.dataset.min) {
             errorMessage.push(<Trans
                 i18nKey="ChangePassword.minInput"
                 values={{

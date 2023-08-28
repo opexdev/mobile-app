@@ -1,11 +1,10 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import moment from "moment-jalaali";
 import classes from "../../MyOrder.module.css";
 import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
 import Loading from "../../../../../../../../../../../../components/Loading/Loading";
 import ScrollBar from "../../../../../../../../../../../../components/ScrollBar";
-import Icon from "../../../../../../../../../../../../components/Icon/Icon";
 import Error from "../../../../../../../../../../../../components/Error/Error";
 import {useMyTrades} from "../../../../../../../../../../../../queries";
 import Date from "../../../../../../../../../../../../components/Date/Date";
