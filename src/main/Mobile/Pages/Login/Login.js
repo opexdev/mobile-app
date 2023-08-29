@@ -25,7 +25,7 @@ const Login = () => {
     ];
 
     return (
-        <div className={`width-100 flex  ai-center jc-center px-1 ${classes.container} move-image`} style={{backgroundImage: `url("${images.spaceStar}")`}}>
+        <div className={`width-100 flex  ai-center jc-center px-1 ${classes.container}`} style={{backgroundImage: `url("${images.spaceStar}")`}}>
 
             <div className={`${classes.content}`}>
                 <AccordionBox title={t('login.title')} content={data}/>
