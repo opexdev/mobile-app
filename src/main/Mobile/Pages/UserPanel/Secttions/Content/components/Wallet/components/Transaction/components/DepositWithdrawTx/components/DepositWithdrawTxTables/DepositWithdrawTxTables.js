@@ -95,10 +95,10 @@ const DepositWithdrawTxTables = ({txs, id}) => {
                                 <div className={`row`}>
 
                                     <Icon iconName="icon-copy fs-03 mr-2" customClass={`hover-text cursor-pointer`}
-                                          onClick={(e) => copyAddressToClipboard(e,tr.txId)}/>
+                                          onClick={(e) => copyAddressToClipboard(e,id === "BTC" && !tr.hasOwnProperty('withdrawOrderId') ? tr.txId.slice(0, tr.txId.indexOf("_")) : tr.txId)}/>
                                 </div>
                             </div>
-                            <span className={`${classes.innerWidth} mt-05 text-start`}>{tr.txId}</span>
+                            <span className={`${classes.innerWidth} mt-05 text-start`}>{id === "BTC" && !tr.hasOwnProperty('withdrawOrderId') ? tr.txId.slice(0, tr.txId.indexOf("_")) : tr.txId}</span>
                         </div>
                     </div>
                     </div>
