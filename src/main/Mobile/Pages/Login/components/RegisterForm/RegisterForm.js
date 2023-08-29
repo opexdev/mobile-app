@@ -256,7 +256,7 @@ const RegisterForm = () => {
                     lead={t('password')}
                     type={isInputVisible.password ? "text" : "password"}
                     data-name="password"
-                    autocomplete="new-password"
+                    autoComplete="new-password"
                     customClass={`${classes.loginInput} ${classes.ltrInput} ${classes.passwordInput}`}
                     value={userData.password.value}
                     onchange={(e) => inputHandler(e)}
@@ -276,6 +276,7 @@ const RegisterForm = () => {
                     lead={t('confirmPassword')}
                     type={isInputVisible.confirmPassword ? "text" : "password"}
                     data-name="confirmPassword"
+                    autoComplete="new-password"
                     customClass={`${classes.loginInput} ${classes.ltrInput} ${classes.passwordInput}`}
                     value={userData.confirmPassword.value}
                     onchange={(e) => inputHandler(e)}
