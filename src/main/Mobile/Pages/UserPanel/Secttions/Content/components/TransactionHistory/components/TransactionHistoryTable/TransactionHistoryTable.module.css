@@ -1,6 +1,13 @@
-.striped:nth-child(even) {
+.striped .row:nth-child(even) {
     background-color: var(--tableRow);
     -webkit-transition: background-color 0.4s;
     -o-transition: background-color 0.4s;
     transition: background-color 0.4s;
+}
+
+.circle {
+    width: 8vw;
+    height: 8vw;
+    border-radius: 100px;
+    background-color: var(--cardBorder);
 }

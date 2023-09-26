@@ -76,9 +76,7 @@ const TransactionHistory = () => {
         coinsOptions.push({value: o, label: t('currency.' + o)})
     })
 
-
     const scrollRef = useRef(null);
-
 
     const pageSizeHandler = (e) => {
         setQuery({
@@ -121,19 +119,13 @@ const TransactionHistory = () => {
         if (isLoading) return <div style={{height: "40vh"}}><Loading/></div>
         if (error) return <div style={{height: "40vh"}}><Error/></div>
         if (data?.length === 0) return <div style={{height: "40vh"}} className={`flex jc-center ai-center`}>{t("noTx")}</div>
-
-
         else return <>
             <TransactionHistoryTable txs={data} offset={query?.offset} />
         </>
     }
 
-
-
     return (
         <div className={`width-100 column ai-center jc-start height-100 px-3 py-1 ${classes.container}`}>
-
-
             <div className={`width-100 border card-bg px-5 py-2 rounded-8 column jc-between ai-center`}>
                 <TextInput
                     select={true}
@@ -176,11 +168,8 @@ const TransactionHistory = () => {
                     onchange={pageSizeHandler}
                     customClass={`width-100 my-1 ${classes.thisInput}`}
                 />
-
                 <TextInput
                     datePicker={true}
-                    //placeholder={t('TransactionHistory.size')}
-                    //numberOfMonths={2}
                     plugins={[
                         <DatePanel />
                     ]}
@@ -188,16 +177,11 @@ const TransactionHistory = () => {
                     type="input"
                     onChange={startDateHandler}
                     value={[query.startTime, query.endTime]}
-
                     dateSeparator={" " + t('to') + " "}
                     range
                     customClass={`width-100 my-1 ${classes.thisInput}`}
                 />
-
             </div>
-
-
-
             <div className={`card-bg card-border width-100 my-3`} ref={scrollRef}>
                 <div className={`card-header-bg row jc-between ai-center px-5 py-3`}>
                     <div className={`row jc-center ai-center`}>
@@ -205,7 +189,7 @@ const TransactionHistory = () => {
 
                     </div>
 
-                    <div className={`row mr-1 text-gray`}>
+                    <div className={`row mr-1 text-gray fs-0-8`}>
                         <span className={`mx-05`}>{t("from")}</span>
                         <span><Date date={query?.startTime}/></span>
                         <span className={`mx-05`}>{t("until")}</span>
@@ -216,8 +200,7 @@ const TransactionHistory = () => {
                     {content()}
                 </div>
             </div>
-
-            <div className={`row jc-center ai-center width-100 mb-5`}>
+            <div className={`row jc-center ai-center width-100 pb-5`}>
                 <Button
                     buttonClass={`${classes.thisButton} px-9`}
                     buttonTitle={t('first')}
@@ -240,8 +223,6 @@ const TransactionHistory = () => {
                     onClick={nextPage}
                 />
             </div>
-
-
         </div>
     );
 };
