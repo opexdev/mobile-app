@@ -9,11 +9,12 @@ export const Guide = "/guide";
 export const Rules = "/rules";
 export const ContactUs = "/contact-us";
 
-
 export const User = "/user";
 export const UserVerifyRelative = "verify";
 export const UserForgetPasswordRelative = "forget-password";
 
+export const TxHistory = "/panel/transaction-history";
+export const TxHistoryRelative = "/transaction-history";
 
 export const Panel = "/panel";
 export const Market = "/panel/market";
