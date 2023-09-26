@@ -22,3 +22,4 @@ export {useGetKycStatus} from "./hooks/useGetKycStatus";
 export {useGetFeeForSymbol} from "./hooks/useGetFeeForSymbol";
 export {useGetUserAssets} from "./hooks/useGetUserAssets";
 export {useGetUserAssetsEstimatedValue} from "./hooks/useGetUserAssetsEstimatedValue";
+export {useTransactionHistory} from "./hooks/useTransactionHistory";
