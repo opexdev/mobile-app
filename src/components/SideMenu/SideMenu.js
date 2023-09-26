@@ -28,7 +28,7 @@ const SideMenu = () => {
     const lastName = useSelector((state) => state.auth.lastName)
     let location = useLocation();
 
-    const languages = window.env.REACT_APP_LANGS_SUPPORT
+    const languages = window.env.REACT_APP_LANGS_SUPPORT.split(",")
 
     useEffect(() => {
         ReactTooltip.rebuild();
