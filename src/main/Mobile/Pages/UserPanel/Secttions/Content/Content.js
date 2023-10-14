@@ -3,13 +3,14 @@ import classes from "./Content.module.css";
 import ScrollBar from "../../../../../../components/ScrollBar";
 import {Navigate, Route, Routes} from "react-router-dom";
 import * as RoutesName from "../../../../Routes/routes";
-import {DepositRelative} from "../../../../Routes/routes";
+import {DepositRelative, TxHistory} from "../../../../Routes/routes";
 import {useTranslation} from "react-i18next";
 import Wallet from "./components/Wallet/Wallet";
 import Settings from "./components/Settings/Settings";
 import ProtectedRoute from "../../../../../../components/ProtectedRoute/ProtectedRoute";
 import {useSelector} from "react-redux";
 import Market from "./components/Market/Market";
+import TransactionHistory from "./components/TransactionHistory/TransactionHistory";
 
 const Content = () => {
 
@@ -26,6 +27,7 @@ const Content = () => {
                     <Route path={RoutesName.MarketRelative + "/*"} element ={<Market/>}/>
                     <Route element={<ProtectedRoute/>}>
                         <Route path={RoutesName.WalletRelative+"/:id/:path/*"} element={<Wallet/>}/>
+                        <Route path={RoutesName.TxHistoryRelative} element={<TransactionHistory/>}/>
                         <Route path={RoutesName.SettingsRelative+"/*"} element={<Settings/>}/>
                     </Route>
                     <Route path="*" element ={
@@ -39,6 +41,10 @@ const Content = () => {
                         element={<Navigate to={RoutesName.Wallet + "/" + defaultWallet + DepositRelative} replace />}
                     />
 
+                    <Route
+                        path={RoutesName.TxHistoryRelative}
+                        element={<Navigate to={RoutesName.TxHistory} replace />}
+                    />
                     <Route
                         path={RoutesName.SettingsRelative}
                         element={<Navigate to={RoutesName.Security} replace />}

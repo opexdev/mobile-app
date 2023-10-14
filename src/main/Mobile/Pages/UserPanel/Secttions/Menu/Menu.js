@@ -27,28 +27,37 @@ const Menu = () => {
             <NavLink
                 to={RoutesName.Overview}
                 onClick={onClickHandler}
-                className={`width-50 row jc-between ai-center py-1 ${location.pathname.includes("panel/market") ? classes.selected :""}`}
+                className={`width-70 row jc-between ai-center py-2 ${location.pathname.includes("panel/market") ? classes.selected :""}`}
             >
-                <Icon iconName="icon-market fs-20" customClass={`col-48 flex jc-end ai-center`}/>
-                <span className={`col-48 ai-start`}>{t("market.title")}</span>
+                <Icon iconName="icon-market fs-20" customClass={`col-35 flex jc-end ai-center`}/>
+                <span className={`col-60 ai-start`}>{t("market.title")}</span>
             </NavLink>
             <NavLink
                 to={RoutesName.Wallet}
                 className={({ isActive }) =>
-                    isActive ? `${classes.selected} width-50 row jc-between ai-center py-1` : "width-50 row jc-between ai-center py-1"
+                    isActive ? `${classes.selected} width-70 row jc-between ai-center py-2` : "width-70 row jc-between ai-center py-2"
                 }
             >
-                <Icon iconName="icon-safe fs-20" customClass={`col-48 flex jc-end ai-center`}/>
-                <span className={`col-48 ai-start`}>{t("wallet.title")}</span>
+                <Icon iconName="icon-safe fs-20" customClass={`col-35 flex jc-end ai-center`}/>
+                <span className={`col-60 ai-start`}>{t("wallet.title")}</span>
+            </NavLink>
+            <NavLink
+                to={RoutesName.TxHistory}
+                className={({ isActive }) =>
+                    isActive ? `${classes.selected} width-70 row jc-between ai-center py-2` : "width-70 row jc-between ai-center py-2"
+                }
+            >
+                <Icon iconName="icon-clock fs-20" customClass={`col-35 flex jc-end ai-center`}/>
+                <span className={`col-60 ai-start`}>{t("txHistory.title")}</span>
             </NavLink>
             <NavLink
                 to={RoutesName.Profile}
                 className={({ isActive }) =>
-                    isActive ? `${classes.selected} width-50 row jc-between ai-center py-1` : "width-50 row jc-between ai-center py-1"
+                    isActive ? `${classes.selected} width-70 row jc-between ai-center py-2` : "width-70 row jc-between ai-center py-2"
                 }
             >
-                <Icon iconName="icon-settings fs-20" customClass={`col-48 flex jc-end ai-center`}/>
-                <span className={`col-48 ai-start`}>{t("settings.title")}</span>
+                <Icon iconName="icon-settings fs-20" customClass={`col-35 flex jc-end ai-center`}/>
+                <span className={`col-60 ai-start`}>{t("settings.title")}</span>
             </NavLink>
         </div>
     );

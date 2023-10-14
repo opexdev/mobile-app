@@ -21,7 +21,6 @@
 .headerButton.selected{
     /*background-color: var(--orange);*/
     color: var(--activeTab);
-    font-size: 3.6vw;
 }
 .headerItem{
     background-color: var(--cardBody);

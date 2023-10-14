@@ -49,7 +49,7 @@ const OrderSection = () => {
                     <Icon iconName={`${i18n.language !== "fa" ? 'icon-left-open': 'icon-right-open'} fs-01 flex`} onClick={BackClickHandler}/>
                 </div>
                 <div className={`width-100 col-38 row jc-center ai-center ${classes.headerItem}`} onClick={()=>setShowChart(false)}>
-                    <Icon iconName={`icon-orderbook fs-04 flex ${showChart ?  '' : 'text-blue fs-05'}`} customClass={`ml-1`}/>
+                    <Icon iconName={`icon-orderbook fs-04 flex ${showChart ?  '' : 'text-blue'}`} customClass={`ml-1`}/>
                     <Button
                         buttonClass={`${classes.headerButton} ${showChart ? "" : classes.selected} mr-1`}
                         type="submit"
@@ -57,7 +57,7 @@ const OrderSection = () => {
                     />
                 </div>
                 <div className={`width-100 col-38 flex jc-center ai-center ${classes.headerItem}`} onClick={()=>setShowChart(true)}>
-                    <Icon iconName={`icon-account fs-04 flex ${showChart ? 'text-blue fs-05' : ''}`} customClass={`ml-1`}/>
+                    <Icon iconName={`icon-account fs-04 flex ${showChart ? 'text-blue' : ''}`} customClass={`ml-1`}/>
                     <Button
                         buttonClass={`${classes.headerButton} ${showChart ? classes.selected : ""} mr-1`}
                         type="submit"

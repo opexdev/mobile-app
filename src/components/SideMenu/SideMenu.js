@@ -28,6 +28,7 @@ const SideMenu = () => {
     const lastName = useSelector((state) => state.auth.lastName)
     let location = useLocation();
 
+    const languages = window.env.REACT_APP_LANGS_SUPPORT.split(",")
 
     useEffect(() => {
         ReactTooltip.rebuild();
@@ -40,6 +41,11 @@ const SideMenu = () => {
         }).catch(()=>{
             toast.error(t("header.logOutError"));
         })
+    }
+
+    const changeLanguageHandler = (lang) => {
+        i18n.changeLanguage(lang)
+        dispatch(showSideMenu(false))
     }
 
     return (
@@ -126,41 +132,19 @@ const SideMenu = () => {
                         <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
                     </Link>
                 </div>
-
                 <div className={`width-100`} style={{borderTop: "1px solid var(--scrollBar)"}}/>
-
-
-
                 <div className={`column jc-center ai-center width-100`}>
-
-                    <div className={`row ai-center ${classes.languages} my-3`}>
-                        {
-                            window.env.REACT_APP_MULTI_LANGS_SUPPORT === 'TRUE' && <div onClick={()=>dispatch(showSideMenu(false))}>
-                               <span className="cursor-pointer pl-2"
-                                     onClick={() => i18n.changeLanguage("fa")}>{t("Languages.Persian")}</span>
-                                <span className="cursor-pointer pr-2"
-                                      onClick={() => i18n.changeLanguage("en")}>{t("Languages.English")}</span>
-                            </div>
-                        }
+                    <div className={`row ai-center my-3 ${classes.languages}`}>
+                        {languages?.map((lang, index) => <span className="cursor-pointer px-2" onClick={() => changeLanguageHandler(lang)} key={index}>{t("Languages."+ lang)}</span>)}
                     </div>
-
                     <div className={`row ai-center mb-2`}>
                         <span className={`ml-2`}>{t("Footer.darkMode")}:</span>
                         <ToggleSwitch onchange={(e) => dispatch(setThemeInitiate(e.target.checked))} checked={isDark}/>
                     </div>
-
-
                     <img src={toAbsoluteUrl('/assets/logo/logo.svg')} alt={t("title")} title={t("title")} className={`img-lg-1 mb-1 mt-2`}/>
                     <span className={`mt-1`}>{packageJson.version}</span>
-
                 </div>
-
-
-
-
                 {/*<Icon iconName="icon-cancel fs-05 flex" onClick={()=>dispatch(showSideMenu(false))}/>*/}
-
-
             </div>
         </>
     );

@@ -13,9 +13,8 @@ const SubHeader = (props) => {
     const [expand, setExpand] = useState(false)
     const location = useLocation()
 
-
     const clickHandler = () => {
-        if (!(location.pathname.includes(RoutesName.SettingsRelative)) ) {
+        if (!(location.pathname.includes(RoutesName.SettingsRelative) || RoutesName.TxHistoryRelative) ) {
             setExpand(true)
         }
     }

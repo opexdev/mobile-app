@@ -10,9 +10,13 @@ import {Route, Routes} from "react-router-dom";
 import ProtectedRoute from "../../../../../../components/ProtectedRoute/ProtectedRoute";
 import WalletHeader from "./components/WalletHeader/WalletHeader";
 import SettingsHeader from "./components/SettingsHeader/SettingsHeader";
+import {useTranslation} from "react-i18next";
+import TransactionHistoryHeader from "./components/TransactionHistoryHeader/TransactionHistoryHeader";
 
 
 const Header = () => {
+
+    const {t} = useTranslation();
     const dispatch = useDispatch();
 
     return (
@@ -27,6 +31,9 @@ const Header = () => {
                     <Route element={<ProtectedRoute/>}>
                         <Route path={RoutesName.WalletRelative+"/:id/:path/*"} element={
                             <WalletHeader/>
+                        }/>
+                        <Route path={RoutesName.TxHistoryRelative+"/*"} element={
+                            <TransactionHistoryHeader/>
                         }/>
                         <Route path={RoutesName.SettingsRelative+"/*"} element={
                             <SettingsHeader/>
