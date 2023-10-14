@@ -202,21 +202,21 @@ const TransactionHistory = () => {
             </div>
             <div className={`row jc-center ai-center width-100 pb-5`}>
                 <Button
-                    buttonClass={`${classes.thisButton} px-9`}
+                    buttonClass={`${classes.thisButton} px-7`}
                     buttonTitle={t('first')}
                     disabled={pagination.page === 1}
                     type="button"
                     onClick={firstPage}
                 />
                 <Button
-                    buttonClass={`${classes.thisButton} px-9 mx-4`}
+                    buttonClass={`${classes.thisButton} px-7 mx-4`}
                     buttonTitle={t('prev')}
                     disabled={pagination.page === 1}
                     type="button"
                     onClick={prevPage}
                 />
                 <Button
-                    buttonClass={`${classes.thisButton} px-9`}
+                    buttonClass={`${classes.thisButton} px-7`}
                     buttonTitle={t('next')}
                     disabled={pagination.isLastPage}
                     type="button"

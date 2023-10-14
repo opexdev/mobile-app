@@ -15,6 +15,11 @@
 
 .container a {
     height: 100%;
+    text-align: center;
+}
+.container a span {
+    line-height: 2vh;
+    padding: 0.5vh 1vw;
 }
 
 .selected {
