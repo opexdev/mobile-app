@@ -24,6 +24,7 @@ const LayoutHeader = () => {
                 <div className={`width-60 text-center`}>
                     <Routes>
                         <Route path={RoutesName.Landing} element={<h3>{t("Landing.title")}</h3>}/>
+                        <Route path={RoutesName.EasyTrading} element={<h3>{t("MarketTitle.easyTrading")}</h3>}/>
                         <Route path={RoutesName.Commission} element={<h3>{t("commissions.title")}</h3>}/>
                         <Route path={RoutesName.AboutUs} element={<h3>{t("aboutUs.title")}</h3>}/>
                         <Route path={RoutesName.TransferFees} element={<h3>{t("transferFees.title")}</h3>}/>

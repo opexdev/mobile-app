@@ -25,6 +25,7 @@ import TransferFees from "./Pages/Info/TransferFees/TransferFees";
 import Guide from "./Pages/Info/Guide/Guide";
 import Rules from "./Pages/Info/Rules/Rules";
 import ContactUs from "./Pages/Info/ContactUs/ContactUs";
+import EasyTrading from "./Pages/EasyTrading/EasyTrading";
 
 
 const Mobile = () => {
@@ -113,6 +114,7 @@ const Mobile = () => {
                 <Route element={<Layout/>}>
                     <Route path={RoutesName.Landing} element={<Landing/>}/>
                     <Route path={RoutesName.AllMarket} element={<AllMarket/>}/>
+                    <Route path={RoutesName.EasyTrading} element={<EasyTrading/>}/>
                     <Route path={RoutesName.AboutUs} element={<AboutUs/>}/>
                     <Route path={RoutesName.Commission} element={<Commission/>}/>
                     <Route path={RoutesName.TransferFees} element={<TransferFees/>}/>
