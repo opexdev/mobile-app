@@ -103,6 +103,10 @@ const SideMenu = () => {
                         <span className="hover-text">{t("MarketTitle.advancedTrading")}</span>
                         <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
                     </Link>
+                    <Link to={Routes.EasyTrading} className={`row jc-between ai-center my-05`}>
+                        <span className="hover-text">{t("MarketTitle.easyTrading")}</span>
+                        <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
+                    </Link>
                     <Link to={Routes.AllMarket} className={`row jc-between ai-center my-05`}>
                         <span className="hover-text">{t("market.title")}</span>
                         <Icon iconName={`${i18n.language !== "fa" ? 'icon-right-open' : 'icon-left-open'} fs-0-6 flex`}/>
