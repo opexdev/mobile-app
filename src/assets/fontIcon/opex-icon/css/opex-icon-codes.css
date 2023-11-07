@@ -86,6 +86,7 @@
 .icon-privacy-icon-1:before { content: '\0218'; } /* 'Ș' */
 .icon-username-icon:before { content: '\0219'; } /* 'ș' */
 .icon-user-key-icon:before { content: '\0220'; } /* 'Ƞ' */
+.icon-exchange-arrow:before { content: '\0221'; } /* 'ȡ' */
 .icon-market:before { content: '\e800'; } /* '' */
 .icon-cancel-circled2:before { content: '\e801'; } /* '' */
 .icon-settings:before { content: '\e802'; } /* '' */
