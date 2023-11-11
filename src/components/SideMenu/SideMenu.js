@@ -138,9 +138,9 @@ const SideMenu = () => {
                 </div>
                 <div className={`width-100`} style={{borderTop: "1px solid var(--scrollBar)"}}/>
                 <div className={`column jc-center ai-center width-100`}>
-                    <div className={`row ai-center my-3 ${classes.languages}`}>
+                    {languages?.length > 1 && <div className={`row ai-center my-3 ${classes.languages}`}>
                         {languages?.map((lang, index) => <span className="cursor-pointer px-2" onClick={() => changeLanguageHandler(lang)} key={index}>{t("Languages."+ lang)}</span>)}
-                    </div>
+                    </div>}
                     <div className={`row ai-center mb-2`}>
                         <span className={`ml-2`}>{t("Footer.darkMode")}:</span>
                         <ToggleSwitch onchange={(e) => dispatch(setThemeInitiate(e.target.checked))} checked={isDark}/>
