@@ -191,11 +191,6 @@ const TransactionHistory = () => {
                             ...prevState,
                             ascendingByTime: !prevState.ascendingByTime
                         }}) }
-
-                        /*onchange={()=> setQuery({
-                            ...query,
-                            ascendingByTime: (prevState => !prevState)}
-                        )}*/
                         checked={query?.ascendingByTime}/>
                 </div>
             </div>
@@ -203,9 +198,7 @@ const TransactionHistory = () => {
                 <div className={`card-header-bg row jc-between ai-center px-5 py-3`}>
                     <div className={`row jc-center ai-center`}>
                         <h3 className={``}>{t("txHistory.title")}</h3>
-
                     </div>
-
                     <div className={`row mr-1 text-gray fs-0-8`}>
                         <span className={`mx-05`}>{t("from")}</span>
                         <span><Date date={query?.startTime}/></span>
