@@ -11,6 +11,27 @@ const TransactionHistoryTable = ({txs, offset}) => {
     const [openItem, setOpenItem] = useState(null);
     const {t} = useTranslation();
 
+    const txCategory = (category) => {
+        switch (category) {
+            case "DEPOSIT":
+                return t("TransactionCategory.DEPOSIT");
+            case "FEE":
+                return t("TransactionCategory.FEE");
+            case "TRADE":
+                return t("TransactionCategory.TRADE");
+            case "WITHDRAW":
+                return t("TransactionCategory.WITHDRAW");
+            case "ORDER_CANCEL":
+                return t("TransactionCategory.ORDER_CANCEL");
+            case "ORDER_CREATE":
+                return t("TransactionCategory.ORDER_CREATE");
+            case "ORDER_FINALIZED":
+                return t("TransactionCategory.ORDER_FINALIZED");
+            default:
+                return t("TransactionCategory.ETC");
+        }
+    };
+
     return  <div className={`${classes.striped} fs-0-9`}>
         {txs.map((tr, index) => {
             return (
@@ -36,7 +57,7 @@ const TransactionHistoryTable = ({txs, offset}) => {
                         </div>
                     </div>
                     <div className={`row jc-between ai-center my-1`}>
-                        <span className={`text-orange`}>{t('TransactionCategory.'+tr.category)}</span>
+                        <span className={`text-orange`}>{txCategory(tr.category)}</span>
                         <div className={`row jc-end ai-center`}>
                             <span className={`ml-3`}>{t("volume")}:</span>
                             <div className={`row`}>
@@ -47,7 +68,14 @@ const TransactionHistoryTable = ({txs, offset}) => {
                     </div>
                     <div style={{display: openItem === index ? "revert" : "none"}} className={`column`}>
                         <div className={`row wrap jc-start ai-center width-100 my-1`}>
-                            {(tr?.category === "DEPOSIT" || tr?.category === "WITHDRAW") ? "----" :
+                            {(
+                                tr?.category === "FEE" ||
+                                tr?.category === "TRADE" ||
+                                tr?.category === "ORDER_CANCEL" ||
+                                tr?.category === "ORDER_CREATE"  ||
+                                tr?.category === "ORDER_FINALIZED" )
+
+                                ?
                                 <>
                                     <span> {t('TransactionCategory.'+tr.category)}</span>
                                     <span className={`mr-1`}>{tr?.additionalData?.ask && t('sell')} {tr?.additionalData?.bid && t('buy')}</span>
@@ -57,6 +85,7 @@ const TransactionHistoryTable = ({txs, offset}) => {
                                     <span className={`mr-1`}>{new BN(tr?.additionalData?.origPrice).toFormat()}</span>
                                     <span className={`mr-1`}>{t("currency." + tr?.additionalData?.pair?.rightSideName )}</span>
                                 </>
+                                 : "----"
                             }
                         </div>
                     </div>

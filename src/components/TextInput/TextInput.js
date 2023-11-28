@@ -14,8 +14,6 @@ const TextInput = (props) => {
 
     const isDark = useSelector((state) => state.global.isDark)
 
-    console.log("isDark", isDark)
-
     const optionClassHandler = (state) => {
         let className = classes.selectOptions
         if (state.isFocused) {
