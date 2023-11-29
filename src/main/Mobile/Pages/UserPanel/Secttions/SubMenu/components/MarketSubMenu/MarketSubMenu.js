@@ -15,7 +15,6 @@ const MarketSubMenu = () => {
     const fav = useSelector((state) => state.auth.favoritePairs)
     const dispatch = useDispatch();
 
-    console.log("fav", fav)
 
     /*useEffect(() => {
         localStorage.setItem("favPair", JSON.stringify(fav))
