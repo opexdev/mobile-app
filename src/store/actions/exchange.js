@@ -97,3 +97,10 @@ export const setLastPriceInitiate = () => {
         type: actionTypes.SET_LAST_PRICE_INITIATE,
     };
 };
+
+export const setExchangeConfigs = configs => {
+    return {
+        type: actionTypes.SET_EXCHANGE_CONFIG,
+        configs: configs
+    };
+};

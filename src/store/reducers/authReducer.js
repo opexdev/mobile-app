@@ -17,6 +17,7 @@ const initialState = {
     lastTransaction: null,
     tradeFee: {},
     isLogin: false,
+    favoritePairs: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -72,6 +73,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 lastTransaction: action.time
+            }
+        case actionTypes.SET_FAV_PAIR:
+            return {
+                ...state,
+                favoritePairs: action.favoritePairs
             }
         default:
             return state;

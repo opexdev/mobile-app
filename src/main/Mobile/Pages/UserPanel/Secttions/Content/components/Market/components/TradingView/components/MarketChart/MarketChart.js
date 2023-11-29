@@ -16,7 +16,7 @@ const MarketChart = ({type}) => {
     let chartProperties, candleSeries, volumeSeries;
     const chart = useRef();
 
-    const isDark = useSelector((state) => state.global.isDark)
+    const theme = useSelector((state) => state.global.theme)
     const activePairSymbol = useSelector((state) => state.exchange.activePair.symbol)
 
     const {data, error} = useGetChartCandlesticks(activePairSymbol, type)
@@ -54,7 +54,7 @@ const MarketChart = ({type}) => {
         priceScale: lightTheme.priceScale,
         timeScale: {...lightTheme.timeScale, ...timeScale}
     };
-    if (isDark) {
+    if (theme === "DARK") {
         chartProperties = {
             ...chartProperties,
             layout: {
@@ -77,7 +77,7 @@ const MarketChart = ({type}) => {
             chartProperties,
         );
 
-        candleSeries = chart.current.addCandlestickSeries(isDark ? darkTheme : candleColors);
+        candleSeries = chart.current.addCandlestickSeries(theme === "DARK" ? darkTheme : candleColors);
         volumeSeries = chart.current.addHistogramSeries({
             priceFormat: {
                 type: 'volume',
@@ -134,7 +134,7 @@ const MarketChart = ({type}) => {
     }, [])
 
     useEffect(() => {
-        if (isDark) {
+        if (theme === "DARK") {
             chart.current.applyOptions({
                 ...chartProperties,
                 layout: {
@@ -155,7 +155,7 @@ const MarketChart = ({type}) => {
                 timeScale: lightTheme.timeScale,
             });
         }
-    }, [isDark]);
+    }, [theme]);
 
     return (
         <div ref={chartContainerRef} className={`width-100  ${classes.chartContainer}`}>

@@ -1,16 +1,17 @@
 import * as actionTypes from "./actionTypes";
 
-export const setThemeInitiate = (isDark) => {
+export const setThemeInitiate = (theme, isLogin) => {
   return {
     type: actionTypes.SET_THEME_INITIATE,
-    isDark,
+    isLogin,
+    theme,
   };
 };
 
-export const setTheme = (isDark) => {
+export const setTheme = (theme) => {
   return {
     type: actionTypes.SET_THEME,
-    isDark,
+    theme: theme.toUpperCase(),
   };
 };
 

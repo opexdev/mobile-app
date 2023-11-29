@@ -4,23 +4,29 @@ import {useTranslation} from "react-i18next";
 import AccordionBox from "../../../../../../../../components/AccordionBox/AccordionBox";
 import Icon from "../../../../../../../../components/Icon/Icon";
 import MarketCard from "./components/MarketCard/MarketCard";
+import {useDispatch, useSelector} from "react-redux";
+import {setFavPairInitiate} from "../../../../../../../../store/actions";
 
 const MarketSubMenu = () => {
 
     const {t} = useTranslation();
     const [activeTab] = useState(JSON.parse(localStorage.getItem("activeMarketTab")) || 1);
-    const [fav, setFav] = useState(JSON.parse(localStorage.getItem("favPair")) || []);
+    const symbols = useSelector((state) => state.exchange.symbols)
+    const fav = useSelector((state) => state.auth.favoritePairs)
+    const dispatch = useDispatch();
 
-    useEffect(() => {
+    console.log("fav", fav)
+
+    /*useEffect(() => {
         localStorage.setItem("favPair", JSON.stringify(fav))
-    }, [fav])
+    }, [fav])*/
 
     const addToFav = (selected) => {
         if (fav.includes(selected)) {
             const newFav = fav.filter((item) => item !== selected);
-            setFav(newFav);
+            dispatch(setFavPairInitiate(newFav))
         } else {
-            setFav((prev) => [...prev, selected]);
+            dispatch(setFavPairInitiate([...fav, selected]))
         }
     };
 
@@ -31,6 +37,7 @@ const MarketSubMenu = () => {
                 <MarketCard
                     id="0"
                     type="fav"
+                    pairs={symbols.filter(p => fav.includes(p.symbol))}
                     favPair={fav}
                     addFav={(selected) => addToFav(selected)}
                 />
@@ -42,6 +49,7 @@ const MarketSubMenu = () => {
                 <MarketCard
                     id="1"
                     type="all"
+                    pairs={symbols}
                     favPair={fav}
                     addFav={(selected) => addToFav(selected)}
                 />
@@ -55,6 +63,7 @@ const MarketSubMenu = () => {
                     id="2"
                     type="BTC"
                     favPair={fav}
+                    pairs={symbols.filter(p => (p.baseAsset === "BTC" || p.quoteAsset === "BTC"))}
                     addFav={(selected) => addToFav(selected)}
                 />
             ),
@@ -67,6 +76,7 @@ const MarketSubMenu = () => {
                     id="4"
                     type="USDT"
                     favPair={fav}
+                    pairs={symbols.filter(p => (p.baseAsset === "USDT" || p.quoteAsset === "USDT"))}
                     addFav={(selected) => addToFav(selected)}
                 />
             ),

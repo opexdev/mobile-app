@@ -4,10 +4,10 @@ import {useSelector} from "react-redux";
 
 const LoginFormLoading = () => {
 
-    const isDark = useSelector((state) => state.global.isDark)
+    const theme = useSelector((state) => state.global.theme)
 
     return <div className= "flex jc-center ai-center" style={{height: "35vh"}}>
-        <img style={{width: "8vw", textAlign: "center"}} src={isDark ? images.squareLoading : images.squareLoadingLight} alt="Loading"/>
+        <img style={{width: "8vw", textAlign: "center"}} src={theme === "DARK" ? images.squareLoading : images.squareLoadingLight} alt="Loading"/>
     </div>
 }
 

@@ -1,7 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    isDark: window.env.REACT_APP_DEFAULT_THEME === 'DARK',
+    theme: "DARK",
     isLoading: true,
     hasError: false,
     marketInterval: "24h",
@@ -22,7 +22,7 @@ const globalReducer = (state = initialState, action) => {
         case actionTypes.SET_THEME:
             return {
                 ...state,
-                isDark: action.isDark,
+                theme: action.theme,
             };
         case actionTypes.SET_INFO_MESSAGE:
             return {
