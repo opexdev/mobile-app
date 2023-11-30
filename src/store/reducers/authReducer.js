@@ -74,6 +74,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 lastTransaction: action.time
             }
+        case actionTypes.SET_USER_CONFIG:
+            return {
+                ...state,
+                ...action.configs
+            }
         case actionTypes.SET_FAV_PAIR:
             return {
                 ...state,

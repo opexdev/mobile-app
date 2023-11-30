@@ -40,7 +40,6 @@ export function* getUserConfigs() {
 }
 
 export function* setFavPair(action) {
-
     try {
         yield put(actions.setFavPair(action.favoritePairs));
         yield call(axios.post, '/config/user/v1', {

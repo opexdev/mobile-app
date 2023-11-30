@@ -42,7 +42,7 @@ const globalReducer = (state = initialState, action) => {
                 ...state,
                 hasError: action.error,
             };
-        case actionTypes.Set_MARKET_INTERVAL:
+        case actionTypes.SET_MARKET_INTERVAL:
             return {
                 ...state,
                 marketInterval: action.interval

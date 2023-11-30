@@ -67,7 +67,6 @@ const Withdrawal = () => {
         if (navigator.clipboard !== undefined) {
             navigator.clipboard.readText()
                 .then(text => {
-                    //console.log('Pasted content: ', text);
                     setAddress({...address, value: text})
                     toast.success(t('DepositWithdraw.paste'));
                 })

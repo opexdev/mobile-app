@@ -57,8 +57,6 @@ const SideMenu = () => {
     }
 
     const changeLanguageHandler = (lang) => {
-        console.log("lang", lang)
-        console.log("in change")
         changeLanguage(lang)
         dispatch(showSideMenu(false))
     }
