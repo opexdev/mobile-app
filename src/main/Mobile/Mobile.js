@@ -30,15 +30,16 @@ import EasyTrading from "./Pages/EasyTrading/EasyTrading";
 
 const Mobile = () => {
 
-    const dispatch = useDispatch();
     const query = useQuery();
+    const dispatch = useDispatch();
 
-    const isDark = useSelector((state) => state.global.isDark)
+    const theme = useSelector((state) => state.global.theme)
     const isLoading = useSelector((state) => state.global.isLoading)
     const hasError = useSelector((state) => state.global.hasError)
-    const isLogin = useSelector((state) => state.auth.isLogin)
+    const title = useSelector((state) => state.exchange.title)
+    const description = useSelector((state) => state.exchange.description)
 
-    isDark ? document.body.classList.add('dark') : document.body.classList.remove('dark');
+    theme === "DARK" ? document.body.classList.add('dark') : document.body.classList.remove('dark');
 
     useEffect(() => {
         const impersonate = query.get("impersonate");
@@ -57,13 +58,19 @@ const Mobile = () => {
     }, []);
 
 
-    useInterval(() => {
+    /*useInterval(() => {
         dispatch(setUserAccountInfoInitiate());
     }, isLogin ? 3000 : null)
 
     useInterval(() => {
         dispatch(setLastPriceInitiate());
-    }, 3000)
+    }, 3000)*/
+
+    useEffect(() => {
+        const meta = document.getElementsByTagName('meta')
+        document.title = title ? title : " ";
+        meta.description.content = description ? description : " "
+    }, [title, description])
 
     const Toast = () => <Toaster position="top-center" toastOptions={
         {
@@ -93,24 +100,16 @@ const Mobile = () => {
             },
         }} containerStyle={{}}/>
 
-    if (isLoading) {
-        return <FullWidthLoading/>
-    }
-    if (hasError) {
-        return <FullWidthError/>
-    }
+    if (isLoading) return <FullWidthLoading/>
+
+    if (hasError)  return <FullWidthError/>
 
     return (
         <div className={`mobile-container`}>
             <Routes>
                 <Route path={RoutesName.Login} element={<Login/>}/>
                 <Route path={RoutesName.User + "/*"} element={<User/>}/>
-                {/*<Route path={RoutesName.Landing} element={<Landing/>}/>*/}
-                {/*<Route path={RoutesName.AllMarket} element={<AllMarket/>}/>*/}
-                {/*<Route path={RoutesName.Guide} element={<Guide/>}/>*/}
                 <Route path={RoutesName.Panel + "/*"} element={<UserPanel/>}/>
-
-
                 <Route element={<Layout/>}>
                     <Route path={RoutesName.Landing} element={<Landing/>}/>
                     <Route path={RoutesName.AllMarket} element={<AllMarket/>}/>
@@ -122,14 +121,10 @@ const Mobile = () => {
                     <Route path={RoutesName.Rules} element={<Rules/>}/>
                     <Route path={RoutesName.ContactUs} element={<ContactUs/>}/>
                 </Route>
-
-
             </Routes>
-
             <ReactTooltip data-html={true} data-effect="float"/>
             <Toast/>
             <SideMenu/>
-
         </div>
     );
 };

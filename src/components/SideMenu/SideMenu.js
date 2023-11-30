@@ -2,33 +2,46 @@ import React, {useEffect} from 'react';
 import classes from './SideMenu.module.css'
 import Icon from "../Icon/Icon";
 import {useDispatch, useSelector} from "react-redux";
-import {setThemeInitiate, showSideMenu} from "../../store/actions/global";
+import { showSideMenu} from "../../store/actions/global";
 import {Link, useLocation} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import ReactTooltip from "react-tooltip";
 import {setLogoutInitiate} from "../../store/actions";
 import {toast} from "react-hot-toast";
-import {logout} from "js-api-client";
+import {logout, setUserConfig} from "js-api-client";
 import {images} from "../../assets/images";
 import i18n from "i18next";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import *  as Routes from "../../main/Mobile/Routes/routes";
 import {toAbsoluteUrl} from "../../utils/utils";
 import packageJson from "../../../package.json"
+import {setThemeInitiate} from "../../store/actions";
 
 
 const SideMenu = () => {
 
     const {t} = useTranslation();
-    const isDark = useSelector((state) => state.global.isDark)
-    const dispatch = useDispatch();
-    const open = useSelector((state) => state.global.showSideMenu)
-    const isLogin = useSelector((state) => state.auth.isLogin)
-    const firstName = useSelector((state) => state.auth.firstName)
-    const lastName = useSelector((state) => state.auth.lastName)
     let location = useLocation();
 
-    const languages = window.env.REACT_APP_LANGS_SUPPORT.split(",")
+    const open = useSelector((state) => state.global.showSideMenu)
+
+    const firstName = useSelector((state) => state.auth.firstName)
+    const lastName = useSelector((state) => state.auth.lastName)
+
+    const theme = useSelector((state) => state.global.theme)
+    const isLogin = useSelector((state) => state.auth.isLogin)
+    const dispatch = useDispatch()
+    const languages = useSelector((state) => state.exchange.supportedLanguages)
+    const changeLanguage = (lang) => {
+        i18n.changeLanguage(lang)
+        if (isLogin) {
+            setUserConfig({
+                language: lang
+            })
+        }
+    }
+
+
 
     useEffect(() => {
         ReactTooltip.rebuild();
@@ -44,7 +57,7 @@ const SideMenu = () => {
     }
 
     const changeLanguageHandler = (lang) => {
-        i18n.changeLanguage(lang)
+        changeLanguage(lang)
         dispatch(showSideMenu(false))
     }
 
@@ -143,7 +156,10 @@ const SideMenu = () => {
                     </div>}
                     <div className={`row ai-center mb-2`}>
                         <span className={`ml-2`}>{t("Footer.darkMode")}:</span>
-                        <ToggleSwitch onchange={(e) => dispatch(setThemeInitiate(e.target.checked))} checked={isDark}/>
+                        <ToggleSwitch
+                            onchange={(e) => dispatch(setThemeInitiate(e.target.checked ? "DARK" : "LIGHT", isLogin))}
+                            checked={theme === "DARK"}/>
+
                     </div>
                     <img src={toAbsoluteUrl('/assets/logo/logo.svg')} alt={t("title")} title={t("title")} className={`img-lg-1 mb-1 mt-2`}/>
                     <span className={`mt-1`}>{packageJson.version}</span>

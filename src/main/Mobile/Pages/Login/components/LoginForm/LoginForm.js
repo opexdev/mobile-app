@@ -3,7 +3,12 @@ import React, {useEffect, useState} from "react";
 import classes from "../../Login.module.css";
 import TextInput from "../../../../../../components/TextInput/TextInput";
 import LoginFormLoading from "../LoginLoading/LoginFormLoading";
-import {setUserAccountInfoInitiate, setUserInfo, setUserTokensInitiate} from "../../../../../../store/actions";
+import {
+    getUserConfigsInitiate,
+    setUserAccountInfoInitiate,
+    setUserInfo,
+    setUserTokensInitiate
+} from "../../../../../../store/actions";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import Button from "../../../../../../components/Button/Button";
@@ -77,9 +82,12 @@ const LoginForm = () => {
             .then(async (res) => {
                 const userToken = parseToken(res.data);
                 const jwt = jwtDecode(userToken.accessToken)
-                await dispatch(setUserInfo(jwt));
-                await dispatch(setUserTokensInitiate(userToken));
-                await dispatch(setUserAccountInfoInitiate())
+                /*dispatch(setUserAccountInfoInitiate())*/
+
+                dispatch(setUserInfo(jwt));
+                dispatch(setUserTokensInitiate(userToken));
+                dispatch(getUserConfigsInitiate());
+
                 await getKycStatus()
                 return navigate(from, {replace: true});
             })

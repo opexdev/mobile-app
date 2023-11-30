@@ -1,5 +1,4 @@
 import React from "react";
-import "./i18n/i18n";
 import {Provider} from "react-redux";
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import createSagaMiddleware from "redux-saga";
@@ -17,6 +16,10 @@ import {StyleRoot} from "radium";
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
 import {createRoot} from "react-dom/client";
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import Backend from "i18next-http-backend";
+import {initReactI18next} from "react-i18next";
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -25,12 +28,6 @@ const rootReducer = combineReducers({
     global: globalReducer,
     auth: authReducer,
 });
-
-//add custom title & meta
-const meta = document.getElementsByTagName('meta')
-document.title = window.env.REACT_APP_TITLE ? window.env.REACT_APP_TITLE : " ";
-meta.description.content = window.env.REACT_APP_DESCRIPTION_CONTENT ? window.env.REACT_APP_DESCRIPTION_CONTENT : " "
-
 
 /**
  * Base URL of the website.
@@ -51,6 +48,30 @@ const store = createStore(rootReducer, enhancer);
 sagaMiddleware.run(watchGlobal);
 
 setupAxios(axios, store);
+
+const {exchange: {defaultLanguage}} = store.getState()
+
+i18n
+    .use(LanguageDetector)
+    .use(Backend)
+    .use(initReactI18next)
+    .init({
+        preload: [defaultLanguage],
+        fallbackLng: defaultLanguage,
+        debug: process.env.NODE_ENV === "development",
+        detection: {
+            order: ["localStorage"],
+            lookupLocalStorage: "language",
+            caches: ["localStorage"],
+        },
+        backend: {
+            loadPath: process.env.PUBLIC_URL + '/assets/locales/{{lng}}/{{ns}}.json',
+        },
+        interpolation: {
+            escapeValue: false,
+        },
+    });
+
 
 //React query client
 const queryClient = new QueryClient()

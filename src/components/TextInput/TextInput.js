@@ -6,13 +6,13 @@ import DatePicker from "react-multi-date-picker";
 import persian_fa from "react-date-object/locales/persian_fa";
 import persian from "react-date-object/calendars/persian";
 import {useSelector} from "react-redux";
-import i18n from "../../i18n/i18n";
+import i18n from "i18next";
 import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 
 const TextInput = (props) => {
     const {customRef,readOnly,onchange,customClass,options, lead, ltr, after ,select ,alerts ,max, datePicker, ...other} = props
 
-    const isDark = useSelector((state) => state.global.isDark)
+    const theme = useSelector((state) => state.global.theme)
 
     const optionClassHandler = (state) => {
         let className = classes.selectOptions
@@ -62,7 +62,7 @@ const TextInput = (props) => {
 
     if ( datePicker ){
         inputSection = <DatePicker
-            className={`${isDark && "bg-dark"}`}
+            className={`${theme === "DARK" && "bg-dark"}`}
             locale={i18n.language === "fa" ? persian_fa : null}
             calendar={i18n.language === "fa" ? persian : null}
             onChange={onchange}

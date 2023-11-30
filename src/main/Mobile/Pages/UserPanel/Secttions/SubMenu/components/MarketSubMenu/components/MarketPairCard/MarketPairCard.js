@@ -6,24 +6,25 @@ import Icon from "../../../../../../../../../../components/Icon/Icon";
 import {BN} from "../../../../../../../../../../utils/utils";
 import {setActivePairInitiate} from "../../../../../../../../../../store/actions";
 import {activeActionSheet} from "../../../../../../../../../../store/actions/global";
+import {useGetLastPrices} from "../../../../../../../../../../queries/hooks/useGetLastPrices";
 
 
 const MarketPairCard = ({id, pair,favPair,addFav}) => {
 
     const activePair = useSelector((state) => state.exchange.activePair.symbol)
-    const price = useSelector((state) => state.exchange.lastPrice[pair.symbol])
+    const {data: prices} = useGetLastPrices()
     const dispatch = useDispatch();
-
-    const onClickHandler = () => {
-
-        dispatch(setActivePairInitiate(pair, id))
-        dispatch(activeActionSheet({
-            menu: false,
-            subMenu: false,
-        }))
+    const changeActivePair = () =>{
+        if (activePair !== pair.symbol) {
+            dispatch(setActivePairInitiate(pair, id))
+            dispatch(activeActionSheet({
+                menu: false,
+                subMenu: false,
+            }))
+        }
     }
 
-    return (<div onClick={onClickHandler}
+    return (<div onClick={changeActivePair}
                  className={`width-100 row jc-between ai-center px-4 py-2 my-1 cursor-pointer double-striped m-auto ${classes.container} ${activePair === pair.symbol ? classes.selected : ""} `}>
             <div className={` row jc-between ai-center ${classes.marketCardImage}`}>
                 <img
@@ -48,7 +49,7 @@ const MarketPairCard = ({id, pair,favPair,addFav}) => {
                     </span>
                 </div>
                 <div>
-                    { new BN(price).toFormat()}
+                    {new BN(prices[pair.symbol] || 0).toFormat()}
                 </div>
             </div>
         </div>
