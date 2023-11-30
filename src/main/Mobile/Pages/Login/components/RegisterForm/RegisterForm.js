@@ -29,12 +29,12 @@ const RegisterForm = () => {
         expireTime: {value: "", error: []},
     });
     const [userData, setUserData] = useState({
-        firstName: {value: "", error: []},
-        lastName: {value: "", error: []},
-        email: {value: "", error: []},
+        firstName: {value: "hossein", error: []},
+        lastName: {value: "ab", error: []},
+        email: {value: "hossein@nilin.co", error: []},
         captchaAnswer: {value: "", error: []},
-        password: {value: "", error: []},
-        confirmPassword: {value: "", error: []},
+        password: {value: "12345678", error: []},
+        confirmPassword: {value: "12345678", error: []},
     });
     const [isInputVisible, setIsInputVisible] = useState({
         password: false,
@@ -141,6 +141,9 @@ const RegisterForm = () => {
                 setRegisterStatus("")
             } else if (e?.response?.data?.error === "UserAlreadyExists") {
                 setUserData({...userData, email: {...userData.email, error: [t("login.UserAlreadyExists")]}})
+                setRegisterStatus("")
+            } else if (e?.response?.data?.error === "RegisterIsLimited") {
+                setUserData({...userData, email: {...userData.email, error: [t("login.RegisterIsLimited")]}})
                 setRegisterStatus("")
             } else {
                 setRegisterStatus("finishedWithError");
