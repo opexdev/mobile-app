@@ -29,12 +29,12 @@ const RegisterForm = () => {
         expireTime: {value: "", error: []},
     });
     const [userData, setUserData] = useState({
-        firstName: {value: "hossein", error: []},
-        lastName: {value: "ab", error: []},
-        email: {value: "hossein@nilin.co", error: []},
+        firstName: {value: "", error: []},
+        lastName: {value: "", error: []},
+        email: {value: "", error: []},
         captchaAnswer: {value: "", error: []},
-        password: {value: "12345678", error: []},
-        confirmPassword: {value: "12345678", error: []},
+        password: {value: "", error: []},
+        confirmPassword: {value: "", error: []},
     });
     const [isInputVisible, setIsInputVisible] = useState({
         password: false,
