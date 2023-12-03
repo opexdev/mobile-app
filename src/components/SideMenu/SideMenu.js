@@ -22,16 +22,15 @@ const SideMenu = () => {
 
     const {t} = useTranslation();
     let location = useLocation();
+    const dispatch = useDispatch()
 
     const open = useSelector((state) => state.global.showSideMenu)
-
     const firstName = useSelector((state) => state.auth.firstName)
     const lastName = useSelector((state) => state.auth.lastName)
-
     const theme = useSelector((state) => state.global.theme)
     const isLogin = useSelector((state) => state.auth.isLogin)
-    const dispatch = useDispatch()
     const languages = useSelector((state) => state.exchange.supportedLanguages)
+
     const changeLanguage = (lang) => {
         i18n.changeLanguage(lang)
         if (isLogin) {

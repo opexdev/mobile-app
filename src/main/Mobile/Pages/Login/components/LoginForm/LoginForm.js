@@ -1,14 +1,9 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import React, {useEffect, useState} from "react";
 import classes from "../../Login.module.css";
 import TextInput from "../../../../../../components/TextInput/TextInput";
 import LoginFormLoading from "../LoginLoading/LoginFormLoading";
-import {
-    getUserConfigsInitiate,
-    setUserAccountInfoInitiate,
-    setUserInfo,
-    setUserTokensInitiate
-} from "../../../../../../store/actions";
+import {getUserConfigsInitiate, setUserInfo, setUserTokensInitiate} from "../../../../../../store/actions";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import Button from "../../../../../../components/Button/Button";
@@ -23,10 +18,11 @@ import {login, parseToken} from "js-api-client";
 
 
 const LoginForm = () => {
+
     const {t} = useTranslation();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const location = useLocation();
+    const dispatch = useDispatch();
 
     const isDevelopment = window.env.REACT_APP_ENV === "development";
     const [isInputVisible, setIsInputVisible] = useState(false);
@@ -38,15 +34,10 @@ const LoginForm = () => {
     const {refetch: getKycStatus} = useGetKycStatus();
 
     const from = location.state?.from?.pathname || "/";
-    const isLogin = useSelector((state) => state.auth.isLogin)
 
     const agent = [deviceType, browserName, fullBrowserVersion]
     const clientSecret = window.env.REACT_APP_CLIENT_SECRET
     const clientId = window.env.REACT_APP_CLIENT_ID
-
-    useEffect(() => {
-        if (isLogin) navigate(from, {replace: true});
-    }, [])
 
     useEffect(() => {
         setNeedOTP(undefined)
@@ -82,12 +73,9 @@ const LoginForm = () => {
             .then(async (res) => {
                 const userToken = parseToken(res.data);
                 const jwt = jwtDecode(userToken.accessToken)
-                /*dispatch(setUserAccountInfoInitiate())*/
-
                 dispatch(setUserInfo(jwt));
                 dispatch(setUserTokensInitiate(userToken));
                 dispatch(getUserConfigsInitiate());
-
                 await getKycStatus()
                 return navigate(from, {replace: true});
             })

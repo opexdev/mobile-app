@@ -31,7 +31,7 @@ export function* getUserConfigs() {
                 ...userConfigs
             }
         } = yield call(axios.get, '/config/user/v1')
-        i18n.changeLanguage(language)
+        yield i18n.changeLanguage(language)
         yield put(actions.setUserConfig(userConfigs));
         if (userTheme) yield put(actions.setTheme(userTheme));
     } catch (e) {
