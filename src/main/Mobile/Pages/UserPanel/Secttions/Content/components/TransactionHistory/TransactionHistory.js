@@ -26,7 +26,7 @@ const TransactionHistory = () => {
         "category": null, // optional [DEPOSIT, FEE, TRADE, WITHDRAW, ORDER_CANCEL, ORDER_CREATE, ORDER_FINALIZED]
         "startTime": moment().subtract(1, 'months').startOf("day").valueOf(),
         "endTime": moment().endOf("day").valueOf(),
-        "ascendingByTime": true,
+        "ascendingByTime": false,
         "limit": 10,
         "offset": 0
     });
@@ -191,7 +191,7 @@ const TransactionHistory = () => {
                             ...prevState,
                             ascendingByTime: !prevState.ascendingByTime
                         }}) }
-                        checked={query?.ascendingByTime}/>
+                        checked={!query?.ascendingByTime}/>
                 </div>
             </div>
             <div className={`card-bg card-border width-100 my-3`} ref={scrollRef}>
