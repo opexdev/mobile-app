@@ -6,8 +6,6 @@ import {useTranslation} from "react-i18next";
 
 const MostIncreasedPrice = ({mostIncreasedPrice}) => {
 
-    console.log("mostIncreasedPrice" , mostIncreasedPrice)
-
     const {t} = useTranslation();
 
     return (

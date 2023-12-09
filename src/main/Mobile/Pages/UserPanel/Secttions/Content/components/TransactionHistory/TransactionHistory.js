@@ -14,6 +14,7 @@ import {useTransactionHistory} from "../../../../../../../../queries";
 import Date from "../../../../../../../../components/Date/Date";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import Button from "../../../../../../../../components/Button/Button";
+import ToggleSwitch from "../../../../../../../../components/ToggleSwitch/ToggleSwitch";
 
 const TransactionHistory = () => {
 
@@ -25,6 +26,7 @@ const TransactionHistory = () => {
         "category": null, // optional [DEPOSIT, FEE, TRADE, WITHDRAW, ORDER_CANCEL, ORDER_CREATE, ORDER_FINALIZED]
         "startTime": moment().subtract(1, 'months').startOf("day").valueOf(),
         "endTime": moment().endOf("day").valueOf(),
+        "ascendingByTime": false,
         "limit": 10,
         "offset": 0
     });
@@ -181,14 +183,22 @@ const TransactionHistory = () => {
                     range
                     customClass={`width-100 my-1 ${classes.thisInput}`}
                 />
+
+                <div className={`row jc-between ai-center my-1 px-1 fs-0-8 width-100`}>
+                    <span className={`fs-0-8 ml-1`}>{t("TransactionHistory.ascendingByTime")}</span>
+                    <ToggleSwitch
+                        onchange={ () => setQuery(prevState => {return {
+                            ...prevState,
+                            ascendingByTime: !prevState.ascendingByTime
+                        }}) }
+                        checked={!query?.ascendingByTime}/>
+                </div>
             </div>
             <div className={`card-bg card-border width-100 my-3`} ref={scrollRef}>
                 <div className={`card-header-bg row jc-between ai-center px-5 py-3`}>
                     <div className={`row jc-center ai-center`}>
                         <h3 className={``}>{t("txHistory.title")}</h3>
-
                     </div>
-
                     <div className={`row mr-1 text-gray fs-0-8`}>
                         <span className={`mx-05`}>{t("from")}</span>
                         <span><Date date={query?.startTime}/></span>
@@ -200,29 +210,32 @@ const TransactionHistory = () => {
                     {content()}
                 </div>
             </div>
-            <div className={`row jc-center ai-center width-100 pb-5`}>
+            <div className={`row jc-between ai-center width-100 border card-bg px-5 py-3 mb-2 rounded-8`}>
                 <Button
-                    buttonClass={`${classes.thisButton} px-7`}
+                    buttonClass={`${classes.thisButton} width-30`}
                     buttonTitle={t('first')}
                     disabled={pagination.page === 1}
                     type="button"
                     onClick={firstPage}
                 />
                 <Button
-                    buttonClass={`${classes.thisButton} px-7 mx-4`}
+                    buttonClass={`${classes.thisButton} width-30`}
                     buttonTitle={t('prev')}
                     disabled={pagination.page === 1}
                     type="button"
                     onClick={prevPage}
                 />
                 <Button
-                    buttonClass={`${classes.thisButton} px-7`}
+                    buttonClass={`${classes.thisButton} width-30`}
                     buttonTitle={t('next')}
                     disabled={pagination.isLastPage}
                     type="button"
                     onClick={nextPage}
                 />
             </div>
+
+            <div className={`width-100 pb-1`}/>
+
         </div>
     );
 };

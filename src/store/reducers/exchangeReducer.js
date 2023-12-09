@@ -21,6 +21,15 @@ const initialState = {
     },
     ipgLock: null,
     verifyEmailLock: null,
+    logoUrl: "",
+    title: "",
+    description: "",
+    defaultLanguage: "en",
+    supportedLanguages: [],
+    defaultTheme: "",
+    supportEmail: "",
+    baseCurrency: "",
+    dateType: ""
 };
 
 const exchangeReducer = (state = initialState, action) => {
@@ -92,6 +101,11 @@ const exchangeReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.exchangeInfo
+            };
+        case actionTypes.SET_EXCHANGE_CONFIG:
+            return {
+                ...state,
+                ...action.configs
             };
         default:
             return state;

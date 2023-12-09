@@ -142,6 +142,9 @@ const RegisterForm = () => {
             } else if (e?.response?.data?.error === "UserAlreadyExists") {
                 setUserData({...userData, email: {...userData.email, error: [t("login.UserAlreadyExists")]}})
                 setRegisterStatus("")
+            } else if (e?.response?.data?.error === "RegisterIsLimited") {
+                setUserData({...userData, email: {...userData.email, error: [t("login.RegisterIsLimited")]}})
+                setRegisterStatus("")
             } else {
                 setRegisterStatus("finishedWithError");
             }
