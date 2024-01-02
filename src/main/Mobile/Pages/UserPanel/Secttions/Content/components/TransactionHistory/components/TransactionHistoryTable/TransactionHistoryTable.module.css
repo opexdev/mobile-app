@@ -6,8 +6,14 @@
 }
 
 .circle {
-    width: 8vw;
-    height: 8vw;
-    border-radius: 100px;
-    background-color: var(--cardBorder);
+    border-left: 1px dotted var(--gray);
+}
+
+:global(.ltr) .circle {
+    border-right: 1px dotted var(--gray);
+    border-left: initial;
+}
+
+.bottomNav {
+    border-top: 1px dotted var(--gray);
 }

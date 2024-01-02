@@ -5,11 +5,14 @@ import Date from "../../../../../../../../../../components/Date/Date";
 import moment from "moment-jalaali";
 import {BN} from "../../../../../../../../../../utils/utils";
 import {images} from "../../../../../../../../../../assets/images";
+import {useSelector} from "react-redux";
 
 const TransactionHistoryTable = ({txs, offset}) => {
 
     const [openItem, setOpenItem] = useState(null);
     const {t} = useTranslation();
+
+    const id = useSelector(state => state.auth.id);
 
     const txCategory = (category) => {
         switch (category) {
@@ -34,13 +37,17 @@ const TransactionHistoryTable = ({txs, offset}) => {
 
     return  <div className={`${classes.striped} fs-0-9`}>
         {txs.map((tr, index) => {
+
+            const isMaker = tr?.additionalData?.makerUuid === id
+            const isTaker = tr?.additionalData?.takerUuid === id
+
             return (
                 <div key={index} className={`column px-5 py-1 ${classes.row}`}
                      onClick={() => setOpenItem(openItem === index ? null : index)}
                 >
                     <div className={`row jc-between ai-center my-1`}>
                         <div className={`row jc-start ai-center`}>
-                            <span className={`fs-02 ${classes.circle} ml-1 flex jc-center ai-center`}>{index + offset + 1}</span>
+                            <span className={`fs-02 ${classes.circle} ml-1 flex jc-center ai-center pl-2`}>{index + offset + 1}</span>
                             <span className={`mr-1`}><Date date={tr.date}/> , {moment(tr.date).format("HH:mm:ss")}</span>
                         </div>
                         <div className={`row jc-end ai-center`}>
@@ -61,8 +68,16 @@ const TransactionHistoryTable = ({txs, offset}) => {
                         <div className={`row jc-end ai-center`}>
                             <span className={`ml-3`}>{t("volume")}:</span>
                             <div className={`row`}>
-                                <span className={`fs-02`}>{new BN(tr?.amount).toFormat()}</span>
+                                <span className={`fs-02`}>
+                                    {(tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "TRADE") ? "+ " :""}
+                                    {(tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "TRADE") ? "- " :""}
+                                    {(tr?.category === "FEE") ? "- " :""}
+
+                                    {new BN(tr?.amount).toFormat()}
+
+                                </span>
                                 <span className={`fs-0-8 mr-1`}></span>
+
                             </div>
                         </div>
                     </div>
@@ -78,12 +93,35 @@ const TransactionHistoryTable = ({txs, offset}) => {
                                 ?
                                 <>
                                     <span> {t('TransactionCategory.'+tr.category)}</span>
-                                    <span className={`mr-1`}>{tr?.additionalData?.ask && t('sell')} {tr?.additionalData?.bid && t('buy')}</span>
+
+                                    {tr?.category === "ORDER_CREATE" &&
+
+                                        <span className={`mr-1`}>{tr?.additionalData?.ask && t('sell')} {tr?.additionalData?.bid && t('buy')}</span>
+                                    }
+
+                                    {tr?.additionalData?.takerDirection === "ASK" && isTaker ? <span className={`mr-1`}>{t('sell')}</span> : ""}
+                                    {tr?.additionalData?.makerDirection === "BID" && isMaker ? <span className={`mr-1`}>{t('buy')}</span> : ""}
+
                                     <span className={`mr-1`}>{new BN(tr?.additionalData?.origQuantity).toFormat()}</span>
                                     <span className={`mr-1`}>{t("currency." + tr?.additionalData?.pair?.leftSideName )}</span>
                                     <span className={`mr-1`}>{t("withPrice")}</span>
                                     <span className={`mr-1`}>{new BN(tr?.additionalData?.origPrice).toFormat()}</span>
                                     <span className={`mr-1`}>{t("currency." + tr?.additionalData?.pair?.rightSideName )}</span>
+
+
+                                    <div className={`width-100 row jc-start text-orange pt-1 mt-2 fs-0-7 ${classes.bottomNav}`}>
+
+                                        { (tr?.wallet === "main") && (tr?.withdraw === true) && (tr?.category !== "FEE") ? <span>{t("TransactionHistory.assetBlock")}</span> : ""}
+                                        { (tr?.wallet === "exchange") && (tr?.withdraw === false) ? <span>{t("TransactionHistory.readyToExchange")}</span> : ""}
+                                        { (tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "TRADE") ? <span className={`text-green`}>{t("TransactionHistory.increaseWallwt")}</span> : ""}
+                                        { (tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "TRADE") ? <span className={`text-red`}>{t("TransactionHistory.decreaseWllet")}</span> : ""}
+                                        { (tr?.category === "FEE") ? <span className={`text-red`}>{t("TransactionHistory.decreaseWllet")}</span> : ""}
+                                        { (tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "ORDER_CANCEL") ? <span>{t("TransactionHistory.assetUnBlocked")}</span> : ""}
+                                        { (tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "ORDER_CANCEL") ? <span>{t("TransactionHistory.cancelExchange")}</span> : ""}
+                                        { (tr?.category === "ORDER_FINALIZED") ? <span>{t("TransactionHistory.finished")}</span> : ""}
+
+                                    </div>
+
                                 </>
                                  : "----"
                             }
