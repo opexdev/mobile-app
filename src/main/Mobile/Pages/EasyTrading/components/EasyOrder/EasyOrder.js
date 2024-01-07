@@ -13,6 +13,10 @@ import TextInput from "../../../../../../components/TextInput/TextInput";
 import Icon from "../../../../../../components/Icon/Icon";
 import NumberInput from "../../../../../../components/NumberInput/NumberInput";
 import Button from "../../../../../../components/Button/Button";
+import {Link} from "react-router-dom";
+import * as Routes from "../../../../Routes/routes";
+import i18n from "i18next";
+import {TxHistory} from "../../../../Routes/routes";
 
 const EasyOrder = () => {
 
@@ -326,6 +330,13 @@ const EasyOrder = () => {
 
             <div className={`${classes.header} card-header-bg row jc-between ai-center px-5 py-3 width-100 fs-02`}>
                 <span>{t("MarketTitle.easyTrading")}</span>
+
+                <div className={`row jc-center ai-center cursor-pointer hover-text fs-0-9`}>
+                    <Link to={Routes.TxHistory} className={`ml-05 hover-text`}>{t("txHistory.title")}</Link>
+                    <Icon
+                        iconName={`${i18n.language !== "fa" ? 'icon-right-open-1' : 'icon-left-open-1'}  fs-0-9 flex`}
+                        className={`mr-05`}/>
+                </div>
 
             </div>
 
