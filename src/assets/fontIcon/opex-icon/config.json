@@ -1083,6 +1083,30 @@
       ]
     },
     {
+      "uid": "3838a5aba604532d2dbae5904615ea39",
+      "css": "down",
+      "code": 546,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "c21d309f797d3644dc8d28c4617738ce",
+      "css": "left",
+      "code": 547,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "1d35198f5190ec004dd4ec742fbe19ca",
+      "css": "right",
+      "code": 548,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "040e72500c863813088c9f9c9415f8e9",
+      "css": "up",
+      "code": 549,
+      "src": "mfglabs"
+    },
+    {
       "uid": "7e2d15c7214058b9c51c23ac2ae37f7e",
       "css": "icons8_more_info",
       "code": 59458,

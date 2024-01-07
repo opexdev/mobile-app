@@ -6,6 +6,7 @@ import moment from "moment-jalaali";
 import {BN} from "../../../../../../../../../../utils/utils";
 import {images} from "../../../../../../../../../../assets/images";
 import {useSelector} from "react-redux";
+import Icon from "../../../../../../../../../../components/Icon/Icon";
 
 const TransactionHistoryTable = ({txs, offset}) => {
 
@@ -34,6 +35,39 @@ const TransactionHistoryTable = ({txs, offset}) => {
                 return t("TransactionCategory.ETC");
         }
     };
+
+    const sideHandler = (category, takerDirection, makerDirection, isTaker, isMaker, ask, bid, num) => {
+
+        if (category === "ORDER_CREATE" || category === "ORDER_CANCEL") {
+            return  <span className={`mr-05`}>{ask && t('sell')} {bid && t('buy')}</span>
+        }
+
+        if (((takerDirection === "ASK") || (makerDirection === "BID")) && isTaker && isMaker) {
+            return <span className={`mr-05`}>{t('TransactionHistory.selfTrade')}</span>
+        }
+
+        if (takerDirection === "ASK" && isTaker) {
+            return <span className={`mr-05`}>{t('sell')}</span>
+        }
+        if (makerDirection === "BID" && isMaker) {
+            return <span className={`mr-05`}>{t('buy')}</span>
+        }
+
+
+        if (makerDirection === "ASK" && isTaker) {
+            return <span className={`mr-05`}>{t('buy')}</span>
+        }
+        if (takerDirection === "BID" && isMaker) {
+            return <span className={`mr-05`}>{t('sell')}</span>
+        }
+
+        else {
+
+
+        }
+
+    }
+
 
     return  <div className={`${classes.striped} fs-0-9`}>
         {txs.map((tr, index) => {
@@ -64,7 +98,7 @@ const TransactionHistoryTable = ({txs, offset}) => {
                         </div>
                     </div>
                     <div className={`row jc-between ai-center my-1`}>
-                        <span className={`text-orange`}>{txCategory(tr.category)}</span>
+                        <span className={`font-weight-bold`}>{txCategory(tr.category)}</span>
                         <div className={`row jc-end ai-center`}>
                             <span className={`ml-3`}>{t("volume")}:</span>
                             <div className={`row`}>
@@ -72,9 +106,7 @@ const TransactionHistoryTable = ({txs, offset}) => {
                                     {(tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "TRADE") ? "+ " :""}
                                     {(tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "TRADE") ? "- " :""}
                                     {(tr?.category === "FEE") ? "- " :""}
-
                                     {new BN(tr?.amount).toFormat()}
-
                                 </span>
                                 <span className={`fs-0-8 mr-1`}></span>
 
@@ -92,15 +124,30 @@ const TransactionHistoryTable = ({txs, offset}) => {
 
                                 ?
                                 <>
-                                    <span> {t('TransactionCategory.'+tr.category)}</span>
+                                    {/*<span> {t('TransactionCategory.'+tr.category)}</span>*/}
 
-                                    {tr?.category === "ORDER_CREATE" &&
+                   {/*                 {tr?.category === "ORDER_CREATE" &&
 
                                         <span className={`mr-1`}>{tr?.additionalData?.ask && t('sell')} {tr?.additionalData?.bid && t('buy')}</span>
                                     }
 
                                     {tr?.additionalData?.takerDirection === "ASK" && isTaker ? <span className={`mr-1`}>{t('sell')}</span> : ""}
                                     {tr?.additionalData?.makerDirection === "BID" && isMaker ? <span className={`mr-1`}>{t('buy')}</span> : ""}
+*/}
+
+                                    { (tr?.wallet === "main") && (tr?.withdraw === true) && (tr?.category !== "FEE") ? <span>{t("TransactionHistory.assetBlock")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
+                                    { (tr?.wallet === "exchange") && (tr?.withdraw === false) ? <span>{t("TransactionHistory.readyToExchange")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
+                                    { (tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "TRADE") ? <span className={``}>{t("TransactionHistory.increaseWallet")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
+                                    { (tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "TRADE") ? <span className={``}>{t("TransactionHistory.decreaseWallet")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
+                                    { (tr?.category === "FEE") ? <span className={``}>{t("TransactionHistory.decreaseWallet")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
+                                    { (tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "ORDER_CANCEL") ? <span>{t("TransactionHistory.assetUnBlocked")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
+                                    { (tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "ORDER_CANCEL") ? <span>{t("TransactionHistory.cancelExchange")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
+                                    { (tr?.category === "ORDER_FINALIZED") && (tr?.wallet === "main") ? <span>{t("TransactionHistory.refund")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
+                                    { (tr?.category === "ORDER_FINALIZED") && (tr?.wallet === "exchange") ? <span>{t("TransactionHistory.startRefund")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
+
+                                    {
+                                        sideHandler(tr?.category, tr?.additionalData?.takerDirection, tr?.additionalData?.makerDirection, isTaker, isMaker, tr?.additionalData?.ask, tr?.additionalData?.bid, (index + offset + 1))
+                                    }
 
                                     <span className={`mr-1`}>{new BN(tr?.additionalData?.origQuantity).toFormat()}</span>
                                     <span className={`mr-1`}>{t("currency." + tr?.additionalData?.pair?.leftSideName )}</span>
@@ -109,18 +156,25 @@ const TransactionHistoryTable = ({txs, offset}) => {
                                     <span className={`mr-1`}>{t("currency." + tr?.additionalData?.pair?.rightSideName )}</span>
 
 
-                                    <div className={`width-100 row jc-start text-orange pt-1 mt-2 fs-0-7 ${classes.bottomNav}`}>
+                                    { ((tr?.category === "TRADE") || (tr?.category === "FEE")) && <div className={`width-100 row jc-between pt-1 mt-2 fs-0-8 ${classes.bottomNav}`}>
 
-                                        { (tr?.wallet === "main") && (tr?.withdraw === true) && (tr?.category !== "FEE") ? <span>{t("TransactionHistory.assetBlock")}</span> : ""}
+                                         <span>{t("TransactionHistory.balanceStatus")}:</span>
+
+                                        {/*{ (tr?.wallet === "main") && (tr?.withdraw === true) && (tr?.category !== "FEE") ? <span>{t("TransactionHistory.assetBlock")}</span> : ""}
                                         { (tr?.wallet === "exchange") && (tr?.withdraw === false) ? <span>{t("TransactionHistory.readyToExchange")}</span> : ""}
                                         { (tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "TRADE") ? <span className={`text-green`}>{t("TransactionHistory.increaseWallet")}</span> : ""}
                                         { (tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "TRADE") ? <span className={`text-red`}>{t("TransactionHistory.decreaseWallet")}</span> : ""}
                                         { (tr?.category === "FEE") ? <span className={`text-red`}>{t("TransactionHistory.decreaseWallet")}</span> : ""}
                                         { (tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "ORDER_CANCEL") ? <span>{t("TransactionHistory.assetUnBlocked")}</span> : ""}
                                         { (tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "ORDER_CANCEL") ? <span>{t("TransactionHistory.cancelExchange")}</span> : ""}
-                                        { (tr?.category === "ORDER_FINALIZED") ? <span>{t("TransactionHistory.finished")}</span> : ""}
+                                        { (tr?.category === "ORDER_FINALIZED") ? <span>{t("TransactionHistory.finished")}</span> : ""}*/}
 
-                                    </div>
+
+                                        { (tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "TRADE") ? <div className={`row text-green`}><span className={`ml-05`}>{t("currency." + tr.currency )}</span><Icon iconName="icon-up flex" customClass={`flex jc-center ai-center`}/></div> : ""}
+                                        { (tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "TRADE") ? <div className={`row text-red`}><span className={`ml-05`}>{t("currency." + tr.currency )}</span><Icon iconName="icon-down flex" customClass={`flex jc-center ai-center`}/></div>: ""}
+                                        { (tr?.category === "FEE") ? <div className={`row text-red`}><span className={`ml-05`}>{t("currency." + tr.currency )}</span><Icon iconName="icon-down flex" customClass={`flex jc-center ai-center`}/></div> : ""}
+
+                                    </div>}
 
                                 </>
                                  : "----"

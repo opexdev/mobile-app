@@ -255,13 +255,16 @@
     "category": "Toifalar",
     "size": "Raqam",
     "period" : "Davr",
-    "assetBlock" : "Asset Bloklangan",
+    "assetBlock" : "Rezervasyon",
     "assetUnBlocked" : "Blokdan chiqarish",
-    "finished" : "Tugallandi",
+    "refund" : "Qaytarish",
+    "startRefund" : "Qaytarishni boshlash",
     "cancelExchange" : "Bekor qilindi",
     "readyToExchange" : "Almashtirishga tayyor",
     "decreaseWallet" : "Inventarizatsiyani qisqartirish",
     "increaseWallet" : "Inventarning ko'payishi",
+    "balanceStatus" : "Muvozanat holati",
+    "selfTrade" : "O'z-o'zidan savdo",
     "ascendingByTime" : "Eng so'nggisiga asoslangan ko'rsatish"
   },
   "TransactionCategory": {
@@ -271,7 +274,7 @@
     "WITHDRAW": "Olib chiqish",
     "ORDER_CANCEL": "Buyurtmani bekor qilish",
     "ORDER_CREATE": "Buyurtma yaratish",
-    "ORDER_FINALIZED": "Buyurtma yakunlandi",
+    "ORDER_FINALIZED": "Qaytarish",
     "ETC" : "Noma'lum"
   },
   "DepositWithdraw": {

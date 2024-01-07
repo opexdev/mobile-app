@@ -87,6 +87,10 @@
 .icon-username-icon:before { content: '\0219'; } /* 'ș' */
 .icon-user-key-icon:before { content: '\0220'; } /* 'Ƞ' */
 .icon-exchange-arrow:before { content: '\0221'; } /* 'ȡ' */
+.icon-down:before { content: '\0222'; } /* 'Ȣ' */
+.icon-left:before { content: '\0223'; } /* 'ȣ' */
+.icon-right:before { content: '\0224'; } /* 'Ȥ' */
+.icon-up:before { content: '\0225'; } /* 'ȥ' */
 .icon-market:before { content: '\e800'; } /* '' */
 .icon-cancel-circled2:before { content: '\e801'; } /* '' */
 .icon-settings:before { content: '\e802'; } /* '' */
