@@ -7,6 +7,7 @@ import {BN} from "../../../../../../../../../../utils/utils";
 import {images} from "../../../../../../../../../../assets/images";
 import {useSelector} from "react-redux";
 import Icon from "../../../../../../../../../../components/Icon/Icon";
+import i18n from "i18next";
 
 const TransactionHistoryTable = ({txs, offset}) => {
 
@@ -25,47 +26,47 @@ const TransactionHistoryTable = ({txs, offset}) => {
                 return t("TransactionCategory.TRADE");
             case "WITHDRAW":
                 return t("TransactionCategory.WITHDRAW");
+            case "WITHDRAW_REQUEST":
+                return t("TransactionCategory.WITHDRAW_REQUEST");
+            case "WITHDRAW_ACCEPT":
+                return t("TransactionCategory.WITHDRAW_ACCEPT");
+            case "WITHDRAW_REJECT":
+                return t("TransactionCategory.WITHDRAW_REJECT");
             case "ORDER_CANCEL":
                 return t("TransactionCategory.ORDER_CANCEL");
             case "ORDER_CREATE":
                 return t("TransactionCategory.ORDER_CREATE");
             case "ORDER_FINALIZED":
                 return t("TransactionCategory.ORDER_FINALIZED");
+            case "PURCHASE_FINALIZED":
+                return t("TransactionCategory.PURCHASE_FINALIZED");
             default:
                 return t("TransactionCategory.ETC");
         }
     };
 
     const sideHandler = (category, takerDirection, makerDirection, isTaker, isMaker, ask, bid, num) => {
-
         if (category === "ORDER_CREATE" || category === "ORDER_CANCEL") {
-            return  <span className={`mr-05`}>{ask && t('sell')} {bid && t('buy')}</span>
+            return  <span className={``}>{ask && t('sell')} {bid && t('buy')}</span>
         }
-
         if (((takerDirection === "ASK") || (makerDirection === "BID")) && isTaker && isMaker) {
-            return <span className={`mr-05`}>{t('TransactionHistory.selfTrade')}</span>
+            return <span className={``}>{t('TransactionHistory.selfTrade')}</span>
         }
-
         if (takerDirection === "ASK" && isTaker) {
-            return <span className={`mr-05`}>{t('sell')}</span>
+            return <span className={``}>{t('sell')}</span>
         }
         if (makerDirection === "BID" && isMaker) {
-            return <span className={`mr-05`}>{t('buy')}</span>
+            return <span className={``}>{t('buy')}</span>
         }
-
-
         if (makerDirection === "ASK" && isTaker) {
-            return <span className={`mr-05`}>{t('buy')}</span>
+            return <span className={``}>{t('buy')}</span>
         }
         if (takerDirection === "BID" && isMaker) {
-            return <span className={`mr-05`}>{t('sell')}</span>
+            return <span className={``}>{t('sell')}</span>
         }
-
         else {
 
-
         }
-
     }
 
 
@@ -74,6 +75,8 @@ const TransactionHistoryTable = ({txs, offset}) => {
 
             const isMaker = tr?.additionalData?.makerUuid === id
             const isTaker = tr?.additionalData?.takerUuid === id
+
+            const isSelfTrade = (((tr?.additionalData?.takerDirection === "ASK") || ( tr?.additionalData?.makerDirection === "BID")) && isTaker && isMaker)
 
             return (
                 <div key={index} className={`column px-5 py-1 ${classes.row}`}
@@ -101,14 +104,17 @@ const TransactionHistoryTable = ({txs, offset}) => {
                         <span className={`font-weight-bold`}>{txCategory(tr.category)}</span>
                         <div className={`row jc-end ai-center`}>
                             <span className={`ml-3`}>{t("volume")}:</span>
-                            <div className={`row`}>
-                                <span className={`fs-02`}>
-                                    {(tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "TRADE") ? "+ " :""}
-                                    {(tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "TRADE") ? "- " :""}
-                                    {(tr?.category === "FEE") ? "- " :""}
-                                    {new BN(tr?.amount).toFormat()}
-                                </span>
-                                <span className={`fs-0-8 mr-1`}></span>
+                            <div className={`row ${i18n.language !== "fa" ? 'row-reverse jc-end' : 'row jc-start'} `}>
+                                <span className={`${i18n.language !== "fa" ? 'mr-1' : 'ml-1'}`}>{new BN(tr?.amount).toFormat() }</span>
+
+                                {
+                                    ( (tr?.category === "TRADE") && isSelfTrade) ? "" : <>
+                                        {
+                                            (tr?.category !== "WITHDRAW_REQUEST" && tr?.category !== "WITHDRAW_REJECT" && tr?.category !== "WITHDRAW_ACCEPT" && tr?.category !== "ORDER_CREATE" && tr?.category !== "ORDER_CANCEL" )
+                                            && <div className={`row`}>{tr?.withdraw ? '-' : '+'}</div>
+                                        }
+                                    </>
+                                }
 
                             </div>
                         </div>
@@ -124,30 +130,9 @@ const TransactionHistoryTable = ({txs, offset}) => {
 
                                 ?
                                 <>
-                                    {/*<span> {t('TransactionCategory.'+tr.category)}</span>*/}
 
-                   {/*                 {tr?.category === "ORDER_CREATE" &&
-
-                                        <span className={`mr-1`}>{tr?.additionalData?.ask && t('sell')} {tr?.additionalData?.bid && t('buy')}</span>
-                                    }
-
-                                    {tr?.additionalData?.takerDirection === "ASK" && isTaker ? <span className={`mr-1`}>{t('sell')}</span> : ""}
-                                    {tr?.additionalData?.makerDirection === "BID" && isMaker ? <span className={`mr-1`}>{t('buy')}</span> : ""}
-*/}
-
-                                    { (tr?.wallet === "main") && (tr?.withdraw === true) && (tr?.category !== "FEE") ? <span>{t("TransactionHistory.assetBlock")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
-                                    { (tr?.wallet === "exchange") && (tr?.withdraw === false) ? <span>{t("TransactionHistory.readyToExchange")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
-                                    { (tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "TRADE") ? <span className={``}>{t("TransactionHistory.increaseWallet")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
-                                    { (tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "TRADE") ? <span className={``}>{t("TransactionHistory.decreaseWallet")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
-                                    { (tr?.category === "FEE") ? <span className={``}>{t("TransactionHistory.decreaseWallet")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
-                                    { (tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "ORDER_CANCEL") ? <span>{t("TransactionHistory.assetUnBlocked")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
-                                    { (tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "ORDER_CANCEL") ? <span>{t("TransactionHistory.cancelExchange")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
-                                    { (tr?.category === "ORDER_FINALIZED") && (tr?.wallet === "main") ? <span>{t("TransactionHistory.refund")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
-                                    { (tr?.category === "ORDER_FINALIZED") && (tr?.wallet === "exchange") ? <span>{t("TransactionHistory.startRefund")} <span className={`mr-05 ml-05`}>-</span></span> : ""}
-
-                                    {
-                                        sideHandler(tr?.category, tr?.additionalData?.takerDirection, tr?.additionalData?.makerDirection, isTaker, isMaker, tr?.additionalData?.ask, tr?.additionalData?.bid, (index + offset + 1))
-                                    }
+                                    { (tr?.category === "FEE") ? <span className={`ml-1`}>{t("TransactionHistory.forFee")}</span> : ""}
+                                    { sideHandler(tr?.category, tr?.additionalData?.takerDirection, tr?.additionalData?.makerDirection, isTaker, isMaker, tr?.additionalData?.ask, tr?.additionalData?.bid, (index + offset + 1))}
 
                                     <span className={`mr-1`}>{new BN(tr?.additionalData?.origQuantity).toFormat()}</span>
                                     <span className={`mr-1`}>{t("currency." + tr?.additionalData?.pair?.leftSideName )}</span>
@@ -156,25 +141,13 @@ const TransactionHistoryTable = ({txs, offset}) => {
                                     <span className={`mr-1`}>{t("currency." + tr?.additionalData?.pair?.rightSideName )}</span>
 
 
-                                    { ((tr?.category === "TRADE") || (tr?.category === "FEE")) && <div className={`width-100 row jc-between pt-1 mt-2 fs-0-8 ${classes.bottomNav}`}>
+                                    { (tr?.category === "TRADE" && !isSelfTrade) || (tr?.category === "FEE") || (tr?.category === "ORDER_FINALIZED") ? <div className={`width-100 row jc-between pt-1 mt-2 fs-0-8 ${classes.bottomNav}`}>
 
                                          <span>{t("TransactionHistory.balanceStatus")}:</span>
 
-                                        {/*{ (tr?.wallet === "main") && (tr?.withdraw === true) && (tr?.category !== "FEE") ? <span>{t("TransactionHistory.assetBlock")}</span> : ""}
-                                        { (tr?.wallet === "exchange") && (tr?.withdraw === false) ? <span>{t("TransactionHistory.readyToExchange")}</span> : ""}
-                                        { (tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "TRADE") ? <span className={`text-green`}>{t("TransactionHistory.increaseWallet")}</span> : ""}
-                                        { (tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "TRADE") ? <span className={`text-red`}>{t("TransactionHistory.decreaseWallet")}</span> : ""}
-                                        { (tr?.category === "FEE") ? <span className={`text-red`}>{t("TransactionHistory.decreaseWallet")}</span> : ""}
-                                        { (tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "ORDER_CANCEL") ? <span>{t("TransactionHistory.assetUnBlocked")}</span> : ""}
-                                        { (tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "ORDER_CANCEL") ? <span>{t("TransactionHistory.cancelExchange")}</span> : ""}
-                                        { (tr?.category === "ORDER_FINALIZED") ? <span>{t("TransactionHistory.finished")}</span> : ""}*/}
+                                        <div className={`row ${tr?.withdraw ? 'text-red' : 'text-green'}`}><span className={`ml-05`}>{t("currency." + tr.currency )}</span><Icon iconName={`${tr?.withdraw ? 'icon-down' : 'icon-up'} flex`} customClass={`flex jc-center ai-center`}/></div>
 
-
-                                        { (tr?.wallet === "main") && (tr?.withdraw === false) && (tr?.category === "TRADE") ? <div className={`row text-green`}><span className={`ml-05`}>{t("currency." + tr.currency )}</span><Icon iconName="icon-up flex" customClass={`flex jc-center ai-center`}/></div> : ""}
-                                        { (tr?.wallet === "exchange") && (tr?.withdraw === true) && (tr?.category === "TRADE") ? <div className={`row text-red`}><span className={`ml-05`}>{t("currency." + tr.currency )}</span><Icon iconName="icon-down flex" customClass={`flex jc-center ai-center`}/></div>: ""}
-                                        { (tr?.category === "FEE") ? <div className={`row text-red`}><span className={`ml-05`}>{t("currency." + tr.currency )}</span><Icon iconName="icon-down flex" customClass={`flex jc-center ai-center`}/></div> : ""}
-
-                                    </div>}
+                                    </div>: ""}
 
                                 </>
                                  : "----"
