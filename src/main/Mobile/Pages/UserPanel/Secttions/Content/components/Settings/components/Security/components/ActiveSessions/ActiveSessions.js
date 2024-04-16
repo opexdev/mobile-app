@@ -10,6 +10,7 @@ import Error from "../../../../../../../../../../../../components/Error/Error";
 import Loading from "../../../../../../../../../../../../components/Loading/Loading";
 import moment from "moment-jalaali";
 import Session from "./components/Session/Session";
+import Date from "../../../../../../../../../../../../components/Date/Date";
 
 const ActiveSessions = () => {
 
@@ -39,7 +40,7 @@ const ActiveSessions = () => {
                 <span className={`text-orange mb-05 fs-0-8 width-100 text-center py-05`} style={{backgroundColor: 'var(--tableHeader)'}}>{t("ActiveSessions.thisSession")}</span>
                 <div className={`row jc-between width-100 py-05 px-2`}>
                     <div className={`col-40 column jc-center ai-start pr-05`}>
-                        <span>{moment(current?.lastAccess * 1000).format("HH:mm:ss , jYY/jMM/jDD")}</span>
+                        <span>{moment(current?.lastAccess * 1000).format("HH:mm:ss")} , <Date date={current?.lastAccess * 1000}/></span>
                         {other.length > 0 ?
                             <span className={`cursor-pointer text-red fs-0-7`} onClick={expireAllSessions}>
                             {t("ActiveSessions.closeOtherSessions")}</span> : ""}

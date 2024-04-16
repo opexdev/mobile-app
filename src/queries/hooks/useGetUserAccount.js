@@ -1,8 +1,10 @@
 import {useQuery} from "@tanstack/react-query";
 import {getUserAccount, parseWalletsResponse} from "js-api-client";
+import {useSelector} from "react-redux";
 
 export const useGetUserAccount = () => {
-    return useQuery(['userAccount'], getUserAccountFunc,
+    const userId = useSelector((state) => state.auth.id)
+    return useQuery(['userAccount', userId], () => getUserAccountFunc(userId),
         {
             retry: 1,
             refetchInterval: 10000
@@ -10,7 +12,8 @@ export const useGetUserAccount = () => {
     );
 }
 
-export const getUserAccountFunc = async () => {
+export const getUserAccountFunc = async (userId) => {
+    if (!userId) return null
     const params = new URLSearchParams();
     params.append('timestamp', Date.now().toString());
     const {data} = await getUserAccount()

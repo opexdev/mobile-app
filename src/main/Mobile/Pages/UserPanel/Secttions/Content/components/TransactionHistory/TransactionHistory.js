@@ -24,8 +24,8 @@ const TransactionHistory = () => {
     const [query, setQuery] = useState({
         "coin": null, // optional
         "category": null, // optional [DEPOSIT, FEE, TRADE, WITHDRAW, ORDER_CANCEL, ORDER_CREATE, ORDER_FINALIZED]
-        "startTime": moment().subtract(1, 'months').startOf("day").valueOf(),
-        "endTime": moment().endOf("day").valueOf(),
+        "startTime": null,
+        "endTime": null,
         "ascendingByTime": false,
         "limit": 10,
         "offset": 0
@@ -108,13 +108,13 @@ const TransactionHistory = () => {
         })
     }
     const startDateHandler = (dateRange) => {
-        if (dateRange.length === 2) {
-            setQuery({
-                ...query,
-                startTime: moment.unix(dateRange[0].toUnix()).startOf("day").valueOf(),
-                endTime: moment.unix(dateRange[1].toUnix()).endOf("day").valueOf()
-            })
-        }
+        const start = dateRange[0]  ? moment.unix(dateRange[0].toUnix()).startOf("day").valueOf() : null;
+        const end = dateRange[1]  ? moment.unix(dateRange[1].toUnix()).endOf("day").valueOf() : null;
+        setQuery({
+            ...query,
+            startTime: start,
+            endTime: end
+        })
     }
 
     const content = () => {
@@ -123,6 +123,21 @@ const TransactionHistory = () => {
         if (data?.length === 0) return <div style={{height: "40vh"}} className={`flex jc-center ai-center`}>{t("noTx")}</div>
         else return <>
             <TransactionHistoryTable txs={data} offset={query?.offset} />
+        </>
+    }
+
+    const periodTextHandler = () => {
+        if (query?.startTime && query?.endTime) return <>
+            <span className={`mx-05`}>{t("from")}</span>
+            <span><Date date={query?.startTime}/></span>
+            <span className={`mx-05`}>{t("until")}</span>
+            <span><Date date={query?.endTime}/></span>
+        </>
+        if (query?.startTime) return <>
+            <span className={`mx-05`}>{t("from")}</span>
+            <span><Date date={query?.startTime}/></span>
+            <span className={`mx-05`}>{t("until")}</span>
+            <span><Date date={moment().endOf("day").valueOf()}/></span>
         </>
     }
 
@@ -173,7 +188,7 @@ const TransactionHistory = () => {
                 <TextInput
                     datePicker={true}
                     plugins={[
-                        <DatePanel />
+                        <DatePanel position="bottom"/>
                     ]}
                     lead={t('TransactionHistory.period')}
                     type="input"
@@ -181,6 +196,9 @@ const TransactionHistory = () => {
                     value={[query.startTime, query.endTime]}
                     dateSeparator={" " + t('to') + " "}
                     range
+                    hideOnScroll
+                    dataPanelPosition="Bottom"
+                    position="bottom-center"
                     customClass={`width-100 my-1 ${classes.thisInput}`}
                 />
 
@@ -200,10 +218,7 @@ const TransactionHistory = () => {
                         <h3 className={``}>{t("txHistory.title")}</h3>
                     </div>
                     <div className={`row mr-1 text-gray fs-0-8`}>
-                        <span className={`mx-05`}>{t("from")}</span>
-                        <span><Date date={query?.startTime}/></span>
-                        <span className={`mx-05`}>{t("until")}</span>
-                        <span><Date date={query?.endTime}/></span>
+                        {periodTextHandler()}
                     </div>
                 </div>
                 <div>

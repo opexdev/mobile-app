@@ -72,33 +72,6 @@ const Mobile = () => {
         meta.description.content = description ? description : " "
     }, [title, description])
 
-    const Toast = () => <Toaster position="top-center" toastOptions={
-        {
-            className: "rtl",
-            style: {
-                padding: "0.3vh 0.8vw 0.3vh 0",
-                color: "white",
-                lineHeight: "3vh",
-                fontSize: "3.3vw",
-                borderRadius: "4px",
-                background: "var(--mainContent)",
-            },
-            success: {
-                style: {
-                    background: "var(--darkGreen)",
-                },
-            },
-            error: {
-                style: {
-                    background: "var(--darkRed)",
-                },
-            },
-            custom: {
-                style: {
-                    background: "var(--Orange)",
-                },
-            },
-        }} containerStyle={{}}/>
 
     if (isLoading) return <FullWidthLoading/>
 
@@ -123,7 +96,6 @@ const Mobile = () => {
                 </Route>
             </Routes>
             <ReactTooltip data-html={true} data-effect="float"/>
-            <Toast/>
             <SideMenu/>
         </div>
     );
