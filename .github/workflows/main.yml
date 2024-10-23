@@ -25,4 +25,4 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push images to GitHub Container Registry
-        run: docker-compose -f docker-compose.build.yml push
+        run: docker compose -f docker-compose.build.yml push
