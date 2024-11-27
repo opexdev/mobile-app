@@ -10,9 +10,13 @@ import {
 } from "../../../../../../../../../../../../constants/chart";
 import i18n from "i18next";
 import {useGetChartCandlesticks} from "../../../../../../../../../../../../queries";
+import {useTranslation} from "react-i18next";
 
 
 const MarketChart = ({type}) => {
+
+    const {t} = useTranslation();
+
     let chartProperties, candleSeries, volumeSeries;
     const chart = useRef();
 
@@ -159,7 +163,7 @@ const MarketChart = ({type}) => {
 
     return (
         <div ref={chartContainerRef} className={`width-100  ${classes.chartContainer}`}>
-            <p className={classes.error}>{error}</p>
+            <p className={classes.error}>{error && t('charts.noChartData')}</p>
         </div>
     );
 };

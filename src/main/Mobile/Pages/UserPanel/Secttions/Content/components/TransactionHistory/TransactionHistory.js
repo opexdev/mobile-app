@@ -154,7 +154,7 @@ const TransactionHistory = () => {
                         value: query?.coin,
                         label:  query?.coin ? t('currency.'+ query?.coin) : t('all'),
                     }}
-                    onchange={(e) => setQuery({...query, coin: e.value})}
+                    onchange={(e) => setQuery({...query, coin: e.value, offset:0})}
                     customClass={`width-100 my-1 ${classes.thisInput}`}
                 />
                 <TextInput
@@ -167,7 +167,7 @@ const TransactionHistory = () => {
                         value: query?.category,
                         label: query?.category ? t('TransactionCategory.'+ query?.category) : t('all'),
                     }}
-                    onchange={(e) => setQuery({...query, category: e.value})}
+                    onchange={(e) => setQuery({...query, category: e.value, offset:0})}
                     customClass={`width-100 my-1 ${classes.thisInput}`}
                 />
                 <TextInput
