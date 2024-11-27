@@ -32,8 +32,8 @@ const WalletSubMenu = () => {
                             </div>
                             <WalletBalance/>
                             <ScrollBar customClass={`column`}>
-                                {assets.filter(asset => data.wallets[asset].free > 0)
-                                    .concat(assets.filter(asset => data.wallets[asset].free === 0))
+                                {assets.filter(asset => data?.wallets?.[asset]?.free > 0)
+                                    .concat(assets.filter(asset => data?.wallets?.[asset]?.free === 0))
                                     .map((name) => <WalletListItem key={name} assetName={name} showZero={showZero}/>)}
                             </ScrollBar>
                         </div>
