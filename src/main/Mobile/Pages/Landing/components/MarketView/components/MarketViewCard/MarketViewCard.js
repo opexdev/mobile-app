@@ -35,9 +35,9 @@ const MarketViewCard = ({title, data, error, isLoading, volume}) => {
     }
 
     return (
-        <div className={` card-bg card-border column width-100 my-2`}>
+        <div className={`card-bg card-border column width-100 my-2`}>
             <p className={`text-orange text-center px-4 py-2 card-header-bg`}>{title}</p>
-            <div className={` row jc-between ai-center width-100  px-4 py-1`}>
+            <div className={` row jc-between ai-center width-100 px-4 py-1`}>
                 {content()}
             </div>
         </div>

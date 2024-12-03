@@ -10,9 +10,26 @@ const MarketTitle = () => {
     const {t} = useTranslation();
     const navigate = useNavigate();
 
+    const campaignLink = t("Campaign.link");
+    const hasCampaign = t("Campaign.hasCampaign") === "true";
+
+    const clickHandler = () => {
+        if (campaignLink) {
+            window.open(campaignLink, "_blank");
+        } else {
+            console.error("Link not found");
+        }
+    }
+
     return (
         <div className={`width-90 column m-auto py-3`}>
             <Title title={t('title')}/>
+
+            { hasCampaign && <div className={`column jc-center ai-center fs-01 cursor-pointer card-bg card-border width-100 mb-2 mt-3 px-4 py-1`} onClick={()=>clickHandler()}>
+                <span className={`text-orange`}>{t("Campaign.title")}</span>
+                <span className={`mt-05 ${classes.flashit}`}>{t("Campaign.content")}</span>
+            </div>}
+
             <div className={`row jc-between ai-center mt-2`}>
                 <Button
                     buttonClass={`${classes.thisButton} width-48`}
