@@ -20,6 +20,7 @@ import NumberInput from "../../../../../../../../../../components/NumberInput/Nu
 import TextInput from "../../../../../../../../../../components/TextInput/TextInput";
 import Button from "../../../../../../../../../../components/Button/Button";
 import Icon from "../../../../../../../../../../components/Icon/Icon";
+import {useGetWithdrawHistory} from "../../../../../../../../../../queries/hooks/useGetWithdrawHistory";
 
 const Withdrawal = () => {
 
@@ -46,6 +47,18 @@ const Withdrawal = () => {
     const {refetch: getWithdrawTxs} = useWithdrawTxs(id);
     const {refetch: getUserAssets} = useGetUserAssets("IRT");
     const {refetch: getUserAssetsEstimatedValue} = useGetUserAssetsEstimatedValue("IRT");
+
+    const query = {
+        "currency": id, // optional
+        "category": null, // optional [DEPOSIT, FEE, TRADE, WITHDRAW, ORDER_CANCEL, ORDER_CREATE, ORDER_FINALIZED]
+        "startTime": null,
+        "endTime": null,
+        "ascendingByTime": false,
+        "limit": 10,
+        "offset": 0,
+    }
+
+    const {refetch: getWithdrawHistory} = useGetWithdrawHistory(query);
 
     const {data: userAccount} = useGetUserAccount()
     const freeAmount = userAccount?.wallets[id]?.free || 0
@@ -101,7 +114,19 @@ const Withdrawal = () => {
         e.preventDefault()
         if(isLoading) return
         setIsLoading(true)
-        sendWithdrawReq(amount.value, id, address.value, withdrawFee, `${currencyInfo?.chains[networkName.value]?.network} - ${currencyInfo?.chains[networkName.value]?.currency}` )
+
+        const withdrawRequestData = {
+            "currency": currencyInfo?.chains[networkName.value]?.currency,
+            "amount": amount.value,
+            "destSymbol": currencyInfo?.chains[networkName.value]?.currency,
+            "destAddress": address.value,
+            "destNetwork": currencyInfo?.chains[networkName.value]?.network,
+            /*"destNote": "Personal wallet", //Optional
+            "description": "Withdrawal to personal wallet" //Optional*/
+        }
+
+
+        sendWithdrawReq(withdrawRequestData)
             .then(() => {
                 setNetworkName({value: 0, error: []})
                 setAmount({value: 0, error: []})
@@ -114,7 +139,8 @@ const Withdrawal = () => {
                     }}
                 />);
                 getUserAccount()
-                getWithdrawTxs()
+                /*getWithdrawTxs()*/
+                getWithdrawHistory()
                 getUserAssets()
                 getUserAssetsEstimatedValue()
             })
@@ -229,7 +255,7 @@ const Withdrawal = () => {
                 <div className={`row jc-between ai-center`}>
                     <span className={`my-05`}>{t('commission')}: </span>
                     <span>
-                        <span className={`text-orange`}> {amount.value ? withdrawFee : 0} </span>
+                        <span className={`text-orange`}> {withdrawFee? withdrawFee : 0} </span>
                         <span>{t("currency." + id)}</span>
                     </span>
 
