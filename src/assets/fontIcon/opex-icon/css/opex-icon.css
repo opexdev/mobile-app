@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'opex-icon';
-  src: url('../font/opex-icon.eot?10078372');
-  src: url('../font/opex-icon.eot?10078372#iefix') format('embedded-opentype'),
-       url('../font/opex-icon.woff2?10078372') format('woff2'),
-       url('../font/opex-icon.woff?10078372') format('woff'),
-       url('../font/opex-icon.ttf?10078372') format('truetype'),
-       url('../font/opex-icon.svg?10078372#opex-icon') format('svg');
+  src: url('../font/opex-icon.eot?45217115');
+  src: url('../font/opex-icon.eot?45217115#iefix') format('embedded-opentype'),
+       url('../font/opex-icon.woff2?45217115') format('woff2'),
+       url('../font/opex-icon.woff?45217115') format('woff'),
+       url('../font/opex-icon.ttf?45217115') format('truetype'),
+       url('../font/opex-icon.svg?45217115#opex-icon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'opex-icon';
-    src: url('../font/opex-icon.svg?10078372#opex-icon') format('svg');
+    src: url('../font/opex-icon.svg?45217115#opex-icon') format('svg');
   }
 }
 */
@@ -60,7 +60,7 @@
 .icon-plus:before { content: '\0103'; } /* 'ă' */
 .icon-star:before { content: '\0104'; } /* 'Ą' */
 .icon-star-filled:before { content: '\0105'; } /* 'ą' */
-.icon-cancel:before { content: '\0106'; } /* 'Ć' */
+.icon-cancel-1:before { content: '\0106'; } /* 'Ć' */
 .icon-eye:before { content: '\0107'; } /* 'ć' */
 .icon-sun-filled:before { content: '\0108'; } /* 'Ĉ' */
 .icon-sun:before { content: '\0109'; } /* 'ĉ' */
@@ -95,7 +95,7 @@
 .icon-calendar-empty:before { content: '\0146'; } /* 'ņ' */
 .icon-calendar-2:before { content: '\0147'; } /* 'Ň' */
 .icon-calendar-3:before { content: '\0148'; } /* 'ň' */
-.icon-info-circled:before { content: '\0154'; } /* 'Ŕ' */
+.icon-info-circled-1:before { content: '\0154'; } /* 'Ŕ' */
 .icon-help-circled:before { content: '\0156'; } /* 'Ŗ' */
 .icon-help-circled-1:before { content: '\0157'; } /* 'ŗ' */
 .icon-help-circled-2:before { content: '\0158'; } /* 'Ř' */
@@ -119,7 +119,7 @@
 .icon-eye-2:before { content: '\0189'; } /* 'Ɖ' */
 .icon-eye-off:before { content: '\0190'; } /* 'Ɛ' */
 .icon-globe:before { content: '\0191'; } /* 'Ƒ' */
-.icon-location:before { content: '\0192'; } /* 'ƒ' */
+.icon-location-1:before { content: '\0192'; } /* 'ƒ' */
 .icon-loop:before { content: '\0193'; } /* 'Ɠ' */
 .icon-arrows-cw:before { content: '\0194'; } /* 'Ɣ' */
 .icon-arrows-cw-1:before { content: '\0195'; } /* 'ƕ' */
@@ -144,8 +144,9 @@
 .icon-exchange-arrow:before { content: '\0221'; } /* 'ȡ' */
 .icon-down:before { content: '\0222'; } /* 'Ȣ' */
 .icon-left:before { content: '\0223'; } /* 'ȣ' */
-.icon-right:before { content: '\0224'; } /* 'Ȥ' */
-.icon-up:before { content: '\0225'; } /* 'ȥ' */
+.icon-withdraw:before { content: '\0224'; } /* 'Ȥ' */
+.icon-transactions:before { content: '\0225'; } /* 'ȥ' */
+.icon-deposit:before { content: '\0226'; } /* 'Ȧ' */
 .icon-market:before { content: '\e800'; } /* '' */
 .icon-cancel-circled2:before { content: '\e801'; } /* '' */
 .icon-settings:before { content: '\e802'; } /* '' */
@@ -180,3 +181,5 @@
 .icon-op-03:before { content: '\e81f'; } /* '' */
 .icon-row:before { content: '\e820'; } /* '' */
 .icon-grid:before { content: '\e821'; } /* '' */
+.icon-right:before { content: '\e862'; } /* '' */
+.icon-up:before { content: '\e863'; } /* '' */

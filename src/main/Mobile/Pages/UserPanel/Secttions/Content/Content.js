@@ -11,6 +11,7 @@ import ProtectedRoute from "../../../../../../components/ProtectedRoute/Protecte
 import {useSelector} from "react-redux";
 import Market from "./components/Market/Market";
 import TransactionHistory from "./components/TransactionHistory/TransactionHistory";
+import History from "./components/History/History";
 
 const Content = () => {
 
@@ -27,7 +28,7 @@ const Content = () => {
                     <Route path={RoutesName.MarketRelative + "/*"} element ={<Market/>}/>
                     <Route element={<ProtectedRoute/>}>
                         <Route path={RoutesName.WalletRelative+"/:id/:path/*"} element={<Wallet/>}/>
-                        <Route path={RoutesName.TxHistoryRelative} element={<TransactionHistory/>}/>
+                        <Route path={RoutesName.HistoryRelative+"/*"} element={<History/>}/>
                         <Route path={RoutesName.SettingsRelative+"/*"} element={<Settings/>}/>
                     </Route>
                     <Route path="*" element ={

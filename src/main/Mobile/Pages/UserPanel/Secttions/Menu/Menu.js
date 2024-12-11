@@ -6,6 +6,7 @@ import * as RoutesName from "../../../../Routes/routes";
 import {activeActionSheet} from "../../../../../../store/actions/global";
 import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
+import {TransactionsHistory} from "../../../../Routes/routes";
 
 
 const Menu = () => {
@@ -42,13 +43,13 @@ const Menu = () => {
                 <span className={`col-60 ai-start`}>{t("wallet.title")}</span>
             </NavLink>
             <NavLink
-                to={RoutesName.TxHistory}
+                to={RoutesName.TransactionsHistory}
                 className={({ isActive }) =>
                     isActive ? `${classes.selected} width-70 row jc-between ai-center py-2` : "width-70 row jc-between ai-center py-2"
                 }
             >
                 <Icon iconName="icon-clock fs-20" customClass={`col-35 flex jc-end ai-center`}/>
-                <span className={`col-60 ai-start`}>{t("txHistory.title")}</span>
+                <span className={`col-60 ai-start`}>{t("history.title")}</span>
             </NavLink>
             <NavLink
                 to={RoutesName.Profile}

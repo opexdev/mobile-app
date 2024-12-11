@@ -5,7 +5,7 @@
 .icon-plus { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0103;&nbsp;'); }
 .icon-star { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0104;&nbsp;'); }
 .icon-star-filled { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0105;&nbsp;'); }
-.icon-cancel { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0106;&nbsp;'); }
+.icon-cancel-1 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0106;&nbsp;'); }
 .icon-eye { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0107;&nbsp;'); }
 .icon-sun-filled { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0108;&nbsp;'); }
 .icon-sun { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0109;&nbsp;'); }
@@ -40,7 +40,7 @@
 .icon-calendar-empty { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0146;&nbsp;'); }
 .icon-calendar-2 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0147;&nbsp;'); }
 .icon-calendar-3 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0148;&nbsp;'); }
-.icon-info-circled { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0154;&nbsp;'); }
+.icon-info-circled-1 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0154;&nbsp;'); }
 .icon-help-circled { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0156;&nbsp;'); }
 .icon-help-circled-1 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0157;&nbsp;'); }
 .icon-help-circled-2 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0158;&nbsp;'); }
@@ -64,7 +64,7 @@
 .icon-eye-2 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0189;&nbsp;'); }
 .icon-eye-off { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0190;&nbsp;'); }
 .icon-globe { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0191;&nbsp;'); }
-.icon-location { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0192;&nbsp;'); }
+.icon-location-1 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0192;&nbsp;'); }
 .icon-loop { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0193;&nbsp;'); }
 .icon-arrows-cw { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0194;&nbsp;'); }
 .icon-arrows-cw-1 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0195;&nbsp;'); }
@@ -89,8 +89,9 @@
 .icon-exchange-arrow { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0221;&nbsp;'); }
 .icon-down { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0222;&nbsp;'); }
 .icon-left { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0223;&nbsp;'); }
-.icon-right { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0224;&nbsp;'); }
-.icon-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0225;&nbsp;'); }
+.icon-withdraw { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0224;&nbsp;'); }
+.icon-transactions { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0225;&nbsp;'); }
+.icon-deposit { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x0226;&nbsp;'); }
 .icon-market { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe800;&nbsp;'); }
 .icon-cancel-circled2 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe801;&nbsp;'); }
 .icon-settings { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe802;&nbsp;'); }
@@ -125,3 +126,5 @@
 .icon-op-03 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe81f;&nbsp;'); }
 .icon-row { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe820;&nbsp;'); }
 .icon-grid { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe821;&nbsp;'); }
+.icon-right { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe862;&nbsp;'); }
+.icon-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe863;&nbsp;'); }
