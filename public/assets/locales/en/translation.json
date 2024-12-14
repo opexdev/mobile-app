@@ -278,6 +278,7 @@
     "acceptDate": "Date and time of request review",
     "transactionRef": "Transaction Ref",
     "statusReason": "Status Reason",
+    "description": "Description",
     "type": "Type"
   },
   "depositStatus": {

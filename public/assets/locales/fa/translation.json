@@ -278,6 +278,7 @@
     "acceptDate": "تاریخ و زمان بررسی درخواست",
     "transactionRef": "شناسه تراکنش",
     "statusReason": "توضیح وضعیت",
+    "description": "توضیحات",
     "type": "نوع واریز"
   },
   "depositStatus": {
