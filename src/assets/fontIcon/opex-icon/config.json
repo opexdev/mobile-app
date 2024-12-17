@@ -93,7 +93,7 @@
     {
       "uid": "2024cb58e2a35b1bb549467fb4618438",
       "css": "market",
-      "code": 59392,
+      "code": 276,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -107,7 +107,7 @@
     {
       "uid": "3e2cd4960f72717f28a8adfef6364788",
       "css": "settings",
-      "code": 59394,
+      "code": 277,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -121,7 +121,7 @@
     {
       "uid": "57c35c594cab578b05232e7326818893",
       "css": "wallet",
-      "code": 59395,
+      "code": 278,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -135,7 +135,7 @@
     {
       "uid": "5f473048f9dccfdeeb0a8c2cce255ed0",
       "css": "account",
-      "code": 59396,
+      "code": 279,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -149,7 +149,7 @@
     {
       "uid": "af84a042558ed5b4dffd064d17ccc8d4",
       "css": "counting",
-      "code": 59397,
+      "code": 280,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -163,7 +163,7 @@
     {
       "uid": "7158cc9d7caec04c93b1d2dcd398a09e",
       "css": "messages",
-      "code": 59398,
+      "code": 281,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -207,7 +207,7 @@
     {
       "uid": "e58bd0331afbe67823bcc370f1345030",
       "css": "messages-dotted",
-      "code": 59399,
+      "code": 293,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -221,7 +221,7 @@
     {
       "uid": "7015ef829a0e4c45836de3481a27ba88",
       "css": "safe",
-      "code": 59400,
+      "code": 294,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -367,7 +367,7 @@
     {
       "uid": "affac98d4404b941ea0b52920490eaf9",
       "css": "filter",
-      "code": 59401,
+      "code": 329,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -381,7 +381,7 @@
     {
       "uid": "78e5981609da095794b5eaefa6ff5a17",
       "css": "filternfilled",
-      "code": 59402,
+      "code": 336,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -395,7 +395,7 @@
     {
       "uid": "7cd08a0191c80f4f7281fabefcd3f38a",
       "css": "microsoft_excel",
-      "code": 59403,
+      "code": 337,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -409,7 +409,7 @@
     {
       "uid": "2ce7c643a54b992300e0c9db2070a451",
       "css": "clear-filters",
-      "code": 59404,
+      "code": 338,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -423,7 +423,7 @@
     {
       "uid": "b10ee7faf62200708dad45464be5275b",
       "css": "clock",
-      "code": 59405,
+      "code": 339,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -443,7 +443,7 @@
     {
       "uid": "f25d2aa5890176ddcf4bdbfaa75fee59",
       "css": "copy",
-      "code": 59406,
+      "code": 341,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -481,7 +481,7 @@
     {
       "uid": "dc4e0d236b28459de8c40249ed26506b",
       "css": "menu_vertical",
-      "code": 59407,
+      "code": 352,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -513,7 +513,7 @@
     {
       "uid": "74415da8e36ed0afcea9b2b1454f4176",
       "css": "cancel-circled2",
-      "code": 59393,
+      "code": 356,
       "src": "elusive"
     },
     {
@@ -531,7 +531,7 @@
     {
       "uid": "2440ec2e44bbfa7c3d696c53543d865f",
       "css": "profilesetting",
-      "code": 59408,
+      "code": 359,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -545,7 +545,7 @@
     {
       "uid": "f17e55a89d8e6c7804732b435cd8f69a",
       "css": "protectsetting",
-      "code": 59409,
+      "code": 360,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -559,7 +559,7 @@
     {
       "uid": "49ff8e798bc41a38766f09c4c8ba58bc",
       "css": "verifiedsetting",
-      "code": 59410,
+      "code": 361,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -573,7 +573,7 @@
     {
       "uid": "8ab825bbe33acb11323ede56e5a17622",
       "css": "fileSubsetting",
-      "code": 59411,
+      "code": 368,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -587,7 +587,7 @@
     {
       "uid": "f2689acbd9acb87e456ad6f686a1776d",
       "css": "closed_eye",
-      "code": 59412,
+      "code": 369,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -601,7 +601,7 @@
     {
       "uid": "b3be87ef091a22dbb2d340daa3b7bdfd",
       "css": "eye-1",
-      "code": 59413,
+      "code": 370,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -621,7 +621,7 @@
     {
       "uid": "5fb75886bd5e3493ae829cc13e2aec30",
       "css": "lasttrades",
-      "code": 59414,
+      "code": 372,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -635,7 +635,7 @@
     {
       "uid": "273cb2e99ec75fe0d9e07cf8e1d59a80",
       "css": "myorder",
-      "code": 59415,
+      "code": 373,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -649,7 +649,7 @@
     {
       "uid": "f3a25c15b824c9c013d83d93eb386903",
       "css": "order",
-      "code": 59416,
+      "code": 374,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -663,7 +663,7 @@
     {
       "uid": "8ffd20eda0db130db78ce8db12f196d2",
       "css": "orderbook",
-      "code": 59417,
+      "code": 375,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -677,7 +677,7 @@
     {
       "uid": "9c085ed0b85e051760293684d409abc9",
       "css": "overview",
-      "code": 59418,
+      "code": 376,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -799,7 +799,7 @@
     {
       "uid": "fd4ae29065ce7784e2eeda47a44a1586",
       "css": "op-06",
-      "code": 59419,
+      "code": 407,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -813,7 +813,7 @@
     {
       "uid": "30ed06dbd39cdff4f2ec99203bba6c11",
       "css": "op-05",
-      "code": 59420,
+      "code": 408,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -827,7 +827,7 @@
     {
       "uid": "271610d96cdc90b4a4d6188fdae3f72c",
       "css": "op-04",
-      "code": 59421,
+      "code": 409,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -841,7 +841,7 @@
     {
       "uid": "311e4b432d7d1fd49b029a83e6996598",
       "css": "op-02",
-      "code": 59422,
+      "code": 512,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -855,7 +855,7 @@
     {
       "uid": "c3e63f06b3288063f40219b747a6ebf9",
       "css": "op-03",
-      "code": 59423,
+      "code": 513,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -881,7 +881,7 @@
     {
       "uid": "834d008d1a1cdaea839af107ee1a9f33",
       "css": "row",
-      "code": 59424,
+      "code": 516,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -895,7 +895,7 @@
     {
       "uid": "66a84072782d7cd42d7e9d064e5becab",
       "css": "grid",
-      "code": 59425,
+      "code": 517,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -1097,19 +1097,19 @@
     {
       "uid": "1d35198f5190ec004dd4ec742fbe19ca",
       "css": "right",
-      "code": 59490,
+      "code": 548,
       "src": "mfglabs"
     },
     {
       "uid": "040e72500c863813088c9f9c9415f8e9",
       "css": "up",
-      "code": 59491,
+      "code": 549,
       "src": "mfglabs"
     },
     {
       "uid": "edc0a542c204c6495b5fd753738337df",
       "css": "transactions",
-      "code": 549,
+      "code": 550,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -1123,7 +1123,7 @@
     {
       "uid": "49b0eab27b359254cde978560c52c6f1",
       "css": "deposit",
-      "code": 550,
+      "code": 551,
       "src": "custom_icons",
       "selected": true,
       "svg": {
@@ -1137,7 +1137,7 @@
     {
       "uid": "a312a9c3965a160298704d6ea527b045",
       "css": "withdraw",
-      "code": 548,
+      "code": 552,
       "src": "custom_icons",
       "selected": true,
       "svg": {

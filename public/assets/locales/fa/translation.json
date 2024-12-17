@@ -254,12 +254,14 @@
   },
   "history": {
     "title": "تاریخچه",
-    "transactions": "تراکنش ها",
-    "transactionsHistory": "تاریخچه تراکنش ها",
+    "transactions": "تراکنش‌ها",
+    "transactionsHistory": "تاریخچه تراکنش‌ها",
     "deposit": "واریز",
     "withdraw": "برداشت",
+    "swap": "تبدیل",
     "withdrawHistory" : "تاریخچه برداشت",
     "depositHistory" : "تاریخچه واریز",
+    "swapHistory" : "تاریخچه تبدیل",
     "balance": "موجودی",
     "balanceChange": "تغییر موجودی",
     "currency" : "ارز",
@@ -269,27 +271,33 @@
     "status" : "وضعیت",
     "ascendingByTime" : "نمایش براساس جدیدترین",
     "page": "صفحه {{page}}",
-    "amount": "مقدار",
-    "network": "شبکه",
-    "details": "جزئیات",
-    "fee": "کارمزد",
-    "destAddress": "آدرس مقصد",
-    "withdrawId": "شناسه برداشت",
-    "acceptDate": "تاریخ و زمان بررسی درخواست",
+    "description": "توضیحات:",
+    "type": "نوع",
+    "sourceAddress": "آدرس مبدا",
     "transactionRef": "شناسه تراکنش",
-    "statusReason": "توضیح وضعیت",
-    "description": "توضیحات",
-    "type": "نوع واریز"
+    "cancelWithdrawReq": "لغو درخواست برداشت",
+    "cancelWithdrawReqSuccess": "درخواست برداشت با موفقیت لغو شد",
+    "fee": "کارمزد",
+    "appliedFee": "کارمزد اعمال شده",
+    "destAddress": "آدرس مقصد",
+    "statusReason": "توضیح وضعیت:",
+    "lastUpdateDate": "زمان آخرین بررسی درخواست"
   },
   "depositStatus": {
     "DONE": "انجام شده"
   },
-  "withdrawStatus": {
+  "HistoryStatus": {
+    "DONE" : "انجام شده",
     "CREATED": "جاری شده",
     "PROCESSING": "در حال انجام",
     "CANCELED": "لغو شده",
     "REJECTED": "رد شده",
-    "DONE": "انجام شده"
+    "INVALID": "نامعتبر"
+  },
+  "HistoryType": {
+    "MANUALLY" : "سیستمی",
+    "OFF_CHAIN" : "غیربلاکچینی",
+    "ON_CHAIN" : "بلاکچینی"
   },
   "TransactionHistory": {
     "coin" : "ارز",

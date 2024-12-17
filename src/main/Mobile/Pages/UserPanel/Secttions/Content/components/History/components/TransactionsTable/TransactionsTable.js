@@ -7,8 +7,6 @@ import moment from "moment-jalaali";
 
 const TransactionsTable = ({data}) => {
 
-    console.log("data", data)
-
     const [isOpen, setIsOpen] = useState(false);
 
     const {t} = useTranslation();

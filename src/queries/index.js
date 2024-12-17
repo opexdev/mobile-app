@@ -24,3 +24,4 @@ export {useGetUserAssets} from "./hooks/useGetUserAssets";
 export {useGetUserAssetsEstimatedValue} from "./hooks/useGetUserAssetsEstimatedValue";
 export {useTransactionHistory} from "./hooks/useTransactionHistory";
 export {useGetTransactionsHistory} from "./hooks/useGetTransactionsHistory";
+export {useGetDepositHistory} from "./hooks/useGetDepositHistory.js";
