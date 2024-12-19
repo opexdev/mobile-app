@@ -17,7 +17,7 @@ const DepositHistoryTable = ({data}) => {
         e.stopPropagation();
         e.preventDefault();
         navigator.clipboard.writeText(value)
-        toast.success(t("copy"));
+        toast.success(t("DepositWithdraw.copy"));
     }
 
     return (
@@ -30,7 +30,7 @@ const DepositHistoryTable = ({data}) => {
                         <span className={``}>{moment.utc(data?.createDate).local().format("HH:mm:ss")}</span>
                     </div>
 
-                    <span className={`row jc-center ai-center`}>{t("withdrawStatus."+ data?.status)}</span>
+                    <span className={`row jc-center ai-center`}>{t("HistoryStatus."+ data?.status)}</span>
 
                     {/*<span className={`row jc-center ai-center`}>{moment(data?.date).format("HH:mm:ss")}</span>*/}
                 </div>

@@ -193,9 +193,7 @@ const DepositHistory = () => {
                         {periodTextHandler()}
                     </div>
                 </div>
-
                 <div className={`${classes.container} width-100 column jc-center ai-center`}>
-
                     <div className={`${classes.subHeader} width-100 px-4 py-2 text-start fs-01 font-weight-bold`}>
                         <Trans
                             i18nKey="history.page"
@@ -204,16 +202,8 @@ const DepositHistory = () => {
                             }}
                         />
                     </div>
-
                     {content()}
-
                 </div>
-
-
-
-
-
-
             </div>
 
             <div className={`width-86 py-2 row jc-between ai-center`}>
