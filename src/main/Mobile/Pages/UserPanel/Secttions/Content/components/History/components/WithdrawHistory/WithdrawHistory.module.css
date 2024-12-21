@@ -1,0 +1,38 @@
+.thisInput :global(.lead) {
+    width: 40% !important;
+}
+.thisInput :global(.select) {
+    width: 60% !important;
+}
+.thisInput :global(.rmdp-container) {
+    width: 60% !important;
+}
+
+.header {
+    z-index: 2;
+}
+.content {
+    z-index: 1;
+}
+
+
+.thisButton {
+    /*border: 1px solid var(--dyellow);*/
+    background-color: var(--activeTab);
+    color: var(--textColor);
+    border-radius: 100px !important;
+}
+
+.disable:disabled,.button[disabled] {
+    border: 0.3vh solid var(--cardHeader);
+    background: var(--cardHeader);
+    color: var(--textColor);
+    cursor: not-allowed;
+}
+
+.thisButton:disabled,.button[disabled] {
+    border: 0.3vh solid var(--cardHeader);
+    background: var(--cardHeader);
+    color: var(--textColor);
+    cursor: not-allowed;
+}

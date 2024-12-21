@@ -57,3 +57,16 @@ export const Withdrawal = "/panel/wallet/withdrawal";
 export const WithdrawalRelative = "/withdrawal";
 export const transaction = "/panel/wallet/transaction";
 export const transactionRelative = "/transaction";
+
+
+export const History = "/panel/history";
+export const HistoryRelative = "/history";
+
+export const TransactionsHistory = "/panel/history/transactions";
+export const TransactionsHistoryRelative = "/transactions";
+
+export const DepositHistory = "/panel/history/deposit";
+export const DepositHistoryRelative = "/deposit";
+
+export const WithdrawHistory = "/panel/history/withdraw";
+export const WithdrawHistoryRelative = "/withdraw";
