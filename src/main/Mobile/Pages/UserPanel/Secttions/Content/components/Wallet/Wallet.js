@@ -13,7 +13,7 @@ const Wallet = () => {
 
         if (path === "withdrawal") return <Withdrawal/>
 
-        if (path === "transaction") return <Transaction/>
+        /*if (path === "transaction") return <Transaction/>*/
 
     }
 

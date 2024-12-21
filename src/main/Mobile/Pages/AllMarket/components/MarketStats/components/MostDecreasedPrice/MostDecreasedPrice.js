@@ -34,8 +34,8 @@ const MostDecreasedPrice = ({mostDecreasedPrice}) => {
                     <span className={`${i18n.language !== "fa" ? 'mr-025' : 'ml-025'} fs-0-6`}>{mostDecreasedPrice?.pairInfo?.quoteAsset}</span>
                     <span className={`${i18n.language !== "fa" ? 'mL-025' : 'mr-025'} fs-01`}>{new BN(mostDecreasedPrice?.lastPrice).toFormat()}</span>
                 </div>
-                <div className={`row jc-end ai-center width-100 text-green mt-05`}>
-                    <span>% {new BN(mostDecreasedPrice?.priceChangePercent).toFormat(2)}+</span>
+                <div className={`${mostDecreasedPrice?.priceChangePercent > 0 ? "text-green" : "text-red"} ${i18n.language !== "fa" ? 'jc-end' : 'jc-start'} direction-ltr width-100 row ai-center mt-05`}>
+                    {new BN(mostDecreasedPrice?.priceChangePercent).toFormat(2)} %
                 </div>
             </div>
 
