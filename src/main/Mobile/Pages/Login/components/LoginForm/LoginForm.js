@@ -1,5 +1,5 @@
-import {useDispatch} from "react-redux";
 import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import classes from "../../Login.module.css";
 import TextInput from "../../../../../../components/TextInput/TextInput";
 import LoginFormLoading from "../LoginLoading/LoginFormLoading";
@@ -15,6 +15,7 @@ import ForgetPassword from "../ForgetPassword/ForgetPassword";
 import {useGetKycStatus} from "../../../../../../queries";
 import Icon from "../../../../../../components/Icon/Icon";
 import {login, parseToken} from "js-api-client";
+import EmailVerification from "../EmailVerification/EmailVerification";
 
 
 const LoginForm = () => {
@@ -23,6 +24,8 @@ const LoginForm = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
+
+    const verifyEmailLock = useSelector((state) => state.exchange.verifyEmailLock)
 
     const isDevelopment = window.env.REACT_APP_ENV === "development";
     const [isInputVisible, setIsInputVisible] = useState(false);
@@ -33,11 +36,19 @@ const LoginForm = () => {
     const [credential, setCredential] = useState({username: "", password: "", otp: ""});
     const {refetch: getKycStatus} = useGetKycStatus();
 
+    const [verifyEmail, setVerifyEmail] = useState(false);
+    const [showVerifyEmail, setShowVerifyEmail] = useState(false);
+    const [disable, setDisable] = useState(false);
+
     const from = location.state?.from?.pathname || "/";
 
     const agent = [deviceType, browserName, fullBrowserVersion]
     const clientSecret = window.env.REACT_APP_CLIENT_SECRET
     const clientId = window.env.REACT_APP_CLIENT_ID
+
+    useEffect(() => {
+        if (verifyEmailLock && new Date().getTime() < verifyEmailLock) setDisable(true)
+    }, [verifyEmailLock]);
 
     useEffect(() => {
         setNeedOTP(undefined)
@@ -88,6 +99,7 @@ const LoginForm = () => {
                     return setNeedOTP(true)
                 }
                 if (err?.response?.status === 400 && err?.response?.data?.error_description === "Account is not fully set up") {
+                    setShowVerifyEmail(true)
                     return setLoginError(t("login.accountNotActive"));
                 }
                 setLoginError(t("login.loginError"));
@@ -99,6 +111,9 @@ const LoginForm = () => {
     };
 
     if (isLoading) return <LoginFormLoading/>
+
+    if (verifyEmail) return <EmailVerification returnFunc={() => setVerifyEmail(false)} email={credential.username} disable={disable} returnFuncDisableFalse={() => setDisable(false)} returnFuncDisableTrue={() => setDisable(true)}/>
+
 
     const setOTPInputHandler = (val) => {
         setCredential({...credential, otp: val})
@@ -146,8 +161,20 @@ const LoginForm = () => {
                     <span className="cursor-pointer flex ai-center fs-0-7"
                           onClick={returnToLogin}>{t('login.back')}</span>
                     :
-                    <span className="cursor-pointer flex ai-center fs-0-7"
-                          onClick={()=>setForgetPassword(true)}>{t('login.forgetPassword')}</span>
+
+                    <>
+                        {
+                            showVerifyEmail ?
+                                <span className="cursor-pointer flex ai-center fs-0-7"
+                                      onClick={()=>setVerifyEmail(true)}>{t('login.verificationEmail')}</span>
+                                :
+                                <span className="cursor-pointer flex ai-center fs-0-7"
+                                      onClick={()=>setForgetPassword(true)}>{t('login.forgetPassword')}</span>
+
+                        }
+                    </>
+                    /*<span className="cursor-pointer flex ai-center fs-0-7"
+                          onClick={()=>setForgetPassword(true)}>{t('login.forgetPassword')}</span>*/
                 }
             </div>
         </div>
