@@ -320,7 +320,7 @@ const BuyOrder = () => {
                     </p>
                     <p>
                         {t("orders.getAmount")}:{" "}
-                        {order.reqAmount.minus(order.tradeFee).decimalPlaces(activePair.baseAssetPrecision).toNumber()}{" "}
+                        {order.reqAmount.minus(order.tradeFee).decimalPlaces(activePair.baseAssetPrecision).toFormat()}{" "}
                         {t("currency." + activePair.baseAsset)}
                     </p>
                 </div>
