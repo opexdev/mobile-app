@@ -124,8 +124,7 @@ const EasyOrder = () => {
             />
 
         }
-
-        if (reqAmount.isGreaterThan(selected.pair[range].max)) {
+       /* if (reqAmount.isGreaterThan(selected.pair[range].max)) {
             newAlert = <Trans
                 i18nKey="orders.maxOrder"
                 values={{
@@ -133,8 +132,7 @@ const EasyOrder = () => {
                     currency: t("currency." + selected.buy),
                 }}
             />
-        }
-
+        }*/
         if (!reqAmount.mod(selected.pair[range].step).isZero()) {
             newAlert = <Trans
                 i18nKey="orders.divisibility"
@@ -168,8 +166,7 @@ const EasyOrder = () => {
             />
 
         }
-
-        if (totalPrice.isGreaterThan(selected.pair[range].max)) {
+        /*if (totalPrice.isGreaterThan(selected.pair[range].max)) {
             newAlert = <Trans
                 i18nKey="orders.maxOrder"
                 values={{
@@ -177,8 +174,7 @@ const EasyOrder = () => {
                     currency: t("currency." + selected.sell),
                 }}
             />
-        }
-
+        }*/
         if (!totalPrice.mod(selected.pair[range].step).isZero()) {
             newAlert = <Trans
                 i18nKey="orders.divisibility"
