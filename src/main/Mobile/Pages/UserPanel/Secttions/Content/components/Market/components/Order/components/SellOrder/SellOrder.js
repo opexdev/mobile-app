@@ -87,19 +87,6 @@ const SellOrder = () => {
                 ),
             });
         }
-        if (val.isGreaterThan(rule.max)) {
-            return setAlert({
-                ...alert,
-                [key]:
-                    (<Trans
-                        i18nKey="orders.maxOrder"
-                        values={{
-                            max: activePair.baseRange.max.toLocaleString(),
-                            currency: t("currency." + activePair.baseAsset),
-                        }}
-                    />)
-            })
-        }
         if (!val.mod(rule.step).isZero()) {
             return setAlert({
                 ...alert,
@@ -122,7 +109,7 @@ const SellOrder = () => {
                     ...order,
                     reqAmount,
                     totalPrice: reqAmount.multipliedBy(order.pricePerUnit).decimalPlaces(activePair.quoteAssetPrecision),
-                    tradeFee: reqAmount.multipliedBy(order.pricePerUnit).multipliedBy(tradeFee[activePair.quoteAsset]).decimalPlaces(activePair.baseAssetPrecision),
+                    tradeFee: reqAmount.multipliedBy(order.pricePerUnit).multipliedBy(tradeFee[activePair.quoteAsset]).decimalPlaces(activePair.quoteAssetPrecision),
                 });
                 break;
             case "pricePerUnit":
@@ -131,7 +118,7 @@ const SellOrder = () => {
                     ...order,
                     pricePerUnit: pricePerUnit,
                     totalPrice: pricePerUnit.multipliedBy(order.reqAmount).decimalPlaces(activePair.quoteAssetPrecision),
-                    tradeFee: pricePerUnit.multipliedBy(order.reqAmount).multipliedBy(tradeFee[activePair.quoteAsset]).decimalPlaces(activePair.baseAssetPrecision),
+                    tradeFee: pricePerUnit.multipliedBy(order.reqAmount).multipliedBy(tradeFee[activePair.quoteAsset]).decimalPlaces(activePair.quoteAssetPrecision),
                 });
                 break;
             case "totalPrice":
@@ -141,7 +128,7 @@ const SellOrder = () => {
                     ...order,
                     reqAmount: req.isFinite() ? req : new BN(0),
                     totalPrice,
-                    tradeFee: req.isFinite() ? totalPrice.multipliedBy(tradeFee[activePair.quoteAsset]).decimalPlaces(activePair.baseAssetPrecision) : new BN(0),
+                    tradeFee: req.isFinite() ? totalPrice.multipliedBy(tradeFee[activePair.quoteAsset]).decimalPlaces(activePair.quoteAssetPrecision) : new BN(0),
                 });
                 currencyValidator("reqAmount", req, activePair.baseRange);
                 break;
@@ -303,6 +290,7 @@ const SellOrder = () => {
                 after={t("currency." + activePair.quoteAsset)}
                 onchange={(e) => sellPriceHandler(e.target.value, "totalPrice")}
                 customClass={`${classes.smallInput} fs-0-8`}
+                alert={alert.totalPrice}
                 isAllowed={isAllowed}
             />
             <div className={`row jc-between ai-center`}>

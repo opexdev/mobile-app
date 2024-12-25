@@ -252,6 +252,53 @@
     "showZeroBalance": "عدم نمایش موجودی صفر",
     "estimateAlert": "مبلغ دارایی معادل براساس بالاترین پیشنهاد خرید محاسبه شده"
   },
+    "history": {
+      "title": "تاریخچه",
+      "transactions": "تراکنش‌ها",
+      "transactionsHistory": "تاریخچه تراکنش‌ها",
+      "deposit": "واریز",
+      "withdraw": "برداشت",
+      "swap": "تبدیل",
+      "withdrawHistory" : "تاریخچه برداشت",
+      "depositHistory" : "تاریخچه واریز",
+      "swapHistory" : "تاریخچه تبدیل",
+      "balance": "موجودی",
+      "balanceChange": "تغییر موجودی",
+      "currency" : "ارز",
+      "category" : "نوع تراکنش",
+      "size" : "تعداد",
+      "period" : "بازه زمانی",
+      "status" : "وضعیت",
+      "ascendingByTime" : "نمایش براساس جدیدترین",
+      "page": "صفحه {{page}}",
+      "description": "توضیحات:",
+      "type": "نوع",
+      "sourceAddress": "آدرس مبدا",
+      "transactionRef": "شناسه تراکنش",
+      "cancelWithdrawReq": "لغو درخواست برداشت",
+      "cancelWithdrawReqSuccess": "درخواست برداشت با موفقیت لغو شد",
+      "fee": "کارمزد",
+      "appliedFee": "کارمزد اعمال شده",
+      "destAddress": "آدرس مقصد",
+      "statusReason": "توضیح وضعیت:",
+      "lastUpdateDate": "زمان آخرین بررسی درخواست"
+    },
+  "depositStatus": {
+    "DONE": "انجام شده"
+  },
+  "HistoryStatus": {
+    "DONE" : "انجام شده",
+    "CREATED": "جاری شده",
+    "PROCESSING": "در حال انجام",
+    "CANCELED": "لغو شده",
+    "REJECTED": "رد شده",
+    "INVALID": "نامعتبر"
+  },
+  "HistoryType": {
+    "MANUALLY" : "سیستمی",
+    "OFF_CHAIN" : "غیربلاکچینی",
+    "ON_CHAIN" : "بلاکچینی"
+  },
   "TransactionHistory": {
     "coin" : "ارز",
     "category" : "نوع تراکنش",
@@ -271,17 +318,11 @@
     "ascendingByTime" : "نمایش براساس جدیدترین"
   },
   "TransactionCategory": {
-    "DEPOSIT" : "واریز",
-    "FEE" : "کارمزد",
     "TRADE" : "معامله",
+    "FEE" : "کارمزد",
+    "DEPOSIT" : "واریز",
     "WITHDRAW" : "برداشت",
-    "WITHDRAW_REQUEST" : "درخواست برداشت",
-    "WITHDRAW_ACCEPT" : "برداشت موفق",
-    "WITHDRAW_REJECT" : "رد درخواست برداشت",
-    "ORDER_CANCEL" : "لغو سفارش",
-    "ORDER_CREATE" : "ثبت سفارش",
-    "ORDER_FINALIZED" : "بازگشت وجه",
-    "PURCHASE_FINALIZED" : "انجام معامله",
+    "SYSTEM" : "سیستم",
     "ETC" : "نامشخص"
   },
   "DepositWithdraw": {

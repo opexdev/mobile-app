@@ -15,7 +15,7 @@ const WalletNavMenu = () => {
             <NavLink
                 to={Routes.Wallet+"/"+id + Routes.DepositRelative}
                 className={({isActive}) =>
-                isActive ? `col-33 column jc-center ai-center ${classes.selected}` : `col-33 column jc-center ai-center`
+                isActive ? `col-50 column jc-center ai-center ${classes.selected}` : `col-50 column jc-center ai-center`
             }
                 >
                 <Icon iconName="icon-overview fs-06"/>
@@ -24,13 +24,13 @@ const WalletNavMenu = () => {
             <NavLink
                 to={Routes.Wallet+"/"+id + Routes.WithdrawalRelative}
                 className={({isActive}) =>
-                    isActive ? `col-33 column jc-center ai-center ${classes.selected}` : `col-33 column jc-center ai-center`
+                    isActive ? `col-50 column jc-center ai-center ${classes.selected}` : `col-50 column jc-center ai-center`
                 }
             >
                 <Icon iconName="icon-orderbook fs-06"/>
                 <span className={`fs-0-8`}>{t("withdrawal")}</span>
             </NavLink>
-            <NavLink
+            {/*<NavLink
                 to={Routes.Wallet+"/"+id + Routes.transactionRelative}
                 className={({isActive}) =>
                     isActive ? `col-33  column jc-center ai-center ${classes.selected}` : `col-33 column jc-center ai-center`
@@ -39,7 +39,7 @@ const WalletNavMenu = () => {
                 <Icon iconName="icon-order fs-06"/>
 
                 <span className={`fs-0-8`}>{t("DepositWithdrawTx.transactions")}</span>
-            </NavLink>
+            </NavLink>*/}
         </div>
     );
 };

@@ -8,6 +8,9 @@ import Error from "../../../../../../../../components/Error/Error";
 
 const MarketViewCard = ({title, data, error, isLoading, volume}) => {
 
+    console.log("title", title)
+    console.log("data", data)
+
     const {t} = useTranslation();
 
     const content = () => {
@@ -29,7 +32,9 @@ const MarketViewCard = ({title, data, error, isLoading, volume}) => {
                         className={`fs-0-6 ${i18n.language !== "fa" ? 'mr-05' : 'ml-05'}`}>{data.pairInfo.quoteAsset}</span>
                     <span>{new BN(volume ? data?.volume : data?.lastPrice).toFormat()}</span>
                 </div>
-                <span>% {new BN(volume ? data?.change : data?.priceChangePercent).toFormat(2)}+</span>
+                {data?.priceChangePercent && <span className={`${data?.priceChangePercent > 0 ? "text-green" : "text-red"} direction-ltr`}>
+                    {new BN(data?.priceChangePercent).toFormat(2)} %
+                </span>}
             </div>
         </>
     }

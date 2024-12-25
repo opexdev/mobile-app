@@ -37,9 +37,6 @@ const MostVolume = ({mostVolume}) => {
                     <span className={`${i18n.language !== "fa" ? 'mr-025' : 'ml-025'} fs-0-6`}>{mostVolume?.pairInfo?.quoteAsset}</span>
                     <span className={`${i18n.language !== "fa" ? 'mL-025' : 'mr-025'} fs-01`}>{new BN(mostVolume?.volume).toFormat()}</span>
                 </div>
-                <div className={`row jc-end ai-center width-100 text-green mt-05`}>
-                    <span>% {new BN(mostVolume?.change).toFormat(2)}+</span>
-                </div>
             </div>
 
 

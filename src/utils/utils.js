@@ -65,3 +65,11 @@ export const toEnglishNum = str => {
 }
 
 export const toAbsoluteUrl = (path) => process.env.PUBLIC_URL + path
+
+
+export const shortenHash = (hash) => {
+    if (!hash || hash.length < 10) {
+        return hash;
+    }
+    return `${hash.substring(0, 6)} - - - ${hash.substring(hash.length - 4)}`;
+}

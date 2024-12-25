@@ -5,6 +5,7 @@ import ProtectedRoute from "../../../../../../components/ProtectedRoute/Protecte
 import MarketNavMenu from "./components/MarketNavMenu/MarketNavMenu";
 import WalletNavMenu from "./components/WalletNavMenu/WalletNavMenu";
 import SettingsNavMenu from "./components/SettingsNavMenu/SettingsNavMenu";
+import HistoryNavMenu from "./components/HistoryNavMenu/HistoryNavMenu";
 
 
 const NavMenu = () => {
@@ -20,6 +21,9 @@ const NavMenu = () => {
                 }/>
                 <Route path={RoutesName.SettingsRelative+"/*"} element={
                     <SettingsNavMenu/>
+                }/>
+                <Route path={RoutesName.HistoryRelative+"/*"} element={
+                    <HistoryNavMenu/>
                 }/>
             </Route>
         </Routes>

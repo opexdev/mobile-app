@@ -89,20 +89,6 @@ const BuyOrder = () => {
                 ),
             });
         }
-        if (val.isGreaterThan(rule.max)) {
-            return setAlert({
-                ...alert,
-                [key]: (
-                    <Trans
-                        i18nKey="orders.maxOrder"
-                        values={{
-                            max: activePair.baseRange.max.toLocaleString(),
-                            currency: t("currency." + activePair.baseAsset),
-                        }}
-                    />
-                ),
-            });
-        }
         if (!val.mod(rule.step).isZero()) {
             return setAlert({
                 ...alert,
@@ -192,18 +178,6 @@ const BuyOrder = () => {
         currencyValidator("reqAmount", reqAmount, activePair.baseRange);
     }, [selectedBuyOrder]);
 
-    useEffect(() => {
-        const reqAmount = new BN(selectedBuyOrder.amount);
-        const pricePerUnit = new BN(selectedBuyOrder.pricePerUnit);
-        setOrder({
-            ...order,
-            reqAmount,
-            pricePerUnit: pricePerUnit,
-            totalPrice: reqAmount.multipliedBy(pricePerUnit).decimalPlaces(activePair.quoteAssetPrecision),
-            tradeFee: reqAmount.multipliedBy(tradeFee[activePair.quoteAsset]).decimalPlaces(activePair.baseAssetPrecision),
-        });
-        currencyValidator("reqAmount", reqAmount, activePair.baseRange);
-    }, [selectedBuyOrder]);
 
     const fillBuyByWallet = () => {
         if (order.pricePerUnit.isEqualTo(0) && bestBuyPrice === 0) return toast.error(t("orders.hasNoOffer"));
@@ -243,8 +217,12 @@ const BuyOrder = () => {
     };
 
     const submit = async () => {
-        if (!isLogin) return navigate(LoginRoute, { replace: true });
-        if (isLoading) return
+        if (!isLogin) {
+            return false
+        }
+        if (isLoading) {
+            return false
+        }
         setIsLoading(true)
 
         createOrder(activePair.symbol, "BUY", order)
@@ -330,6 +308,7 @@ const BuyOrder = () => {
                 after={t("currency." + activePair.quoteAsset)}
                 onchange={(e) => buyPriceHandler(e.target.value, "totalPrice")}
                 customClass={`${classes.smallInput} fs-0-8`}
+                alert={alert.totalPrice}
                 isAllowed={isAllowed}
             />
             <div className={`row jc-between ai-center`}>
@@ -341,7 +320,7 @@ const BuyOrder = () => {
                     </p>
                     <p>
                         {t("orders.getAmount")}:{" "}
-                        {order.reqAmount.minus(order.tradeFee).decimalPlaces(activePair.baseAssetPrecision).toNumber()}{" "}
+                        {order.reqAmount.minus(order.tradeFee).decimalPlaces(activePair.baseAssetPrecision).toFormat()}{" "}
                         {t("currency." + activePair.baseAsset)}
                     </p>
                 </div>
