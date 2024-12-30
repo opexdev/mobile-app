@@ -118,7 +118,7 @@ const EasyOrder = () => {
             newAlert = <Trans
                 i18nKey="orders.minOrder"
                 values={{
-                    min: selected.pair[range].min?.toString(),
+                    min: new BN(selected.pair[range].min).toFormat(),
                     currency: t("currency." + selected.buy),
                 }}
             />
@@ -136,7 +136,7 @@ const EasyOrder = () => {
         if (!reqAmount.mod(selected.pair[range].step).isZero()) {
             newAlert = <Trans
                 i18nKey="orders.divisibility"
-                values={{mod: selected.pair[range].step.toString()}}
+                values={{mod: new BN(selected.pair[range].step).toFormat()}}
             />
         }
         setAlert({...alert, reqAmount: newAlert});
@@ -160,7 +160,7 @@ const EasyOrder = () => {
             newAlert = <Trans
                 i18nKey="orders.minOrder"
                 values={{
-                    min: selected.pair[range].min?.toString(),
+                    min: new BN(selected.pair[range].min).toFormat(),
                     currency: t("currency." + selected.sell),
                 }}
             />
@@ -178,7 +178,7 @@ const EasyOrder = () => {
         if (!totalPrice.mod(selected.pair[range].step).isZero()) {
             newAlert = <Trans
                 i18nKey="orders.divisibility"
-                values={{mod: selected.pair[range].step.toString()}}
+                values={{mod: new BN(selected.pair[range].min).toFormat()}}
             />
         }
         setAlert({...alert, totalPrice: newAlert});
