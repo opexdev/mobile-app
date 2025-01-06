@@ -92,9 +92,11 @@ const LoginForm = () => {
             })
             .catch((err) => {
                 if (err?.response?.status === 401) {
+                    setShowVerifyEmail(false)
                     return setLoginError(t("login.wrongPassword"));
                 }
                 if (err?.response?.status === 403) {
+                    setShowVerifyEmail(false)
                     setLoginError(t("login.wrongOTP"));
                     return setNeedOTP(true)
                 }
@@ -102,6 +104,7 @@ const LoginForm = () => {
                     setShowVerifyEmail(true)
                     return setLoginError(t("login.accountNotActive"));
                 }
+                setShowVerifyEmail(false)
                 setLoginError(t("login.loginError"));
             })
             .finally(() => {
