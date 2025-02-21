@@ -6,17 +6,27 @@ import {Order} from "../../../../../../Routes/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {setActivePairInitiate} from "../../../../../../../../store/actions";
-import {BN} from "../../../../../../../../utils/utils";
+import {BN, getCurrencyNameOrAlias} from "../../../../../../../../utils/utils";
 import {LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions} from "react-swipeable-list";
 import Button from "../../../../../../../../components/Button/Button";
 import i18n from "i18next";
+import {useGetChartData} from "../../../../../../../../queries";
 
-const MarketInfoTable = ({data, activeCurrency}) => {
+const  MarketInfoTable = ({data, activeCurrency, interval}) => {
 
     const {t} = useTranslation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
     const allExchangeSymbols = useSelector((state) => state.exchange.symbols)
+
+    const pairsList = useSelector((state) => state.exchange.pairsList)
+    const symbols = Object.keys(pairsList);
+
+    const { data: ChartData, isLoading: ChartDataIsLoading, error: ChartDataError } = useGetChartData(symbols, interval);
+
 
     const [swipRight, setSwipRight] = useState(null);
     const [swipLeft, setSwipLeft] = useState(null);
@@ -80,9 +90,20 @@ const MarketInfoTable = ({data, activeCurrency}) => {
         </div>
     );
 
+    const chartView = (chartInfo) => {
+        if (ChartDataIsLoading) {
+            return <span className="flashit ">-----</span>
+        }
+        if (ChartDataError || !(chartInfo?.svgData)) {
+            return
+        }
+        return <img src={`data:image/svg+xml;base64,${chartInfo?.svgData}`} alt={chartInfo?.symbol} className={`${classes.chart} ${chartInfo?.isTrendUp ? classes.filterUp : classes.filterDown }`}/>
+    }
+
     let body = (
         <>
             {data.map((tr, index) => {
+                const chartInfo = ChartData?.find(chart => chart.symbol.replace("_", "") === tr.symbol);
                 return (
                     <SwipeableList threshold={0.01} key={index}>
                         <SwipeableListItem
@@ -98,15 +119,22 @@ const MarketInfoTable = ({data, activeCurrency}) => {
                                              title={tr?.baseAsset}
                                              className={`img-md ml-1`}
                                          />
-                                         <span className={`mr-1`}>{activeCurrency ? t("currency." + tr?.base) : tr?.base + " / " + tr?.quote}</span>
+                                         <span className={`mr-1`}>{activeCurrency ? getCurrencyNameOrAlias(currencies[tr?.base], language) : tr?.base + " / " + tr?.quote}</span>
                                     </div>
                                     <div className={`width-50 column jc-start ai-end`}>
                                         <div className={`row jc-center ai-center`}>
-                                            <span className={`fs-0-6 ml-3 ${tr.priceChange > 0 ? "text-green" : "text-red"}`}>{tr.priceChange} %</span>
-                                            <span className={`mr-1 ${tr.priceChange > 0 ? "text-green" : "text-red"}`}>{new BN(tr.lastPrice).toFormat()}
-                                            <span className={`fs-0-7 mr-05`}>{t("currency." + tr?.quote)}</span></span>
+
+                                            <span className={`fs-0-6 ml-3 ${tr.priceChangePercent > 0 ? "text-green" : tr.priceChangePercent < 0 ? "text-red" : ""} direction-ltr}`}>
+
+                                                {tr.priceChangePercent === 0 ? "0 %" : `${new BN(tr.priceChangePercent).toFormat(2)} %`}
+
+                                            </span>
+
+
+                                            <span className={`mr-1 ${tr.priceChangePercent > 0 ? "text-green" : tr.priceChangePercent < 0 ? "text-red" : ""}`}>{new BN(tr.lastPrice).decimalPlaces(currencies[tr?.quote]?.precision ?? 0).toFormat()}
+                                            <span className={`fs-0-7 mr-05`}>{getCurrencyNameOrAlias(currencies[tr?.quote], language)}</span></span>
                                         </div>
-                                        <span className={`fs-0-8`}>{new BN(tr.volume).toFormat()}</span>
+                                        <span className={`fs-0-8`}>{new BN(tr.volume).decimalPlaces(currencies[tr?.base]?.precision ?? 0).toFormat()}</span>
                                     </div>
                                 </div>
 
@@ -121,12 +149,7 @@ const MarketInfoTable = ({data, activeCurrency}) => {
                                     </div>
 
                                     <div className="width-30 flex jc-end ai-center">
-                                        <img
-                                            className={`img-lg ${classes.filter}`}
-                                            src={images.chart}
-                                            alt={""}
-                                            title={""}
-                                        />
+                                        {chartView(chartInfo)}
                                     </div>
                                 </div>
                             </div>

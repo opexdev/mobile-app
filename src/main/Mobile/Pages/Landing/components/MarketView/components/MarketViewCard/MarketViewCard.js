@@ -32,7 +32,7 @@ const MarketViewCard = ({title, data, error, isLoading, volume}) => {
                     <span className={`fs-0-6 ${i18n.language !== "fa" ? 'mr-05' : 'ml-05'}`}>{data.pairInfo.quoteAsset}</span>
                     <span>{new BN(volume ? data?.volume : data?.lastPrice).decimalPlaces(currencies[data.pairInfo.quoteAsset]?.precision ?? 0).toFormat()}</span>
                 </div>
-                {data?.priceChangePercent && <span className={`${data?.priceChangePercent > 0 ? "text-green" : "text-red"} direction-ltr`}>
+                {data?.priceChangePercent && <span className={`${data.priceChangePercent > 0 ? "text-green" : data.priceChangePercent < 0 ? "text-red" : ""} direction-ltr`}>
                     {new BN(data?.priceChangePercent).toFormat(2)} %
                 </span>}
             </div>
