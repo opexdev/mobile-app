@@ -4,21 +4,29 @@ import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {setActivePairInitiate} from "../../../../../../../../store/actions";
-import {images} from "../../../../../../../../assets/images";
 import i18n from "i18next";
-import {BN} from "../../../../../../../../utils/utils";
+import {BN, getCurrencyNameOrAlias} from "../../../../../../../../utils/utils";
 import {Order} from "../../../../../../Routes/routes";
 import Button from "../../../../../../../../components/Button/Button";
 import Icon from "../../../../../../../../components/Icon/Icon";
 import {LeadingActions, SwipeableList, SwipeableListItem, SwipeAction, TrailingActions} from "react-swipeable-list";
+import {useGetChartData} from "../../../../../../../../queries";
 
-const AllMarketInfoTable = ({data, activeCurrency}) => {
+const AllMarketInfoTable = ({data, activeCurrency, interval}) => {
 
     const {t} = useTranslation();
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const allExchangeSymbols = useSelector((state) => state.exchange.symbols)
+
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
+
+    const pairsList = useSelector((state) => state.exchange.pairsList)
+    const symbols = Object.keys(pairsList);
+
+    const { data: ChartData, isLoading: ChartDataIsLoading, error: ChartDataError } = useGetChartData(symbols, interval);
 
     const [swipeRight, setSwipeRight] = useState(null);
     const [swipeLeft, setSwipeLeft] = useState(null);
@@ -81,9 +89,20 @@ const AllMarketInfoTable = ({data, activeCurrency}) => {
         </div>
     );
 
+    const chartView = (chartInfo) => {
+        if (ChartDataIsLoading) {
+            return <span className="flashit ">-----</span>
+        }
+        if (ChartDataError || !(chartInfo?.svgData)) {
+            return
+        }
+        return <img src={`data:image/svg+xml;base64,${chartInfo?.svgData}`} alt={chartInfo?.symbol} className={`${classes.chart} ${chartInfo?.isTrendUp ? classes.filterUp : classes.filterDown }`}/>
+    }
+
     let body = (
         <>
             {data.map((tr, index) => {
+                const chartInfo = ChartData?.find(chart => chart.symbol.replace("_", "") === tr.symbol);
                 return (
                     <SwipeableList threshold={0.01}>
                         <SwipeableListItem
@@ -95,31 +114,31 @@ const AllMarketInfoTable = ({data, activeCurrency}) => {
                                     <div className={`row width-100`}>
                                         <div className="width-50 row jc-start ai-center">
                                             <img
-                                                 src={images[tr?.base]}
+                                                src={currencies[tr?.base]?.icon}
                                                  alt={tr?.base}
                                                  title={tr?.baseAsset}
                                                  className={`img-md ml-1`}
                                             />
-                                            <span className={`mr-1`}>{activeCurrency ? t("currency." + tr?.base) : tr?.base + " / " + tr?.quote}</span>
+                                            <span className={`mr-1`}>{activeCurrency ? getCurrencyNameOrAlias(currencies[tr?.base], language) : tr?.base + " / " + tr?.quote}</span>
                                         </div>
                                         <div className={`width-50 column jc-center ai-end`}>
                                             <div className={`row jc-center ai-center`}>
-                                                <span className={`fs-0-6 ml-3 ${tr.priceChange > 0 ? "text-green" : "text-red"}`}>{tr.priceChange} %</span>
-                                                <span className={`mr-1 ${tr.priceChange > 0 ? "text-green" : "text-red"}`}>{new BN(tr.lastPrice).toFormat()} <span className={`fs-0-7 mr-05`}>{t("currency." + tr?.quote)}</span></span>
+                                                <span className={`fs-0-6 ml-3 ${tr.priceChangePercent > 0 ? "text-green" : tr.priceChangePercent < 0 ? "text-red" : ""}`}>{tr.priceChangePercent === 0 ? "0 %" : `${new BN(tr.priceChangePercent).toFormat(2)} %`}</span>
+                                                <span className={`mr-1 ${tr.priceChangePercent > 0 ? "text-green" : tr.priceChangePercent < 0 ? "text-red" : ""}`}>{new BN(tr.lastPrice).decimalPlaces(currencies[tr?.quote]?.precision  ?? 0).toFormat()} <span className={`fs-0-7 mr-05`}>{tr?.quote}</span></span>
                                             </div>
-                                            <span className={`fs-0-8`}>{new BN(tr.volume).toFormat()}</span>
+                                            <span className={`fs-0-8`}>{new BN(tr?.volume).decimalPlaces(currencies[tr?.base]?.precision ?? 0).toFormat()}</span>
                                         </div>
                                     </div>
                                     <div className={`width-100 row`}>
                                         <div className="width-100 row jc-between ai-start">
 
                                             <div className={`row jc-center ai-center`}>
-                                                <Icon iconName="icon-up-micro fs-02 flex  text-green"/>
-                                                <span className={`mr-05 fs-0-8`}>{new BN(tr?.highPrice).toFormat()}</span>
+                                                <Icon iconName="icon-up-micro fs-02 flex text-green"/>
+                                                <span className={`mr-05 fs-0-8`}>{new BN(tr?.highPrice).decimalPlaces(currencies[tr?.quote]?.precision ?? 0).toFormat()}</span>
                                             </div>
                                             <div className={`row jc-center ai-center`}>
-                                                <Icon iconName="icon-down-micro fs-02 flex  text-red"/>
-                                                <span className={`mr-05 fs-0-8`}>{new BN(tr?.lowPrice).toFormat()}</span>
+                                                <Icon iconName="icon-down-micro fs-02 flex text-red"/>
+                                                <span className={`mr-05 fs-0-8`}>{new BN(tr?.lowPrice).decimalPlaces(currencies[tr?.quote]?.precision ?? 0).toFormat()}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -140,12 +159,7 @@ const AllMarketInfoTable = ({data, activeCurrency}) => {
                                         />
                                     </div>
                                     <div className="width-30 flex jc-end ai-center">
-                                         <img
-                                             className={`img-lg ${classes.filter}`}
-                                             src={images.chart}
-                                             alt={""}
-                                             title={""}
-                                         />
+                                        {chartView(chartInfo)}
                                     </div>
                                 </div>
                             </div>
