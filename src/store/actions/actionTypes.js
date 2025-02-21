@@ -61,4 +61,6 @@ export const ACTIVE_ORDER_LAYOUT = "ACTIVE_ORDER_LAYOUT";
 
 export const ACTIVE_ACTION_SHEET = "ACTIVE_ACTION_SHEET";
 
-
+export const GET_CURRENCIES = "GET_CURRENCIES";
+export const GET_PAIRS = "GET_PAIRS";
+export const GET_FEES = "GET_FEES";

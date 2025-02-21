@@ -5,6 +5,7 @@ import axios from "axios";
 import i18n from "i18next";
 import {defaultConfigs} from "../../setup/configs/configs";
 
+
 export function* setThemeSaga(action) {
     try {
         yield put(actions.setTheme(action.theme));
@@ -20,7 +21,7 @@ export function* setThemeSaga(action) {
 }
 
 export function* setActivePair(action) {
-    yield call([localStorage, 'setItem'], "activePair", action.pair.symbol)
+    yield call([localStorage, 'setItem'], "activePair", action.pair)
     yield call([localStorage, 'setItem'], "activeMarketTab", action.activeTab)
     yield put(actions.setActivePair(action.pair));
 }
@@ -52,8 +53,9 @@ function* getExchangeInfo() {
 
     for (let i = 0; i < 10; i++) {
         try {
-            const {data: {symbols}} = yield call(axios.get, '/api/v3/exchangeInfo')
-            return symbols
+            const {data} = yield call(axios.get, '/api/v3/exchangeInfo')
+
+            return data
         } catch (err) {
             if (i < 2) {
                 yield delay(1000)
@@ -62,6 +64,29 @@ function* getExchangeInfo() {
         }
 
         throw new Error('getExchangeInfo failed!')
+    }
+}
+
+function* fetchCurrencies() {
+    const params = {
+        includeManualGateways: false,
+        includeOffChainGateways: true,
+        includeOnChainGateways: true
+    };
+
+    for (let i = 0; i < 10; i++) {
+        try {
+            const response = yield call(axios.get, '/wallet/currency', { params });
+
+            const { currencies } = response.data;
+            return currencies;
+        } catch (err) {
+            if (i < 9) {
+                yield delay(1000);
+            } else {
+                throw new Error('Failed to fetch currencies after 10 attempts.');
+            }
+        }
     }
 }
 
@@ -91,7 +116,6 @@ export function* loadConfig(action) {
         i18n.changeLanguage(language)
         appTheme = defaultTheme;
 
-
     } catch (e) {
         i18n.changeLanguage(defaultConfigs?.defaultLanguage)
         appTheme = defaultConfigs?.defaultTheme;
@@ -99,11 +123,59 @@ export function* loadConfig(action) {
     }
 
     try {
+        const exchangeInfo = yield call(getExchangeInfo);
+        const currencies = yield call(fetchCurrencies);
+
+        const currenciesMap = currencies.reduce((acc, currency) => {
+            const precisionValue = currency.precision.toString();
+            const decimalPlaces = precisionValue.includes('.')
+                ? precisionValue.split('.')[1].length
+                : 0;
+
+            const decimalFactor = Number((Math.pow(10, -decimalPlaces)).toFixed(decimalPlaces));
+
+            acc[currency.symbol] = {
+                ...currency,
+                precision: decimalPlaces,
+                minOrder: decimalFactor,
+                step: decimalFactor,
+            };
+            return acc;
+        }, {});
+
+        yield put(actions.getCurrencies(currenciesMap));
+
+        const pairsList = exchangeInfo.symbols;
+        const pairsListMap = pairsList.reduce((acc, pair) => {
+            /*acc[pair.symbol] = pair;*/
+            const key = `${pair.baseAsset}_${pair.quoteAsset}`;
+            acc[key] = {
+                symbol: pair.symbol,
+                baseAsset: pair.baseAsset,
+                quoteAsset: pair.quoteAsset,
+                orderTypes: pair.orderTypes,
+            };
+            return acc;
+        }, {});
+        yield put(actions.getPairs(pairsListMap));
+
+        const fees = exchangeInfo.fees;
+        const feesMap = fees.reduce((acc, fee) => {
+            acc[fee.pair] = fee;
+            /* acc[pair.symbol] = {
+                 symbol: pair.symbol,
+                 baseAsset: pair.baseAsset,
+                 quoteAsset: pair.quoteAsset,
+                 orderTypes: pair.orderTypes,
+             };*/
+            return acc;
+        }, {});
+        yield put(actions.getFees(feesMap));
 
         const localTheme = yield call([localStorage, 'getItem'], 'theme')
         if (localTheme) appTheme = localTheme;
 
-        const symbols = yield call(getExchangeInfo)
+        const symbols = exchangeInfo.symbols
         for (const symbol of symbols) {
             if (symbol.symbol.toUpperCase().includes("NLN")) continue
             if (!assets.includes(symbol.baseAsset)) {
@@ -125,11 +197,21 @@ export function* loadConfig(action) {
             lastPrice[symbol.symbol] = 0
         }
         yield put(actions.setExchange({pairs, assets, symbols, lastPrice}));
+        /*yield put(actions.getCurrencies({currencies}));*/
         yield put(actions.setUserAccountInfo({wallets, tradeFee}));
 
         const activePair = yield call([localStorage, 'getItem'], 'activePair')
-        const lastActivePair = symbols.find(symbol => symbol.symbol === activePair)
-        yield put(actions.setActivePair(lastActivePair || symbols[0]));
+        const lastActivePair = Object.keys(pairsListMap).includes(activePair) ? activePair : null;
+
+        /*const lastActivePair = lastActivePairKey ? pairsListMap[lastActivePairKey] : null;*/
+
+
+
+        /*const lastActivePair = symbols.find(symbol => symbol.symbol === activePair)*/
+
+
+
+        yield put(actions.setActivePair(lastActivePair || Object.keys(pairsListMap)[0]));
 
     } catch (e) {
         yield put(actions.setError(true))

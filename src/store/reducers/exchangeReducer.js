@@ -5,7 +5,6 @@ const initialState = {
     pairs: [],
     symbols: [],
     activePair: {},
-    //lastPrice:{},
     activePairOrders: {
         bestBuyPrice: 0,
         bestSellPrice: 0,
@@ -29,7 +28,10 @@ const initialState = {
     defaultTheme: "",
     supportEmail: "",
     baseCurrency: "",
-    dateType: ""
+    dateType: "",
+    currencies: [],
+    pairsList: [],
+    fees: [],
 };
 
 const exchangeReducer = (state = initialState, action) => {
@@ -45,12 +47,14 @@ const exchangeReducer = (state = initialState, action) => {
                 verifyEmailLock: action.verifyEmailLockTime,
             };
         case actionTypes.SET_ACTIVE_PAIR:
+            const [baseAsset, quoteAsset] = action.pair.split('_');
             return {
                 ...state,
                 activePair: {
-                    ...state.activePair,
-                    ...action.pair,
-                    name: action.pair.baseAsset + "/" + action.pair.quoteAsset
+                    symbol: `${baseAsset}${quoteAsset}`,
+                    pair: action.pair,
+                    baseAsset: baseAsset,
+                    quoteAsset: quoteAsset,
                 },
                 activePairOrders: {
                     ...state.activePairOrders,
@@ -107,8 +111,25 @@ const exchangeReducer = (state = initialState, action) => {
                 ...state,
                 ...action.configs
             };
+
+        case actionTypes.GET_CURRENCIES:
+            return {
+                ...state,
+                currencies: action.currencies,
+            };
+        case actionTypes.GET_PAIRS:
+            return {
+                ...state,
+                pairsList: action.pairs,
+            };
+        case actionTypes.GET_FEES:
+            return {
+                ...state,
+                fees: action.fees,
+            };
         default:
             return state;
+
     }
 };
 

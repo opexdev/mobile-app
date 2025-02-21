@@ -104,3 +104,21 @@ export const setExchangeConfigs = configs => {
         configs: configs
     };
 };
+export const getCurrencies = currencies => {
+    return {
+        type: actionTypes.GET_CURRENCIES,
+        currencies,
+    };
+};
+export const getPairs = pairs => {
+    return {
+        type: actionTypes.GET_PAIRS,
+        pairs,
+    };
+};
+export const getFees = fees => {
+    return {
+        type: actionTypes.GET_FEES,
+        fees,
+    };
+};
