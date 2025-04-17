@@ -6,6 +6,8 @@ import Loading from "../../../../../../../../../../components/Loading/Loading";
 import OrderBookTable from "./components/OrderBookTable/OrderBookTable";
 import {useOrderBook} from "../../../../../../../../../../queries";
 import {useSelector} from "react-redux";
+import i18n from "i18next";
+import {getCurrencyNameOrAlias} from "../../../../../../../../../../utils/utils";
 
 const OrderBook = ({orderLayout}) => {
 
@@ -13,6 +15,9 @@ const OrderBook = ({orderLayout}) => {
     const activePair = useSelector((state) => state.exchange.activePair)
     const {data, isLoading, error, refetch} = useOrderBook(activePair.symbol)
     const lastTransaction = useSelector((state) => state.auth.lastTransaction)
+
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
 
     useEffect(() => {
         refetch()
@@ -34,8 +39,8 @@ const OrderBook = ({orderLayout}) => {
             <div className={`column border-bottom jc-between header-radius card-header-bg ${classes.header}`}>
                 {orderLayout ? "" : <div className="row jc-center">
                     <h3>
-                        {t("orderBook.title")} ({t("currency." + activePair.baseAsset)}/
-                        {t("currency." + activePair.quoteAsset)})
+                        {t("orderBook.title")} ({getCurrencyNameOrAlias(currencies[activePair.baseAsset], language)}/
+                        {getCurrencyNameOrAlias(currencies[activePair.quoteAsset], language)})
                     </h3>
                 </div>}
                 <div className="row jc-center">
