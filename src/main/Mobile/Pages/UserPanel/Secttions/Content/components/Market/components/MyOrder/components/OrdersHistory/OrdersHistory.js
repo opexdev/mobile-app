@@ -8,6 +8,8 @@ import ScrollBar from "../../../../../../../../../../../../components/ScrollBar"
 import {useMyOrderHistory} from "../../../../../../../../../../../../queries";
 import Error from "../../../../../../../../../../../../components/Error/Error";
 import Date from "../../../../../../../../../../../../components/Date/Date";
+import {BN, getCurrencyNameOrAlias} from "../../../../../../../../../../../../utils/utils";
+import i18n from "i18next";
 
 const OrdersHistory = () => {
     const {t} = useTranslation();
@@ -15,6 +17,9 @@ const OrdersHistory = () => {
 
     const activePair = useSelector((state) => state.exchange.activePair)
     const lastTransaction = useSelector((state) => state.auth.lastTransaction);
+
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
 
     const {data, isLoading, error, refetch} = useMyOrderHistory(activePair.symbol)
 
@@ -46,8 +51,8 @@ const OrdersHistory = () => {
                                 <div className={`row jc-end ai-center`}>
                                     <span className={`ml-3`}>{t("volume")}:</span>
                                     <div className={`row ${color}`}>
-                                        <span className={`fs-02`}>{tr.origQty}</span>
-                                        <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.baseAsset.toUpperCase())}</span>
+                                        <span className={`fs-02`}>{new BN(tr.origQty).decimalPlaces(currencies[activePair.baseAsset].precision).toFormat()}</span>
+                                        <span className={`fs-0-8 mr-1`}>{getCurrencyNameOrAlias(currencies[activePair.baseAsset.toUpperCase()], language)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -56,22 +61,18 @@ const OrdersHistory = () => {
                                 <div className={`row jc-end ai-center`}>
                                     <span className={`ml-3`}>{t("totalPrice")}:</span>
                                     <div className={`row ${color}`}>
-                                        <span className={`fs-02`}>{(tr.origQty * tr.price).toLocaleString()}</span>
-                                        <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.quoteAsset.toUpperCase())}</span>
+                                        <span className={`fs-02`}>{new BN(tr.origQty).multipliedBy(tr.price).decimalPlaces(currencies[activePair.quoteAsset].precision).toFormat()}</span>
+                                        <span className={`fs-0-8 mr-1`}>{getCurrencyNameOrAlias(currencies[activePair.quoteAsset.toUpperCase()], language)}</span>
                                     </div>
                                 </div>
                             </div>
                             <div style={{display: openOrder === index ? "revert" : "none"}} className={`column`}>
                                 <div className={`row jc-between ai-center width-100 my-1`}>
-
-
-
-                                        <span className={`ml-3`}>{t("pricePerUnit")}:</span>
-                                        <div className={`row ${color}`}>
-                                            <span className={`fs-02`}>{tr.price.toLocaleString()}</span>
-                                            <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.quoteAsset.toUpperCase())}</span>
-                                        </div>
-
+                                    <span className={`ml-3`}>{t("pricePerUnit")}:</span>
+                                    <div className={`row ${color}`}>
+                                        <span className={`fs-02`}>{new BN(tr.price).decimalPlaces(currencies[activePair.quoteAsset].precision).toFormat()}</span>
+                                        <span className={`fs-0-8 mr-1`}>{getCurrencyNameOrAlias(currencies[activePair.quoteAsset.toUpperCase()], language)}</span>
+                                    </div>
                                 </div>
                                 <div className={`row jc-between ai-center width-100 my-1`}>
                                     <div className={`row jc-start ai-center`}>
