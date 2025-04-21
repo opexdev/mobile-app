@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {activeActionSheet} from "../../../../../../../../store/actions/global";
 import i18n from "i18next";
+import {getCurrencyNameOrAlias} from "../../../../../../../../utils/utils";
 
 const MarketHeader = () => {
     const {t} = useTranslation();
@@ -11,10 +12,13 @@ const MarketHeader = () => {
     const activePair = useSelector((state) => state.exchange.activePair)
     const active = useSelector((state) => state.global.activeActionSheet.subMenu)
 
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
+
     return (
         <>
             <div className={`row jc-center ai-center fs-02`} onClick={() => dispatch(activeActionSheet({subMenu: true}))}>
-                <span className={`ml-05`}>{t("currency." + activePair.baseAsset)}/{t("currency." + activePair.quoteAsset)}</span>
+                <span className={`ml-05`}>{getCurrencyNameOrAlias(currencies[activePair?.baseAsset], language)}/{getCurrencyNameOrAlias(currencies[activePair?.quoteAsset], language)}</span>
                 <Icon iconName={`${active ? 'icon-up-micro' : 'icon-down-micro'}  fs-07 mr-05 flex`}/>
             </div>
 
