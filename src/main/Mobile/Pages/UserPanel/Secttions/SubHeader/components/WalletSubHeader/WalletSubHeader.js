@@ -12,7 +12,7 @@ const WalletSubHeader = () => {
 
     const {id} = useParams()
     const {t} = useTranslation()
-    const refCurrency = window.env.REACT_APP_REFERENCE_FIAT_CURRENCY
+    const refCurrency = useSelector((state) => state.exchange.baseCurrency)
 
     const language = i18n.language
     const currencies = useSelector((state) => state.exchange.currencies)

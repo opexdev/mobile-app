@@ -59,3 +59,8 @@
     border-radius: 10px;
 }
 
+.iconDisabled {
+    filter: grayscale(0.75);
+    opacity: 0.9;/*
+    background-color: var(--lightGray)*/
+}

@@ -8,14 +8,34 @@ import WalletListItem from "./components/WalletListItem/WalletListItem";
 import WalletBalance from "./components/WalletBalance/WalletBalance";
 import {useGetUserAccount} from "../../../../../../../../queries/hooks/useGetUserAccount";
 import Loading from "../../../../../../../../components/Loading/Loading";
+import i18n from "i18next";
 
 
 const WalletSubMenu = () => {
 
     const {t} = useTranslation();
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
     const [showZero, setShowZero] = useState(false);
     const assets = useSelector((state) => state.exchange.assets)
     const {data: data, isLoading} = useGetUserAccount()
+
+    const wallets = Object.keys(currencies)
+        .map(symbol => ({
+            symbol,
+            name: currencies[symbol].name,
+            alias: currencies[symbol].alias,
+            icon: currencies[symbol].icon,
+            order: currencies[symbol].order,
+            isActive: currencies[symbol].isActive,
+            free: data?.wallets?.[symbol]?.free || 0,
+        }))
+        .filter(wallet => wallet.isActive || wallet.free > 0);
+
+    wallets.sort((a, b) => {
+        if (b.free !== a.free) return b.free - a.free;
+        return a.order - b.order;
+    });
 
     return (
         <div className={`width-100 column card-bg `} style={{height: "70vh"}}>
@@ -32,9 +52,18 @@ const WalletSubMenu = () => {
                             </div>
                             <WalletBalance/>
                             <ScrollBar customClass={`column`}>
-                                {assets.filter(asset => data?.wallets?.[asset]?.free > 0)
-                                    .concat(assets.filter(asset => data?.wallets?.[asset]?.free === 0))
-                                    .map((name) => <WalletListItem key={name} assetName={name} showZero={showZero}/>)}
+                                {
+                                    wallets.map((wallet) => (
+                                        <WalletListItem
+                                            symbol={wallet.symbol}
+                                            data={wallet}
+                                            key={wallet.symbol}
+                                            assetName={wallet.symbol}
+                                            freeWallet={wallet.free}
+                                            showZero={showZero}
+                                        />
+                                    ))
+                                }
                             </ScrollBar>
                         </div>
                         <div className={`${classes.footer} flex jc-center ai-center px-1 text-gray fs-0-7 px-1 py-05`}
