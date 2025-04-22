@@ -3,20 +3,28 @@ import classes from "../MarketCard/MarketCard.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {images} from "../../../../../../../../../../assets/images";
 import Icon from "../../../../../../../../../../components/Icon/Icon";
-import {BN} from "../../../../../../../../../../utils/utils";
+import {BN, formatWithPrecision} from "../../../../../../../../../../utils/utils";
 import {setActivePairInitiate} from "../../../../../../../../../../store/actions";
 import {activeActionSheet} from "../../../../../../../../../../store/actions/global";
 import {useGetLastPrices} from "../../../../../../../../../../queries/hooks/useGetLastPrices";
+import i18n from "i18next";
 
 
 const MarketPairCard = ({id, pair,favPair,addFav}) => {
 
+    console.log("id", id)
+
     const activePair = useSelector((state) => state.exchange.activePair.symbol)
     const {data: prices} = useGetLastPrices()
     const dispatch = useDispatch();
+
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
+
     const changeActivePair = () =>{
-        if (activePair !== pair.symbol) {
-            dispatch(setActivePairInitiate(pair, id))
+        const pairSymbolFormatted = `${pair.baseAsset}_${pair.quoteAsset}`;
+        if (activePair !== pairSymbolFormatted) {
+            dispatch(setActivePairInitiate(`${pair.baseAsset}_${pair.quoteAsset}`, id));
             dispatch(activeActionSheet({
                 menu: false,
                 subMenu: false,
@@ -29,27 +37,27 @@ const MarketPairCard = ({id, pair,favPair,addFav}) => {
             <div className={` row jc-between ai-center ${classes.marketCardImage}`}>
                 <img
                     className="img-md flex"
-                    src={images[pair.baseAsset]}
-                    alt={pair.symbol}
-                    title={pair.symbol}
+                    src={currencies[pair?.baseAsset]?.icon}
+                    alt={pair?.symbol}
+                    title={pair?.symbol}
                 />
             </div>
             <div className={`row jc-between ai-center ${classes.marketCardContent}`}>
                 <div className="row">
                     <div onClick={(e) => {
                         e.stopPropagation();
-                        addFav(pair.symbol);
-                    }} data-name={pair.symbol}>
+                        addFav(pair?.symbol);
+                    }} data-name={pair?.symbol}>
                         <Icon
                             iconName={`${favPair.includes(pair.symbol) ? "icon-star-filled" : "icon-star"} text-color fs-04 ml-05`}
                         />
                     </div>
                     <span className={`mr-1`}>
-                        {pair.baseAsset +"/"+pair.quoteAsset}
+                        {pair?.baseAsset + " / " + pair?.quoteAsset}
                     </span>
                 </div>
                 <div>
-                    {new BN(prices[pair.symbol] || 0).toFormat()}
+                    {formatWithPrecision(prices[pair?.symbol] || 0, currencies[pair?.quoteAsset]?.precision ?? 0)}
                 </div>
             </div>
         </div>

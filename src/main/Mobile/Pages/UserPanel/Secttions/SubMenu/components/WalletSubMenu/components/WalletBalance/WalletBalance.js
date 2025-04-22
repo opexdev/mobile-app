@@ -2,15 +2,20 @@ import React from 'react';
 import classes from '../../WalletSubMenu.module.css'
 import {useTranslation} from "react-i18next";
 import {images} from "../../../../../../../../../../assets/images";
-import {BN} from "../../../../../../../../../../utils/utils";
+import {BN, formatWithPrecision, getCurrencyNameOrAlias} from "../../../../../../../../../../utils/utils";
 import {useGetUserAssetsEstimatedValue} from "../../../../../../../../../../queries";
+import i18n from "i18next";
+import {useSelector} from "react-redux";
 
 const WalletBalance = () => {
 
     const {t} = useTranslation();
-    const refCurrency = window.env.REACT_APP_REFERENCE_FIAT_CURRENCY
+    const refCurrency = useSelector((state) => state.exchange.baseCurrency)
     const {data , isLoading, error} = useGetUserAssetsEstimatedValue(refCurrency)
     const totalValue = (isLoading || error) ?  0 : data.value
+
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
 
     return ( <div className={"row ai-center cursor-pointer position-relative px-3 py-105"} style={{cursor:"initial"}}>
             <div className={` row jc-start ai-center ${classes.PairImage}`}>
@@ -27,7 +32,7 @@ const WalletBalance = () => {
                     <span className="fs-0-7">{t("WalletSubMenu.approximate")}</span>
                 </div>
                 <div className="column ai-end">
-                    <span>{new BN(totalValue).toFormat()}{" "}<span className="fs-0-7">{t("currency."+refCurrency)}</span></span>
+                    <span>{formatWithPrecision(totalValue, currencies[refCurrency]?.precision ?? 0)}{" "}<span className="fs-0-7">{getCurrencyNameOrAlias(currencies[refCurrency], language)}</span></span>
                 </div>
             </div>
         </div>

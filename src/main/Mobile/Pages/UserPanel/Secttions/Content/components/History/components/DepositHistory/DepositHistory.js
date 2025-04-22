@@ -13,11 +13,16 @@ import TextInput from "../../../../../../../../../../components/TextInput/TextIn
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import ToggleSwitch from "../../../../../../../../../../components/ToggleSwitch/ToggleSwitch";
 import Button from "../../../../../../../../../../components/Button/Button";
+import {getCurrencyNameOrAlias} from "../../../../../../../../../../utils/utils";
+import i18n from "i18next";
 
 const DepositHistory = () => {
 
     const {t} = useTranslation();
     const coins = useSelector((state) => state.exchange.assets)
+
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
 
     const [query, setQuery] = useState({
         "currency": null, // optional
@@ -52,8 +57,8 @@ const DepositHistory = () => {
         categoryOptions.push({value: o, label: t('TransactionCategory.' + o)})
     })
 
-    coins.forEach((o) => {
-        currenciesOptions.push({value: o, label: t('currency.' + o)})
+    Object.keys(currencies).forEach((o) => {
+        currenciesOptions.push({value: o, label: getCurrencyNameOrAlias(currencies[o], language)})
     })
 
 
@@ -134,7 +139,7 @@ const DepositHistory = () => {
                     type="select"
                     value={{
                         value: query?.currency,
-                        label:  query?.currency ? t('currency.'+ query?.currency) : t('all'),
+                        label:  query?.currency ? getCurrencyNameOrAlias(currencies[query?.currency], language) : t('all'),
                     }}
                     onchange={(e) => setQuery({...query, currency: e.value, offset:0})}
                     customClass={`width-100 my-1 ${classes.thisInput}`}

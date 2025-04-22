@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './MarketInfo.module.css'
 import Title from "../../../../../../components/Title/Title";
 import {Link} from "react-router-dom";
@@ -11,6 +11,8 @@ import Error from "../../../../../../components/Error/Error";
 import MarketInfoCard from "./components/MarketInfoCard/MarketInfoCard";
 import {useTranslation} from "react-i18next";
 import i18n from "i18next";
+import {useSelector} from "react-redux";
+import {getCurrencyNameOrAlias} from "../../../../../../utils/utils";
 
 const MarketInfo = () => {
     const {t} = useTranslation();
@@ -20,17 +22,28 @@ const MarketInfo = () => {
     const interval = "24h"
     const quote = activeCurrency === "" ? null : activeCurrency
 
+    const currencies = useSelector((state) => state.exchange.currencies)
+
+    const language = i18n.language
+
     const {data: overview, isLoading, error} = useOverview(null, interval, quote)
-    const {data: currencies} = useGetQuoteCurrencies()
+    const {data: quoteCurrencies, isLoading:quoteCurrenciesIsLoading, error:quoteCurrenciesError} = useGetQuoteCurrencies()
+
+    useEffect(() => {
+        if (quoteCurrencies?.length > 0) {
+            setActiveCurrency(quoteCurrencies[0]);
+        }
+    }, [quoteCurrencies]);
+
 
     const content = () => {
-        if (isLoading) return <div style={{height: "40vh"}}><Loading/></div>
-        if (error) return <div style={{height: "40vh"}}><Error/></div>
+        if (isLoading || quoteCurrenciesIsLoading) return <div style={{height: "40vh"}}><Loading/></div>
+        if (error || quoteCurrenciesError) return <div style={{height: "40vh"}}><Error/></div>
         else return <>
             {card ?
-                <MarketInfoCard data={overview.slice(0, 5)} activeCurrency={activeCurrency}/>
+                <MarketInfoCard data={overview.slice(0, 5)} activeCurrency={activeCurrency} interval={interval}/>
                 :
-                <MarketInfoTable data={overview.slice(0, 5)} activeCurrency={activeCurrency}/>
+                <MarketInfoTable data={overview.slice(0, 5)} activeCurrency={activeCurrency} interval={interval}/>
             }
         </>
     }
@@ -61,8 +74,10 @@ const MarketInfo = () => {
                     </div>
 
                     <div className={`row jc-center ai-center mr-1 fs-0-8`}>
-                        {currencies?.map((currency) =>
-                            <span className={`px-2 py-1 rounded-5 cursor-pointer hover-text ${classes.title} ${activeCurrency === currency && classes.active}`} onClick={() => setActiveCurrency(currency)} key={currency}>{t("currency." + currency)}</span>
+                        {quoteCurrencies?.map((currency) =>
+                            <span className={`px-2 py-1 rounded-5 cursor-pointer hover-text ${classes.title} ${activeCurrency === currency && classes.active}`} onClick={() => setActiveCurrency(currency)} key={currency}>
+                                {getCurrencyNameOrAlias(currencies[currency], language)}
+                            </span>
                         )}
                     </div>
                 </div>

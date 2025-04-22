@@ -5,13 +5,14 @@ import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
 import Loading from "../../../../../../../../../../../../components/Loading/Loading";
 import ScrollBar from "../../../../../../../../../../../../components/ScrollBar";
-import {BN} from "../../../../../../../../../../../../utils/utils";
+import {BN, getCurrencyNameOrAlias} from "../../../../../../../../../../../../utils/utils";
 import {toast} from "react-hot-toast";
 import Error from "../../../../../../../../../../../../components/Error/Error";
 import {useMyOpenOrders} from "../../../../../../../../../../../../queries";
 import {cancelOrderByOrderID} from "js-api-client";
 import Date from "../../../../../../../../../../../../components/Date/Date";
 import Button from "../../../../../../../../../../../../components/Button/Button";
+import i18n from "i18next";
 
 
 const OpenOrders = () => {
@@ -21,6 +22,9 @@ const OpenOrders = () => {
 
     const activePair = useSelector((state) => state.exchange.activePair)
     const lastTransaction = useSelector((state) => state.auth.lastTransaction);
+
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
 
     const {data, isLoading, error, refetch} = useMyOpenOrders(activePair.symbol)
 
@@ -63,8 +67,8 @@ const OpenOrders = () => {
                                 <div className={`row jc-end ai-center`}>
                                     <span className={`ml-3`}>{t("volume")}:</span>
                                     <div className={`row ${color}`}>
-                                        <span className={`fs-02`}>{origQty.decimalPlaces(activePair.baseAssetPrecision).toFormat()}  </span>
-                                        <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.baseAsset.toUpperCase())}</span>
+                                        <span className={`fs-02`}>{origQty.decimalPlaces(currencies[activePair.baseAsset].precision).toFormat()}  </span>
+                                        <span className={`fs-0-8 mr-1`}>{getCurrencyNameOrAlias(currencies[activePair.baseAsset.toUpperCase()], language)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -78,8 +82,8 @@ const OpenOrders = () => {
                                 <div className={`row jc-end ai-center`}>
                                     <span className={`ml-3`}>{t("totalPrice")}:</span>
                                     <div className={`row ${color}`}>
-                                        <span className={`fs-02`}>{totalPrice.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span>
-                                        <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.quoteAsset.toUpperCase())}</span>
+                                        <span className={`fs-02`}>{totalPrice.decimalPlaces(currencies[activePair.quoteAsset].precision).toFormat()}</span>
+                                        <span className={`fs-0-8 mr-1`}>{getCurrencyNameOrAlias(currencies[activePair.quoteAsset.toUpperCase()], language)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -89,8 +93,8 @@ const OpenOrders = () => {
                                 <div className={`row jc-between ai-center width-100 my-1`}>
                                     <span className={`ml-3`}>{t("pricePerUnit")}:</span>
                                     <div className={`row ${color}`}>
-                                        <span className={`fs-02`}>{pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span>
-                                        <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.quoteAsset.toUpperCase())}</span>
+                                        <span className={`fs-02`}>{pricePerUnit.decimalPlaces(currencies[activePair.quoteAsset].precision).toFormat()}</span>
+                                        <span className={`fs-0-8 mr-1`}>{getCurrencyNameOrAlias(currencies[activePair.quoteAsset.toUpperCase()], language)}</span>
                                     </div>
                                 </div>
 
@@ -105,7 +109,7 @@ const OpenOrders = () => {
                                     <div className={`row jc-end ai-center`}>
                                         <span className={`ml-3`}>{t("myOrders.tradedAmount")}:</span>
                                         <div className={`row`}>
-                                            <span>{executedQty.decimalPlaces(activePair.baseAssetPrecision).toFormat()}</span>
+                                            <span>{executedQty.decimalPlaces(currencies[activePair.baseAsset].precision).toFormat()}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +124,7 @@ const OpenOrders = () => {
                                     <div className={`row jc-end ai-center`}>
                                         <span className={`ml-3`}>{t("myOrders.tradedPrice")}:</span>
                                         <div className={`row`}>
-                                            <span>{executedQty.multipliedBy(pricePerUnit).decimalPlaces(activePair.baseAssetPrecision).toFormat()}</span>
+                                            <span>{executedQty.multipliedBy(pricePerUnit).decimalPlaces(currencies[activePair.baseAsset].precision).toFormat()}</span>
                                         </div>
                                     </div>
                                 </div>

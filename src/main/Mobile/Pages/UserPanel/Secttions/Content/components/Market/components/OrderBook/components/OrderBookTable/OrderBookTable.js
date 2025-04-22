@@ -20,6 +20,8 @@ const OrderBookTable = ({data, type}) => {
     const location = useLocation();
 
     const dispatch = useDispatch();
+
+    const currencies = useSelector((state) => state.exchange.currencies)
     const activePair = useSelector((state) => state.exchange.activePair)
 
     let header;
@@ -92,16 +94,16 @@ const OrderBookTable = ({data, type}) => {
                                     className='cursor-pointer row jc-between'
                                     onClick={() => {
                                         dispatch(setSellOrder({
-                                            pricePerUnit: parseFloat(pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toString()),
+                                            pricePerUnit: pricePerUnit.decimalPlaces(currencies[activePair.quoteAsset].precision).toString(),
                                             amount: 0,
                                         }))
                                         if (location.pathname === OrderBookRoute) navigate(OrderRoute, {replace: true})
                                     }
                                     }>
                                     <span
-                                        className="width-50">{pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}</span>
+                                        className="width-50">{pricePerUnit.decimalPlaces(currencies[activePair.quoteAsset].precision).toFormat()}</span>
                                     <span
-                                        className="width-50">{amount.decimalPlaces(activePair.baseAssetPrecision).toFormat()}</span>
+                                        className="width-50">{amount.decimalPlaces(currencies[activePair.baseAsset].precision).toFormat()}</span>
                                 </div>
                             ) : (
                                 <div
@@ -110,17 +112,17 @@ const OrderBookTable = ({data, type}) => {
                                     className='cursor-pointer row jc-between'
                                     onClick={() => {
                                         dispatch(setBuyOrder({
-                                            pricePerUnit: parseFloat(pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toString()),
+                                            pricePerUnit: parseFloat(pricePerUnit.decimalPlaces(currencies[activePair.quoteAsset].precision).toString()),
                                             amount: 0,
                                         }))
                                         if (location.pathname === OrderBookRoute) navigate(OrderRoute, {replace: true})
                                     }
                                     }>
                                     <span className="width-50">
-                                        {amount.decimalPlaces(activePair.baseAssetPrecision).toFormat()}
+                                        {amount.decimalPlaces(currencies[activePair.baseAsset].precision).toFormat()}
                                     </span>
                                     <span className="width-50">
-                                        {pricePerUnit.decimalPlaces(activePair.quoteAssetPrecision).toFormat()}
+                                        {pricePerUnit.decimalPlaces(currencies[activePair.quoteAsset].precision).toFormat()}
                                     </span>
                                 </div>
                             );

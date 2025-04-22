@@ -4,14 +4,17 @@ import {useTranslation} from "react-i18next";
 import {toast} from "react-hot-toast";
 import Date from "../../../../../../../../../../components/Date/Date";
 import moment from "moment-jalaali";
-import {BN, shortenHash} from "../../../../../../../../../../utils/utils";
+import {BN, formatWithPrecision, shortenHash} from "../../../../../../../../../../utils/utils";
 import Icon from "../../../../../../../../../../components/Icon/Icon";
+import i18n from "i18next";
+import {useSelector} from "react-redux";
 
 const DepositHistoryTable = ({data}) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const {t} = useTranslation();
-
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
 
     const copyToClipboard = (e, value) => {
         e.stopPropagation();
@@ -30,15 +33,15 @@ const DepositHistoryTable = ({data}) => {
                         <span className={``}>{moment.utc(data?.createDate).local().format("HH:mm:ss")}</span>
                     </div>
 
-                    <span className={`row jc-center ai-center`}>{t("HistoryStatus."+ data?.status)}</span>
+                    <span className={`row jc-center ai-center`}>{t("depositStatus."+ data?.status)}</span>
 
                     {/*<span className={`row jc-center ai-center`}>{moment(data?.date).format("HH:mm:ss")}</span>*/}
                 </div>
 
                 <div className={`width-100 row jc-between ai-center`}>
-                    <span>{data?.network}</span>
+                    <span>{data.network ?? "- - -"}</span>
                     <div className={`direction-ltr row ${data?.status !== "INVALID" ? 'text-green' : 'text-gray'}`} style={{alignItems:"baseline"}}>
-                        <span className={`fs-03`}>{new BN(data?.amount).toFormat()}</span>
+                        <span className={`fs-03`}>{formatWithPrecision(data?.amount, currencies[data?.currency].precision)}</span>
                         <span className={`${classes.spacing}`}/>
                         <span>{data?.currency}</span>
 
@@ -47,7 +50,7 @@ const DepositHistoryTable = ({data}) => {
 
                 <div className={`width-100 row jc-between ai-center`}>
                     <span>{t("history.type")}</span>
-                    <span>{t("HistoryType."+ data?.type)}</span>
+                    <span>{data?.type}</span>
                 </div>
 
 

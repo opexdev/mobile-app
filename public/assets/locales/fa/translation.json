@@ -286,6 +286,13 @@
   "depositStatus": {
     "DONE": "انجام شده"
   },
+  "withdrawStatus": {
+    "CREATED": "جاری شده",
+    "PROCESSING": "در حال انجام",
+    "CANCELED": "لغو شده",
+    "REJECTED": "رد شده",
+    "DONE": "انجام شده"
+  },
   "HistoryStatus": {
     "DONE" : "انجام شده",
     "CREATED": "جاری شده",

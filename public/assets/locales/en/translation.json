@@ -286,6 +286,13 @@
   "depositStatus": {
     "DONE": "Done"
   },
+  "withdrawStatus": {
+    "CREATED": "Created",
+    "PROCESSING": "Processing",
+    "CANCELED": "Canceled",
+    "REJECTED": "Rejected",
+    "DONE": "Done"
+  },
   "HistoryStatus": {
     "DONE": "Done",
     "CREATED": "Created",

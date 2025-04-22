@@ -4,16 +4,20 @@ import {useTranslation} from "react-i18next";
 import {toast} from "react-hot-toast";
 import Date from "../../../../../../../../../../components/Date/Date";
 import moment from "moment-jalaali";
-import {BN, shortenHash} from "../../../../../../../../../../utils/utils";
+import {BN, formatWithPrecision, shortenHash} from "../../../../../../../../../../utils/utils";
 import Button from "../../../../../../../../../../components/Button/Button";
 import {useGetWithdrawHistory} from "../../../../../../../../../../queries";
 import {cancelWithdrawReq} from "js-api-client";
 import Loading from "../../../../../../../../../../components/Loading/Loading";
 import Icon from "../../../../../../../../../../components/Icon/Icon";
+import i18n from "i18next";
+import {useSelector} from "react-redux";
 
 const WithdrawHistoryTable = ({data, query}) => {
 
     const {t} = useTranslation();
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
 
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
@@ -59,15 +63,15 @@ const WithdrawHistoryTable = ({data, query}) => {
                         <span className={``}>{moment.utc(data?.createDate).local().format("HH:mm:ss")}</span>
                     </div>
 
-                    <span className={`row jc-center ai-center`}>{t("HistoryStatus."+ data?.status)}</span>
+                    <span className={`row jc-center ai-center`}>{t("withdrawStatus."+ data?.status)}</span>
 
                     {/*<span className={`row jc-center ai-center`}>{moment(data?.date).format("HH:mm:ss")}</span>*/}
                 </div>
 
                 <div className={`width-100 row jc-between ai-center`}>
-                    <span>{data?.network}</span>
+                    <span>{data?.destNetwork}</span>
                     <div className={`direction-ltr row text-red`} style={{alignItems:"baseline"}}>
-                        <span className={`fs-03`}>{new BN(data?.amount).toFormat()}</span>
+                        <span className={`fs-03`}>{formatWithPrecision(data?.amount, currencies[data?.currency].precision)}</span>
                         <span className={`${classes.spacing}`}/>
                         <span>{data?.currency}</span>
 
@@ -99,7 +103,7 @@ const WithdrawHistoryTable = ({data, query}) => {
                     <span>{t("history.appliedFee")}</span>
 
                     { data?.appliedFee ? <div className={`direction-ltr row`} style={{alignItems:"baseline"}}>
-                        <span className={``}>{new BN(data?.amount).toFormat()}</span>
+                        <span className={``}>{formatWithPrecision(data?.appliedFee, currencies[data.currency].precision)}</span>
                         <span className={`${classes.spacing}`}/>
                         <span className={`fs-0-8`}>{data?.currency}</span>
 

@@ -8,7 +8,8 @@ import ScrollBar from "../../../../../../../../../../../../components/ScrollBar"
 import Error from "../../../../../../../../../../../../components/Error/Error";
 import {useMyTrades} from "../../../../../../../../../../../../queries";
 import Date from "../../../../../../../../../../../../components/Date/Date";
-import {BN} from "../../../../../../../../../../../../utils/utils";
+import {BN, formatWithPrecision, getCurrencyNameOrAlias} from "../../../../../../../../../../../../utils/utils";
+import i18n from "i18next";
 
 const Trades = () => {
 
@@ -20,6 +21,9 @@ const Trades = () => {
     const lastTransaction = useSelector((state) => state.auth.lastTransaction);
 
     const {data, isLoading, error, refetch} = useMyTrades(activePair.symbol)
+
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
 
     useEffect(() => {
         refetch()
@@ -48,8 +52,8 @@ const Trades = () => {
                                 <div className={`row jc-end ai-center`}>
                                     <span className={`ml-3`}>{t("volume")}:</span>
                                     <div className={`row ${color}`}>
-                                        <span className={`fs-02`}>{tr.qty}</span>
-                                        <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.baseAsset.toUpperCase())}</span>
+                                        <span className={`fs-02`}>{new BN(tr.qty).decimalPlaces(currencies[activePair.baseAsset].precision).toFormat()}</span>
+                                        <span className={`fs-0-8 mr-1`}>{getCurrencyNameOrAlias(currencies[activePair.baseAsset.toUpperCase()], language)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -57,19 +61,17 @@ const Trades = () => {
                             <div className={`row jc-between ai-center my-1`}>
                                 <span className={`ml-3`}>{t("totalPrice")}:</span>
                                 <div className={`row ${color}`}>
-                                    <span className={`fs-02`}>{(tr.qty * tr.price).toLocaleString()}</span>
-                                    <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.quoteAsset.toUpperCase())}</span>
+                                    <span className={`fs-02`}>{new BN(tr.qty).multipliedBy(tr.price).decimalPlaces(currencies[activePair.quoteAsset].precision).toFormat()}</span>
+                                    <span className={`fs-0-8 mr-1`}>{getCurrencyNameOrAlias(currencies[activePair.quoteAsset.toUpperCase()], language)}</span>
                                 </div>
                             </div>
 
-
                             <div style={{display: openOrder === index ? "revert" : "none"}} className={`column`}>
-
                                 <div className={`row jc-between ai-center my-1`}>
                                     <span className={`ml-3`}>{t("pricePerUnit")}:</span>
                                     <div className={`row ${color}`}>
-                                        <span className={`fs-02`}>{(tr.price)}</span>
-                                        <span className={`fs-0-8 mr-1`}>{t("currency." + activePair.quoteAsset.toUpperCase())}</span>
+                                        <span className={`fs-02`}>{new BN(tr.price).decimalPlaces(currencies[activePair.quoteAsset].precision).toFormat()}</span>
+                                        <span className={`fs-0-8 mr-1`}>{getCurrencyNameOrAlias(currencies[activePair.quoteAsset.toUpperCase()], language)}</span>
                                     </div>
                                 </div>
                                 <div className={`row jc-between ai-center width-100 my-1`}>
@@ -82,8 +84,8 @@ const Trades = () => {
                                     <div className={`row jc-end ai-center`}>
                                         <span className={`ml-3`}>{t("commission")}:</span>
                                         <div className={`row`}>
-                                            <span>{new BN(tr.commission).toFormat()}</span>
-                                            <span className={`fs-0-8 mr-1`}>{t("currency." + tr.commissionAsset.toUpperCase())}</span>
+                                            <span>{formatWithPrecision(tr.commission, currencies[tr.commissionAsset.toUpperCase()].precision)}</span>
+                                            <span className={`fs-0-8 mr-1`}>{getCurrencyNameOrAlias(currencies[tr.commissionAsset.toUpperCase()], language)}</span>
                                         </div>
                                     </div>
                                 </div>

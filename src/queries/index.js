@@ -26,3 +26,4 @@ export {useTransactionHistory} from "./hooks/useTransactionHistory";
 export {useGetTransactionsHistory} from "./hooks/useGetTransactionsHistory";
 export {useGetDepositHistory} from "./hooks/useGetDepositHistory.js";
 export {useGetWithdrawHistory} from "./hooks/useGetWithdrawHistory.js";
+export {useGetChartData} from "./hooks/useGetChartData.js";

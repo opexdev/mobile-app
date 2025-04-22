@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTranslation} from "react-i18next";
 import classes from "./AllMarketInfo.module.css"
 import {useSelector} from "react-redux";
@@ -6,6 +6,8 @@ import {useGetQuoteCurrencies, useOverview} from "../../../../../../queries";
 import AllMarketInfoTable from "./components/AllMarketInfoTable/AllMarketInfoTable";
 import Loading from "../../../../../../components/Loading/Loading";
 import Error from "../../../../../../components/Error/Error";
+import {getCurrencyNameOrAlias} from "../../../../../../utils/utils";
+import i18n from "i18next";
 
 const AllMarketInfo = () => {
 
@@ -17,17 +19,26 @@ const AllMarketInfo = () => {
     const interval = useSelector((state) => state.global.marketInterval)
     const quote = activeCurrency === "" ? null : activeCurrency
 
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
+
     const {data: overview, isLoading, error} = useOverview(null, interval, quote)
-    const {data: currencies} = useGetQuoteCurrencies()
+    const {data: quoteCurrencies, isLoading:quoteCurrenciesIsLoading, error:quoteCurrenciesError} = useGetQuoteCurrencies()
+
+    useEffect(() => {
+        if (quoteCurrencies?.length > 0) {
+            setActiveCurrency(quoteCurrencies[0]);
+        }
+    }, [quoteCurrencies]);
 
     const content = () => {
-        if (isLoading) return <div style={{height: "40vh"}}><Loading/></div>
-        if (error) return <div style={{height: "40vh"}}><Error/></div>
+        if (isLoading || quoteCurrenciesIsLoading) return <div style={{height: "40vh"}}><Loading/></div>
+        if (error || quoteCurrenciesError) return <div style={{height: "40vh"}}><Error/></div>
         else return <>
             {card ?
-                <AllMarketInfoTable data={overview} activeCurrency={activeCurrency}/>
+                <AllMarketInfoTable data={overview} activeCurrency={activeCurrency} interval={interval}/>
                 :
-                <AllMarketInfoTable data={overview} activeCurrency={activeCurrency}/>
+                <AllMarketInfoTable data={overview} activeCurrency={activeCurrency} interval={interval}/>
             }
         </>
     }
@@ -42,8 +53,10 @@ const AllMarketInfo = () => {
                 </div>
 
                 <div className={`row jc-center ai-center mr-1 fs-0-8`}>
-                    {currencies?.map((currency) =>
-                        <span className={`px-2 py-1 rounded-5 cursor-pointer hover-text ${classes.title} ${activeCurrency === currency && classes.active}`} onClick={() => setActiveCurrency(currency)} key={currency}>{t("currency." + currency)}</span>
+                    {quoteCurrencies?.map((currency) =>
+                        <span className={`px-2 py-1 rounded-5 cursor-pointer hover-text ${classes.title} ${activeCurrency === currency && classes.active}`} onClick={() => setActiveCurrency(currency)} key={currency}>
+                            {getCurrencyNameOrAlias(currencies[currency], language)}
+                        </span>
                     )}
                 </div>
 
