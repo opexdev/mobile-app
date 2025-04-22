@@ -4,7 +4,7 @@ import {Trans, useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {useGetUserAccount} from "../../../../../../queries/hooks/useGetUserAccount";
 import {useOrderBook} from "../../../../../../queries";
-import {BN, parsePriceString} from "../../../../../../utils/utils";
+import {BN, getCurrencyNameOrAlias, parsePriceString} from "../../../../../../utils/utils";
 import {toast} from "react-hot-toast";
 import {setLastTransaction} from "../../../../../../store/actions/auth";
 import {images} from "../../../../../../assets/images";
@@ -26,6 +26,10 @@ const EasyOrder = () => {
     const [isLoading, setIsLoading] = useState(false)
     const isLogin = useSelector((state) => state.auth.isLogin)
 
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
+    const pairsList = useSelector((state) => state.exchange.pairsList)
+
     const symbols = useSelector((state) => state.exchange.symbols)
 
     const [alert, setAlert] = useState({
@@ -45,31 +49,37 @@ const EasyOrder = () => {
     });
 
     const handleAvailableAssets = () => {
-        const availableAssets = [];
-        for (const symbol of symbols) {
-            if (!availableAssets.includes(symbol.baseAsset)) availableAssets.push(symbol.baseAsset)
-            if (!availableAssets.includes(symbol.quoteAsset)) availableAssets.push(symbol.quoteAsset)
-        }
-        return availableAssets;
-    }
+        const availableAssets = new Set();
+        Object.values(pairsList).forEach(pair => {
+            availableAssets.add(pair.baseAsset);
+            availableAssets.add(pair.quoteAsset);
+        });
+        return Array.from(availableAssets);
+    };
 
     const handleAvailableDest = (buy) => {
-        const dest = []
-        for (const symbol of symbols) {
-            if (symbol.baseAsset === buy) dest.push(symbol.quoteAsset)
-            if (symbol.quoteAsset === buy) dest.push(symbol.baseAsset)
-        }
-        return dest
-    }
+        const dest = new Set();
+        Object.values(pairsList).forEach(pair => {
+            if (pair.baseAsset === buy) dest.add(pair.quoteAsset);
+            if (pair.quoteAsset === buy) dest.add(pair.baseAsset);
+        });
+        return Array.from(dest);
+    };
 
-    const findPair = (buy, sell) => symbols?.find(s => ((s?.baseAsset === buy) && (s?.quoteAsset === sell)) || ((s?.baseAsset === sell) && (s?.quoteAsset === buy)))
+    const findPair = (buy, sell) =>
+        Object.values(pairsList)?.find(pair =>
+            (pair.baseAsset === buy && pair.quoteAsset === sell) ||
+            (pair.baseAsset === sell && pair.quoteAsset === buy)
+        );
+
+    const pairsArray = Object.values(pairsList);
 
     const [selected, setSelected] = useState({
-        buy: symbols[0].baseAsset,
-        sell: symbols[0].quoteAsset,
-        pair: findPair(symbols[0].baseAsset, symbols[0].quoteAsset),
+        buy: pairsArray[0]?.baseAsset,
+        sell: pairsArray[0]?.quoteAsset,
+        pair: findPair(pairsArray[0]?.baseAsset, pairsArray[0]?.quoteAsset),
         type: "ask"
-    })
+    });
 
     const reversePair = () => {
 
@@ -78,6 +88,12 @@ const EasyOrder = () => {
             buy: selected?.sell,
             sell: selected?.buy,
             type: selected?.type ==="ask" ? "bid" : "ask"
+        })
+
+        setAlert({
+            submit: false,
+            reqAmount: null,
+            totalPrice: null,
         })
 
     }
@@ -107,36 +123,28 @@ const EasyOrder = () => {
         bestPriceHandler()
     }, [orderBook, selected])
 
-
     const buyPriceHandler = (value) => {
         let newAlert = null
         value = parsePriceString(value);
         const reqAmount = new BN(value);
-        let range = "baseRange"
-        if (selected.type === "bid") range = "quoteRange"
-        if (reqAmount.isZero() && reqAmount.isLessThan(selected.pair[range].min)) {
+
+        let selectedCurrency = "baseAsset"
+        if (selected.type === "bid") selectedCurrency = "quoteAsset"
+
+        if (reqAmount.isZero() && reqAmount.isLessThan(currencies[selected.pair[selectedCurrency]].minOrder)) {
             newAlert = <Trans
                 i18nKey="orders.minOrder"
                 values={{
-                    min: new BN(selected.pair[range].min).toFormat(),
-                    currency: t("currency." + selected.buy),
+                    min: new BN( currencies[selected.pair[selectedCurrency]].minOrder).toFormat(),
+                    currency: getCurrencyNameOrAlias(currencies[selected?.buy], language),
                 }}
             />
-
         }
-       /* if (reqAmount.isGreaterThan(selected.pair[range].max)) {
-            newAlert = <Trans
-                i18nKey="orders.maxOrder"
-                values={{
-                    max: selected.pair[range].max?.toLocaleString(),
-                    currency: t("currency." + selected.buy),
-                }}
-            />
-        }*/
-        if (!reqAmount.mod(selected.pair[range].step).isZero()) {
+
+        if (!reqAmount.mod(currencies[selected.pair[selectedCurrency]].step).isZero()) {
             newAlert = <Trans
                 i18nKey="orders.divisibility"
-                values={{mod: new BN(selected.pair[range].step).toFormat()}}
+                values={{mod: new BN(currencies[selected.pair[selectedCurrency]].step).toFormat()}}
             />
         }
         setAlert({...alert, reqAmount: newAlert});
@@ -149,36 +157,30 @@ const EasyOrder = () => {
         });
 
     };
+
     const totalPriceHandler = (value) => {
         let newAlert = null
         value = parsePriceString(value);
         const totalPrice = new BN(value);
-        let range = "quoteRange"
-        if (selected.type === "bid") range = "baseRange"
 
-        if (totalPrice.isZero() && totalPrice.isLessThan(selected.pair[range].min)) {
+        let selectedCurrency = "quoteAsset"
+        if (selected.type === "bid") selectedCurrency = "baseAsset"
+
+        if (totalPrice.isZero() && totalPrice.isLessThan(currencies[selected.pair[selectedCurrency]].minOrder)) {
             newAlert = <Trans
                 i18nKey="orders.minOrder"
                 values={{
-                    min: new BN(selected.pair[range].min).toFormat(),
-                    currency: t("currency." + selected.sell),
+                    min: new BN(currencies[selected.pair[selectedCurrency]].minOrder).toFormat(),
+                    currency: getCurrencyNameOrAlias(currencies[selected.sell], language),
                 }}
             />
 
         }
-        /*if (totalPrice.isGreaterThan(selected.pair[range].max)) {
-            newAlert = <Trans
-                i18nKey="orders.maxOrder"
-                values={{
-                    max: selected.pair[range].max?.toLocaleString(),
-                    currency: t("currency." + selected.sell),
-                }}
-            />
-        }*/
-        if (!totalPrice.mod(selected.pair[range].step).isZero()) {
+
+        if (!totalPrice.mod(currencies[selected.pair[selectedCurrency]].step).isZero()) {
             newAlert = <Trans
                 i18nKey="orders.divisibility"
-                values={{mod: new BN(selected.pair[range].min).toFormat()}}
+                values={{mod: new BN(currencies[selected.pair[selectedCurrency]].minOrder).toFormat()}}
             />
         }
         setAlert({...alert, totalPrice: newAlert});
@@ -195,8 +197,8 @@ const EasyOrder = () => {
         if (order.pricePerUnit.isEqualTo(0)) return toast.error(t("orders.hasNoOffer"));
         let totalPrice = new BN(userAccount?.wallets[selected?.sell]?.free);
         let reqAmount = totalPrice.dividedBy(order.pricePerUnit)
-        if (!reqAmount.mod(selected.pair?.[selected.type === "ask" ? "baseRange" : "quoteRange"].step).isZero()) {
-            reqAmount = reqAmount.minus(reqAmount.mod(selected.pair?.[selected.type === "ask" ? "baseRange" : "quoteRange"].step));
+        if (!reqAmount.mod(currencies[selected.pair?.[selected.type === "ask" ? "baseAsset" : "quoteAsset"]].step).isZero()) {
+            reqAmount = reqAmount.minus(reqAmount.mod(currencies[selected.pair?.[selected.type === "ask" ? "baseAsset" : "quoteAsset"]].step));
         }
         buyPriceHandler(
             reqAmount.toFormat(),
@@ -212,7 +214,7 @@ const EasyOrder = () => {
         setIsLoading(true)
         const newOrder = {...order}
         if (selected.type === "bid") {
-            newOrder.reqAmount = order.totalPrice.decimalPlaces(selected.pair?.baseAssetPrecision)
+            newOrder.reqAmount = order.totalPrice.decimalPlaces(currencies[selected?.pair?.baseAsset].precision)
         }
         createOrder(selected.pair?.symbol, selected.type === "ask" ? "BUY" : "SELL", newOrder)
             .then((res) => {
@@ -228,8 +230,8 @@ const EasyOrder = () => {
                 toast.success(<Trans
                     i18nKey="orders.success"
                     values={{
-                        base: t("currency." + selected.pair?.baseAsset),
-                        quote: t("currency." + selected.pair?.quoteAsset),
+                        base: getCurrencyNameOrAlias(selected?.pair?.baseAsset, language),
+                        quote: getCurrencyNameOrAlias(selected?.pair?.quoteAsset, language),
                         type: t("buy"),
                         reqAmount: order.reqAmount,
                         pricePerUnit: order.pricePerUnit,
@@ -259,20 +261,22 @@ const EasyOrder = () => {
 
     const buyOnChangeHandler = (e) => {
         const newBuy = e.value;
-        const sellOptions = handleAvailableDest(newBuy)
+        const sellOptions = handleAvailableDest(newBuy);
 
-        setOptions({
-            ...options,
-            "sell": sellOptions,
-        })
+        setOptions(prevOptions => ({
+            ...prevOptions,
+            sell: sellOptions,
+        }));
+
         const sell = sellOptions.includes(selected.sell) ? selected.sell : sellOptions[0];
-        const pair = findPair(newBuy, sell)
+        const pair = findPair(newBuy, sell) || {};
         setSelected({
             buy: newBuy,
             sell,
             pair,
-            type: newBuy === pair.baseAsset ? "ask" : "bid"
-        })
+            type: pair.baseAsset === newBuy ? "ask" : "bid"
+        });
+
         setOrder({
             tradeFee: new BN(0),
             stopLimit: false,
@@ -281,17 +285,26 @@ const EasyOrder = () => {
             reqAmount: new BN(0),
             pricePerUnit: new BN(0),
             totalPrice: new BN(0),
-        })
-    }
+        });
+
+        setAlert({
+            submit: false,
+            reqAmount: null,
+            totalPrice: null,
+        });
+    };
+
     const sellOnChangeHandler = (e) => {
         const newSell = e.value;
-        const pair = findPair(selected.buy, newSell)
-        setSelected({
-            ...selected,
+        const pair = findPair(selected.buy, newSell) || {};
+
+        setSelected(prevSelected => ({
+            ...prevSelected,
             sell: newSell,
             pair,
             type: selected.buy === pair.baseAsset ? "ask" : "bid"
-        })
+        }));
+
         setOrder({
             tradeFee: new BN(0),
             stopLimit: false,
@@ -300,12 +313,19 @@ const EasyOrder = () => {
             reqAmount: new BN(0),
             pricePerUnit: new BN(0),
             totalPrice: new BN(0),
-        })
-    }
+        });
+
+        setAlert({
+            submit: false,
+            reqAmount: null,
+            totalPrice: null,
+        });
+    };
+
     const showBestPrice = () => {
         if (order.pricePerUnit.isZero()) return 0
         if (selected.type === "ask") return order.pricePerUnit.toFormat()
-        return new BN(1).dividedBy(order.pricePerUnit).decimalPlaces(selected.pair?.baseAssetPrecision).toFormat()
+        return new BN(1).dividedBy(order.pricePerUnit).decimalPlaces(currencies[selected?.pair?.baseAsset].precision).toFormat()
     }
 
     useEffect(() => {
@@ -328,7 +348,7 @@ const EasyOrder = () => {
                 <span>{t("MarketTitle.easyTrading")}</span>
 
                 <div className={`row jc-center ai-center cursor-pointer hover-text fs-0-9`}>
-                    <Link to={Routes.TxHistory} className={`ml-05 hover-text`}>{t("txHistory.title")}</Link>
+                    <Link to={Routes.TransactionsHistory} className={`ml-05 hover-text`}>{t("txHistory.title")}</Link>
                     <Icon
                         iconName={`${i18n.language !== "fa" ? 'icon-right-open-1' : 'icon-left-open-1'}  fs-0-9 flex`}
                         className={`mr-05`}/>
@@ -345,9 +365,9 @@ const EasyOrder = () => {
                                 value: o,
                                 label: <div className={`row jc-start ai-center px-2`}>
                                     <div className={`${classes.avatar}`}
-                                         style={{backgroundImage: `url("${images[o]}")`}}
+                                         style={{ backgroundImage: `url("${currencies[o]?.icon}")` }}
                                     />
-                                    <span className={`mr-4`}>{t('currency.' + o)}</span>
+                                    <span className={`mr-4`}>{getCurrencyNameOrAlias(currencies[o], language)}</span>
                                 </div>
                             }
                         }
@@ -356,15 +376,15 @@ const EasyOrder = () => {
                     type="select"
                     value={{
                         value: selected?.buy,
-                        label: t('currency.' + selected?.buy),
+                        label: getCurrencyNameOrAlias(currencies[selected?.buy], language),
                     }}
                     onchange={buyOnChangeHandler}
                     customClass={`width-90 ${classes.thisInput} mb-1`}
                 />
 
                 <div className={`row width-80 jc-between fs-0-9`}>
-                    <p>{t("MarketInfo.lastPrice")}{" "} {t("currency." + selected?.buy)}:</p>
-                    <span>{showBestPrice()}{" "}{t("currency." + selected?.sell)}</span>
+                    <p>{t("MarketInfo.lastPrice")}{" "} {getCurrencyNameOrAlias(currencies[selected?.buy], language)}:</p>
+                    <span>{showBestPrice()}{" "}{getCurrencyNameOrAlias(currencies[selected?.sell], language)}</span>
                 </div>
 
                 <div className={`width-86 flex jc-center ai-center my-3`}>
@@ -384,9 +404,9 @@ const EasyOrder = () => {
                                 label: <div className={`row jc-start ai-center px-2`}>
 
                                     <div className={`${classes.avatar}`}
-                                         style={{backgroundImage: `url("${images[o]}")`}}
+                                         style={{ backgroundImage: `url("${currencies[o]?.icon}")` }}
                                     />
-                                    <span className={`mr-4`}>{t('currency.' + o)}</span>
+                                    <span className={`mr-4`}>{getCurrencyNameOrAlias(currencies[o], language)}</span>
                                 </div>
                             }
                         }
@@ -395,7 +415,7 @@ const EasyOrder = () => {
                     type="select"
                     value={{
                         value: selected?.sell,
-                        label: selected?.sell ? t('currency.' + selected?.sell) : t("PersonalizationForm.placeholder"),
+                        label: selected?.sell ?  getCurrencyNameOrAlias(currencies[selected?.sell], language) : t("PersonalizationForm.placeholder"),
                     }}
                     onchange={sellOnChangeHandler}
                     customClass={`width-90 ${classes.thisInput} my-1`}
@@ -404,14 +424,14 @@ const EasyOrder = () => {
                 <div className={`row width-80 jc-between fs-0-9 cursor-pointer`}>
                     <p>{t("orders.availableAmount")}:{" "}</p>
                     <span
-                        onClick={fillBuyByWallet}>{new BN(userAccount?.wallets[selected?.sell]?.free || 0).toFormat()}{" "}{t("currency." + selected?.sell)}</span>
+                        onClick={fillBuyByWallet}>{new BN(userAccount?.wallets[selected?.sell]?.free || 0).decimalPlaces(currencies[selected?.sell]?.precision ?? 0).toFormat()}{" "}{getCurrencyNameOrAlias(currencies[selected?.sell], language)}</span>
                 </div>
 
                 <NumberInput
                     lead={t("orders.amount")}
-                    after={t("currency." + selected.buy)}
+                    after={getCurrencyNameOrAlias(currencies[selected?.buy], language)}
                     value={order.reqAmount.toFormat()}
-                    maxDecimal={selected.type === "ask" ? selected.pair?.baseAssetPrecision : selected.pair?.quoteAssetPrecision}
+                    maxDecimal={selected.type === "ask" ? currencies[selected?.pair?.baseAsset].precision : currencies[selected?.pair?.quoteAsset].precision}
                     onchange={(e) => buyPriceHandler(e.target.value)}
                     alert={alert.reqAmount}
                     customClass={`width-90 mb-1 mt-5`}
@@ -420,8 +440,8 @@ const EasyOrder = () => {
                 <NumberInput
                     lead={t("orders.totalPrice")}
                     value={order?.totalPrice?.toFormat(selected.type === "ask" ? selected.pair?.quoteAssetPrecision : selected.pair?.baseAssetPrecision)}
-                    maxDecimal={selected.type === "ask" ? selected.pair?.quoteAssetPrecision : selected.pair?.baseAssetPrecision}
-                    after={t("currency." + selected.sell)}
+                    maxDecimal={selected.type === "ask" ? currencies[selected?.pair?.quoteAsset].precision : currencies[selected?.pair?.baseAsset].precision}
+                    after={getCurrencyNameOrAlias(currencies[selected?.sell], language)}
                     onchange={(e) => totalPriceHandler(e.target.value)}
                     alert={alert.totalPrice}
                     customClass={`width-90 my-1`}
