@@ -13,11 +13,15 @@ import Loading from "../../../../../../../../../../components/Loading/Loading";
 import Error from "../../../../../../../../../../components/Error/Error";
 import Date from "../../../../../../../../../../components/Date/Date";
 import Button from "../../../../../../../../../../components/Button/Button";
+import {getCurrencyNameOrAlias} from "../../../../../../../../../../utils/utils";
 
 const Transactions = () => {
 
     const {t} = useTranslation();
     const coins = useSelector((state) => state.exchange.assets)
+
+    const language = i18n.language
+    const currencies = useSelector((state) => state.exchange.currencies)
 
     const [query, setQuery] = useState({
         "currency": null, // optional
@@ -54,8 +58,8 @@ const Transactions = () => {
         categoryOptions.push({value: o, label: t('TransactionCategory.' + o)})
     })
 
-    coins.forEach((o) => {
-        currenciesOptions.push({value: o, label: t('currency.' + o)})
+    Object.keys(currencies).forEach((o) => {
+        currenciesOptions.push({value: o, label: getCurrencyNameOrAlias(currencies[o], language)})
     })
 
     const scrollRef = useRef(null);
@@ -132,7 +136,7 @@ const Transactions = () => {
                     type="select"
                     value={{
                         value: query?.currency,
-                        label:  query?.currency ? t('currency.'+ query?.currency) : t('all'),
+                        label:  query?.currency ? getCurrencyNameOrAlias(currencies[query?.currency], language) : t('all'),
                     }}
                     onchange={(e) => setQuery({...query, currency: e.value, offset:0})}
                     customClass={`width-100 my-1 ${classes.thisInput}`}
