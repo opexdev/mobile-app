@@ -4,7 +4,7 @@ const initialState = {
     assets: [],
     pairs: [],
     symbols: [],
-    activePair: {},
+    activePair: [],
     activePairOrders: {
         bestBuyPrice: 0,
         bestSellPrice: 0,

@@ -12,6 +12,8 @@ import i18n from "i18next";
 
 const MarketPairCard = ({id, pair,favPair,addFav}) => {
 
+    console.log("id", id)
+
     const activePair = useSelector((state) => state.exchange.activePair.symbol)
     const {data: prices} = useGetLastPrices()
     const dispatch = useDispatch();

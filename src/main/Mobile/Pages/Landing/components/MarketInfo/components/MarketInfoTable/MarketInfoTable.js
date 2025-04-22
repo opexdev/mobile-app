@@ -32,9 +32,9 @@ const  MarketInfoTable = ({data, activeCurrency, interval}) => {
     const [swipLeft, setSwipLeft] = useState(null);
 
 
-    const navigateToPanel = (symbol) => {
-        const selectedPair = allExchangeSymbols.find(s => s.symbol === symbol)
-        dispatch(setActivePairInitiate(selectedPair, 0))
+    const navigateToPanel = (baseAsset, quoteAsset) => {
+        const pairSymbolFormatted = `${baseAsset}_${quoteAsset}`;
+        dispatch(setActivePairInitiate(`${baseAsset}_${quoteAsset}`, 0));
         navigate(Order)
     }
 
@@ -116,7 +116,7 @@ const  MarketInfoTable = ({data, activeCurrency, interval}) => {
                                          <img
                                              src={images[tr?.base]}
                                              alt={tr?.base}
-                                             title={tr?.baseAsset}
+                                             title={tr?.base}
                                              className={`img-md ml-1`}
                                          />
                                          <span className={`mr-1`}>{activeCurrency ? getCurrencyNameOrAlias(currencies[tr?.base], language) : tr?.base + " / " + tr?.quote}</span>
@@ -143,7 +143,7 @@ const  MarketInfoTable = ({data, activeCurrency, interval}) => {
                                         <Button
                                             buttonClass={classes.thisButton}
                                             type="button"
-                                            onClick={() => navigateToPanel(tr.symbol)}
+                                            onClick={() => navigateToPanel(tr?.base, tr?.quote)}
                                             buttonTitle={t("MarketInfo.trade")}
                                         />
                                     </div>
