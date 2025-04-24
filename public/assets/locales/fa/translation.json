@@ -346,6 +346,7 @@
     "seconds": "ثانیه",
     "submitPaymentReq": "ثبت درخواست واریز",
     "noInventory": "موجودی کافی نیست !",
+    "noInventorywithdrawFee": "با احتساب کارمزد، موجودی کافی نیست !",
     "allowableWithdraw": "حداقل مقدار مجاز برداشت رعایت نشده است.",
     "fillAddress": "وارد کردن آدرس الزامیست.",
     "important": "مهم",
