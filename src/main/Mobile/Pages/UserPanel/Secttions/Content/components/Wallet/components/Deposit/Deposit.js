@@ -1,13 +1,12 @@
-import React, {useEffect, useRef, useState} from 'react';
-import classes from './Deposit.module.css'
+import React, {useEffect, useMemo} from 'react';
 import {useTranslation} from "react-i18next";
-import TextInput from "../../../../../../../../../../components/TextInput/TextInput";
 import {useParams} from "react-router-dom";
-import {useGetCurrencyInfo} from "../../../../../../../../../../queries";
+import {useGetGatewaysByCurrency} from "../../../../../../../../../../queries";
 import {toast} from "react-hot-toast";
 import Loading from "../../../../../../../../../../components/Loading/Loading";
 import Error from "../../../../../../../../../../components/Error/Error";
-import Address from "./components/Address/Address";
+import {useSelector} from "react-redux";
+import OnChainDeposit from "./Module/OnChainDeposit/OnChainDeposit";
 
 
 const Deposit = () => {
@@ -19,51 +18,51 @@ const Deposit = () => {
         toast.dismiss()
     }, [])
 
+    const currencies = useSelector((state) => state.exchange.currencies)
 
 
-    const [networkName, setNetworkName] = useState({value: 0, error: []});
+    const { data, isLoading, error } = useGetGatewaysByCurrency(id, {
+        includeManualGateways: false,
+        includeOffChainGateways: true,
+        includeOnChainGateways: true
+    });
 
-    const selectRef = useRef()
-    const {data: currencyInfo, isLoading: CILoading, error: CIError, refetch: refetchCI} = useGetCurrencyInfo(id)
-
-    useEffect(() => {
-        setNetworkName({value: 0, error: []})
-
-    }, [id]);
-
-    useEffect(() => {
-        if (id !== "IRT") refetchCI()
-    }, [id]);
+    const { hasOnChain, hasOffChain } = useMemo(() => ({
+        hasOnChain: data?.some(gateway => gateway.type === "OnChain"),
+        hasOffChain: data?.some(gateway => gateway.type === "OffChain")
+    }), [data]);
 
 
-   // if (id === "IRT") return <IRTDeposit/>
-    if (id === "IRT") return <div className={`flex jc-center ai-center card-bg card-border height-98 width-95`}><h3>{t("comingSoon")}</h3></div>
-    if (CILoading) return <div className={`card-bg card-border height-98 width-95`}><Loading/></div>
-    if (CIError) return <div className={`card-bg card-border height-98 width-95`}><Error/></div>
+
+    if (!currencies[id]?.depositAllowed) return <div className={`flex jc-center ai-center card-bg card-border height-98 width-95`}>
+        <span>{t("noData")}</span>
+    </div>
+    if (isLoading) return <div className={`flex jc-center ai-center card-bg card-border height-98 width-95`}><Loading/></div>
+    if (error) return <div className={`flex jc-center ai-center card-bg card-border height-98 width-95`}><Error/></div>
+    if (data.length <= 0 ) return <div className={`flex jc-center ai-center card-bg card-border height-98 width-95`}>
+        <span>{t("noData")}</span>
+    </div>
 
 
-    return (
-        <div className={`px-3 py-3 column jc-start ai-center text-center ${classes.content} card-bg card-border height-98 width-95`}>
-            <TextInput
-                select={true}
-                placeholder={t('DepositWithdraw.selectNetwork')}
-                options={currencyInfo?.chains.map((chain, index) => {
-                    return {value: index, label: `${chain.network} - ${chain.currency}`}
-                })}
-                lead={t('DepositWithdraw.network')}
-                type="select"
-                value={currencyInfo?.chains[networkName.value] && {
-                    value: networkName.value,
-                    label: `${currencyInfo?.chains[networkName.value].network} - ${currencyInfo?.chains[networkName.value].currency}`
-                }}
-                onchange={(e) => setNetworkName({value: e?.value || 0, error: []})}
-                customRef={selectRef}
-                alerts={networkName.error}
-                customClass={`width-100 ${classes.thisInput}`}
-            />
-            { currencyInfo && <Address network={currencyInfo?.chains[networkName?.value]?.network}/>}
-        </div>
-    );
+
+    switch (true) {
+        case hasOnChain && hasOffChain:
+            return <div className="flex jc-center ai-center card-bg card-border height-98 width-95">
+                <span>{t("comingSoon")}</span>
+            </div>;
+        case hasOnChain:
+            return <OnChainDeposit gateways={data} currency={id}/>;
+        case hasOffChain:
+            return <div className="flex jc-center ai-center card-bg card-border height-98 width-95">
+                <span>{t("comingSoon")}</span>
+            </div>;
+        default:
+            return (
+                <div className="flex jc-center ai-center card-bg card-border height-98 width-95">
+                    <span>{t("noData")}</span>
+                </div>
+            );
+    }
 };
 
 export default Deposit;
